@@ -1,0 +1,51 @@
+<% title "Events" %>
+
+<table>
+  <tr>
+    <th>Event Name</th>
+    <th>Event Type</th>
+    <th>Cbody</th>
+    <th>Bbody</th>
+    <th>Eventstartdate</th>
+    <th>Eventenddate</th>
+    <th>Eventstarttime</th>
+    <th>Eventendtime</th>
+    <th>Localgmtoffset</th>
+    <th>Endgmtoffset</th>
+    <th>Mapstreet</th>
+    <th>Mapcity</th>
+    <th>Mapstate</th>
+    <th>Mapzip</th>
+    <th>Mapplacename</th>
+    <th>Mapcountry</th>
+    <th>Location</th>
+    <th>Imagelink</th>
+  </tr>
+  <% for event in @events %>
+    <tr>
+      <td><%= event.event_name %></td>
+      <td><%= event.event_type %></td>
+      <td><%= event.cbody %></td>
+      <td><%= event.bbody %></td>
+      <td><%= event.eventstartdate %></td>
+      <td><%= event.eventenddate %></td>
+      <td><%= event.eventstarttime %></td>
+      <td><%= event.eventendtime %></td>
+      <td><%= event.localGMToffset %></td>
+      <td><%= event.endGMToffset %></td>
+      <td><%= event.mapstreet %></td>
+      <td><%= event.mapcity %></td>
+      <td><%= event.mapstate %></td>
+      <td><%= event.mapzip %></td>
+      <td><%= event.mapplacename %></td>
+      <td><%= event.mapcountry %></td>
+      <td><%= event.location %></td>
+      <td><%= event.imagelink %></td>
+      <td><%= link_to "Show", event %></td>
+      <td><%= link_to "Edit", edit_event_path(event) %></td>
+      <td><%= link_to "Destroy", event, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Event", new_event_path %></p>

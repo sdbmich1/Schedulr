@@ -1,0 +1,80 @@
+<% title "Event" %>
+
+<p>
+  <strong>Event Name:</strong>
+  <%= @event.event_name %>
+</p>
+<p>
+  <strong>Event Type:</strong>
+  <%= @event.event_type %>
+</p>
+<p>
+  <strong>Cbody:</strong>
+  <%= @event.cbody %>
+</p>
+<p>
+  <strong>Bbody:</strong>
+  <%= @event.bbody %>
+</p>
+<p>
+  <strong>Eventstartdate:</strong>
+  <%= @event.eventstartdate %>
+</p>
+<p>
+  <strong>Eventenddate:</strong>
+  <%= @event.eventenddate %>
+</p>
+<p>
+  <strong>Eventstarttime:</strong>
+  <%= @event.eventstarttime %>
+</p>
+<p>
+  <strong>Eventendtime:</strong>
+  <%= @event.eventendtime %>
+</p>
+<p>
+  <strong>Localgmtoffset:</strong>
+  <%= @event.localGMToffset %>
+</p>
+<p>
+  <strong>Endgmtoffset:</strong>
+  <%= @event.endGMToffset %>
+</p>
+<p>
+  <strong>Mapstreet:</strong>
+  <%= @event.mapstreet %>
+</p>
+<p>
+  <strong>Mapcity:</strong>
+  <%= @event.mapcity %>
+</p>
+<p>
+  <strong>Mapstate:</strong>
+  <%= @event.mapstate %>
+</p>
+<p>
+  <strong>Mapzip:</strong>
+  <%= @event.mapzip %>
+</p>
+<p>
+  <strong>Mapplacename:</strong>
+  <%= @event.mapplacename %>
+</p>
+<p>
+  <strong>Mapcountry:</strong>
+  <%= @event.mapcountry %>
+</p>
+<p>
+  <strong>Location:</strong>
+  <%= @event.location %>
+</p>
+<p>
+  <strong>Imagelink:</strong>
+  <%= @event.imagelink %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_event_path(@event) %> |
+  <%= link_to "Destroy", @event, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", events_path %>
+</p>
