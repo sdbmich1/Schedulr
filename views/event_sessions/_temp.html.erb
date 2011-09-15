@@ -1,16 +1,19 @@
-<%= form_for @event, :html => { :multipart => true } do |f| %>
+<%= form_for @event_session, :remote=>true, do |f| %>
   <%= f.error_messages %>
   <p>
-    <%= f.label :event_name %><br />
+    <%= f.label "Event" %><br />
+    <%= :event_id %>
+  </p>
+  <p>
+    <%= f.collection_select :event_track_id, Event.get_tracks(@event_session.event_id), :id, :name, :prompt => 'Select' %>
+  </p>
+  <p>
+    <%= f.label "Session Name" %><br />
     <%= f.text_field :event_name %>
   </p>
   <p>
-    <%= f.label :event_type %><br />
-    <%= f.text_field :event_type %>
-  </p>
-  <p>
-    <%= f.label :status %><br />
-    <%= f.text_field :status %>
+    <%= f.label :session_type %><br />
+    <%= f.collection_select :session_type, SessionType.all, :code, :description, :prompt => 'Select' %>
   </p>
   <p>
     <%= f.label :cbody %><br />
@@ -30,19 +33,19 @@
   </p>
   <p>
     <%= f.label :eventstarttime %><br />
-    <%= f.time_select :eventstarttime, :value => chk_offset(@event.eventstarttime, @event.localGMToffset) %>
+    <%= f.time_select :eventstarttime %>
   </p>
   <p>
     <%= f.label :eventendtime %><br />
-    <%= f.time_select :eventendtime, :value => chk_offset(@event.eventendtime, @event.endGMToffset) %>
+    <%= f.time_select :eventendtime %>
   </p>
   <p>
     <%= f.label :localGMToffset %><br />
-    <%= f.collection_select :localGMToffset, GmtTimezone.all, :code, :description, :prompt => 'Select Timezone' %>
+    <%= f.text_field :localGMToffset %>
   </p>
   <p>
     <%= f.label :endGMToffset %><br />
-    <%= f.collection_select :endGMToffset, GmtTimezone.all, :code, :description, :prompt => 'Select Timezone' %>
+    <%= f.text_field :endGMToffset %>
   </p>
   <p>
     <%= f.label :mapstreet %><br />
@@ -72,14 +75,5 @@
     <%= f.label :location %><br />
     <%= f.text_field :location %>
   </p>
-  <%= f.fields_for :event_tracks do |builder| %>  
-    <%= render :partial => 'track', :locals => {:builder => builder} %>  
-  <% end %> 
-  <p>
-    <%= f.fields_for :pictures, @picture do |form| %>
-      <%= form.label :photo, "Photo" %>  
-      <%= form.file_field :photo %> 
-    <% end %>
-  </p>	  
   <p><%= f.submit %></p>
 <% end %>

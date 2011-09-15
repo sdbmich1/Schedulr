@@ -1,0 +1,39 @@
+<% title "Presenter" %>
+
+<p>
+  <% for pic in @presenter.pictures %>
+    <%= image_tag pic.photo.url, :size=>'100x100' %>
+  <% end %>
+</p>
+<p>
+  <strong>Name:</strong>
+  <%= @presenter.name %>
+</p>
+<p>
+  <strong>Title:</strong>
+  <%= @presenter.title %>
+</p>
+<p>
+  <strong>Company Name:</strong>
+  <%= @presenter.org_name %>
+</p>
+<p>
+  <strong>Bio:</strong>
+  <%= @presenter.bio %>
+</p>
+<p>
+  <strong>Contact Info:</strong><br />
+    <% for contact in @presenter.contact_details %>
+      Work Phone: <%= contact.work_phone %><br /> 
+      Email: <%= contact.email %><br /> 
+      Website: <%= contact.website %><br /> 
+      Facebook: <%= contact.facebook_name %><br />
+      Twitter: <%= contact.twitter_name %><br /> 
+      LinkedIn: <%= contact.linkedin_name %>
+    <% end %>
+</p>
+<p>
+  <%= link_to "Edit", edit_presenter_path(@presenter) %> |
+  <%= link_to "Destroy", @presenter, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", presenters_path %>
+</p>

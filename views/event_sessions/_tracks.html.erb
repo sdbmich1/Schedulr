@@ -1,0 +1,7 @@
+<%= simple_form_for "event_session" do |form| %>
+  <% if !tracks.blank? %>
+    <%= form.input :event_track_id, :collection => tracks.collect{ |s| [s.name, s.id] } %> 
+  <% else %>
+    <%= form.input :event_track_id, :collection=>[['Track 2', 2] ,['Track 1', 1]], :required => false %>
+  <% end %>
+<% end %>

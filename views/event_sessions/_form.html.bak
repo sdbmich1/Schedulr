@@ -1,0 +1,29 @@
+<%= simple_form_for @event_session, :html => { :multipart => true }, :remote=>true, do |f| %>
+  <%= f.error_messages %>  
+  <%= f.input :event_id, :collection => Event.get_conferences, :label => "Event", :label_method => :event_name, 
+	:value_method => :id, :prompt => "Select Event" %>
+
+  <div id="eventtracks">
+    <%= render :partial => 'tracks'  %>
+  </div>
+    <%= f.input :event_name, :label => "Session Name" %>
+    <%= f.input :session_type, :collection => SessionType.all, :label => "Session Type", :label_method => :description, 
+     				:value_method => :code, :prompt => "Choose Type", :required => true %>
+    <%= f.input :speakertopic %>
+    <%= f.input :cbody %>
+    <%= f.input :bbody %>
+    <%= f.input :eventstartdate %>
+    <%= f.input :eventenddate %>
+    <%= f.input :eventstarttime %>
+    <%= f.input :eventendtime %>
+    <%= f.input :localGMToffset %>
+    <%= f.input :endGMToffset %>
+    <%= f.input :mapstreet %>
+    <%= f.input :mapcity %>
+    <%= f.input :mapstate %>
+    <%= f.input :mapzip %>
+    <%= f.input :mapplacename %>
+    <%= f.input :location %>
+
+    <%= f.submit 'Save' %>
+<% end %>

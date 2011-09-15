@@ -9,6 +9,8 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
+    @picture = @event.pictures.build
+    8.times { @event.event_tracks.build }
   end
 
   def create
@@ -22,6 +24,12 @@ class EventsController < ApplicationController
 
   def edit
     @event = Event.find(params[:id])
+    @event.pictures.blank? ? @picture = @event.pictures.build : @picture = @event.pictures
+    if @event.event_tracks.blank?
+      8.times { @event.event_tracks.build }
+    else
+      (8 - @event.event_tracks.count).times { @event.event_tracks.build }
+    end
   end
 
   def update

@@ -1,6 +1,11 @@
 <% title "Event" %>
 
 <p>
+  <% for pic in @event.pictures %>  
+    <%= image_tag pic.photo.url, :size => '120x120' %> 
+  <% end %>
+</p>
+<p>
   <strong>Event Name:</strong>
   <%= @event.event_name %>
 </p>
@@ -17,64 +22,47 @@
   <%= @event.bbody %>
 </p>
 <p>
-  <strong>Eventstartdate:</strong>
+  <strong>Start:</strong>
   <%= @event.eventstartdate %>
+  <strong>Time:</strong>
+  <%= chk_offset(@event.eventendtime, @event.endGMToffset) %> TimeZone: <%= @event.endGMToffset %>
 </p>
 <p>
-  <strong>Eventenddate:</strong>
+  <strong>End:</strong>
   <%= @event.eventenddate %>
+  <strong>Time:</strong>
+  <%= chk_offset(@event.eventendtime, @event.endGMToffset) %> TimeZone: <%= @event.endGMToffset %>
 </p>
 <p>
-  <strong>Eventstarttime:</strong>
-  <%= @event.eventstarttime %>
+  <strong>Address:</strong>
+  <%= @event.mapplacename %><br />
+  <%= @event.location %><br />
+  <%= @event.mapstreet %><br />
+  <%= @event.mapcity %>, <%= @event.mapstate %> <%= @event.mapzip %><br />
+  <%= @event.mapcountry %><br />
 </p>
 <p>
-  <strong>Eventendtime:</strong>
-  <%= @event.eventendtime %>
+  <strong>Track(s):</strong>
+  <ol>  
+    <% for etrack in @event.event_tracks %>  
+      <li><%= etrack.name %> <%= etrack.description %></li>  
+    <% end %>  
+  </ol>  
 </p>
 <p>
-  <strong>Localgmtoffset:</strong>
-  <%= @event.localGMToffset %>
+  <strong>Speaker(s):</strong>
+      <ol>
+         <% for presenter in @event.presenters %>
+	   <li><%= presenter.name %> <%= presenter.title %> <%= presenter.org_name %></li>
+	 <% end %>
+      </ol>
 </p>
-<p>
-  <strong>Endgmtoffset:</strong>
-  <%= @event.endGMToffset %>
-</p>
-<p>
-  <strong>Mapstreet:</strong>
-  <%= @event.mapstreet %>
-</p>
-<p>
-  <strong>Mapcity:</strong>
-  <%= @event.mapcity %>
-</p>
-<p>
-  <strong>Mapstate:</strong>
-  <%= @event.mapstate %>
-</p>
-<p>
-  <strong>Mapzip:</strong>
-  <%= @event.mapzip %>
-</p>
-<p>
-  <strong>Mapplacename:</strong>
-  <%= @event.mapplacename %>
-</p>
-<p>
-  <strong>Mapcountry:</strong>
-  <%= @event.mapcountry %>
-</p>
-<p>
-  <strong>Location:</strong>
-  <%= @event.location %>
-</p>
-<p>
-  <strong>Imagelink:</strong>
-  <%= @event.imagelink %>
-</p>
-
 <p>
   <%= link_to "Edit", edit_event_path(@event) %> |
   <%= link_to "Destroy", @event, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", events_path %>
+  <%= link_to "View All", events_path %> 
+  <% if @event.event_type == 'conf' %>
+     | <%= link_to "Add Speakers", presenters_path(:event_id => @event.id) %>
+     | <%= link_to "Add Sessions", new_session_relationship_path(@event, {:id => @event.id}) %>
+  <% end %>
 </p>

@@ -4,7 +4,6 @@
   <tr>
     <th>Event Name</th>
     <th>Event Type</th>
-    <th>Cbody</th>
     <th>Bbody</th>
     <th>Eventstartdate</th>
     <th>Eventenddate</th>
@@ -19,18 +18,16 @@
     <th>Mapplacename</th>
     <th>Mapcountry</th>
     <th>Location</th>
-    <th>Imagelink</th>
   </tr>
   <% for event in @events %>
     <tr>
       <td><%= event.event_name %></td>
       <td><%= event.event_type %></td>
-      <td><%= event.cbody %></td>
       <td><%= event.bbody %></td>
       <td><%= event.eventstartdate %></td>
       <td><%= event.eventenddate %></td>
-      <td><%= event.eventstarttime %></td>
-      <td><%= event.eventendtime %></td>
+      <td><%= chk_offset(event.eventstarttime, event.localGMToffset) %></td>
+      <td><%= chk_offset(event.eventendtime, event.endGMToffset) %></td>
       <td><%= event.localGMToffset %></td>
       <td><%= event.endGMToffset %></td>
       <td><%= event.mapstreet %></td>
@@ -40,7 +37,6 @@
       <td><%= event.mapplacename %></td>
       <td><%= event.mapcountry %></td>
       <td><%= event.location %></td>
-      <td><%= event.imagelink %></td>
       <td><%= link_to "Show", event %></td>
       <td><%= link_to "Edit", edit_event_path(event) %></td>
       <td><%= link_to "Destroy", event, :confirm => 'Are you sure?', :method => :delete %></td>

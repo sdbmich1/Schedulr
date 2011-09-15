@@ -1,0 +1,16 @@
+<% title "Session Relationship" %>
+
+<p>
+  <strong>Event:</strong>
+  <%= @session_relationship.event_id %>
+</p>
+<p>
+  <strong>Session:</strong>
+  <%= @session_relationship.session_id %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_session_relationship_path(@session_relationship) %> |
+  <%= link_to "Destroy", @session_relationship, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", session_relationships_path %>
+</p>

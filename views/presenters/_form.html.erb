@@ -1,0 +1,32 @@
+<%= form_for @presenter, :html => { :multipart => true } do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label "Company/Org Name:" %><br />
+    <%= f.text_field :org_name %>
+  </p>
+  <p>
+    <%= f.label :bio %><br />
+    <%= f.text_area :bio %>
+  </p>
+
+  <p>
+    <%= f.fields_for :pictures, @picture do |form| %>
+       <%= form.label :photo, "Photo" %>
+       <%= form.file_field :photo %>
+    <% end %>
+  </p>
+  <div class="fields">
+    <%= f.fields_for :contact_details do |form| %>
+      <%= render :partial => 'shared/contact_details', :locals => { :f => form } %>
+    <% end %>
+  </div>
+  <p><%= f.submit %></p>
+<% end %>
