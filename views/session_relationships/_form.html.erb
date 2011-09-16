@@ -1,9 +1,12 @@
-<%= form_for @session, :html => {:multipart => true} do |f| %>
+<%= form_for @session, :url => event_session_relationships_path(@event), :html => {:multipart => true} do |f| %>
   <%= f.error_messages %>
   <p>
     <%= f.label "Event: " %><%= @event.event_title %>
-    <%= f.hidden_field :event_id, :value => @event.id %>
     <%= f.hidden_field :event_title, :value => @event.event_title %>
+  </p>
+  <p>
+    <%= f.label :session_type %><br />
+    <%= f.collection_select :session_type, SessionType.all, :code, :description, :prompt => 'Select' %>
   </p>
   <p>
     <%= f.label "Track" %><br />
@@ -43,11 +46,11 @@
   </p>
   <p>
     <%= f.label "Start Timezone: " %>
-    <%= f.collection_select :localGMToffset, GmtTimezone.all, :code, :description, :prompt => 'Select Timezone' %>
+    <%= f.collection_select :localGMToffset, GmtTimezone.all, :code, :description, {:selected => @event.localGMToffset} %> 
   </p>
   <p>
     <%= f.label "End Timezone: " %>
-    <%= f.collection_select :endGMToffset, GmtTimezone.all, :code, :description, :prompt => 'Select Timezone' %>
+    <%= f.collection_select :endGMToffset, GmtTimezone.all, :code, :description, {:selected => @event.endGMToffset} %>
   </p>
   <p>
     <%= f.label "Address: " %>
@@ -76,6 +79,12 @@
   <p>
     <%= f.label :location %><br />
     <%= f.text_field :location %>
+  </p>
+  <p>
+    <%= f.fields_for :pictures, @picture do |form| %>
+      <%= form.label :photo, "Photo" %>
+      <%= form.file_field :photo %>
+    <% end %>
   </p>
   <p><%= f.submit %></p>
 <% end %>

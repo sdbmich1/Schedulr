@@ -1,10 +1,10 @@
 <p>  
   <%= f.label :work_phone %>
-  <%= f.text_field :work_phone %> 
+  <%= f.telephone_field :work_phone %> 
 </p>
 <p>  
   <%= f.label :work_email %>
-  <%= f.text_field :work_email %>  
+  <%= f.email_field :work_email %>  
 </p>
 <p>  
   <%= f.label :facebook_name %>
@@ -20,9 +20,5 @@
 </p>
 <p>  
   <%= f.label :website %>
-  <%= f.text_field :website %>  
+  <%= f.url_field :website %>  
 </p>
-<p>  
-  <%= f.check_box :_destroy %>  
-  <%= f.label :_destroy, "Remove" %>  
-</p>  

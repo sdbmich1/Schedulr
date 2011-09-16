@@ -1,46 +1,7 @@
 <% title "Event" %>
 
-<p>
-  <% for pic in @event.pictures %>  
-    <%= image_tag pic.photo.url, :size => '120x120' %> 
-  <% end %>
-</p>
-<p>
-  <strong>Event Name:</strong>
-  <%= @event.event_name %>
-</p>
-<p>
-  <strong>Event Type:</strong>
-  <%= @event.event_type %>
-</p>
-<p>
-  <strong>Cbody:</strong>
-  <%= @event.cbody %>
-</p>
-<p>
-  <strong>Bbody:</strong>
-  <%= @event.bbody %>
-</p>
-<p>
-  <strong>Start:</strong>
-  <%= @event.eventstartdate %>
-  <strong>Time:</strong>
-  <%= chk_offset(@event.eventendtime, @event.endGMToffset) %> TimeZone: <%= @event.endGMToffset %>
-</p>
-<p>
-  <strong>End:</strong>
-  <%= @event.eventenddate %>
-  <strong>Time:</strong>
-  <%= chk_offset(@event.eventendtime, @event.endGMToffset) %> TimeZone: <%= @event.endGMToffset %>
-</p>
-<p>
-  <strong>Address:</strong>
-  <%= @event.mapplacename %><br />
-  <%= @event.location %><br />
-  <%= @event.mapstreet %><br />
-  <%= @event.mapcity %>, <%= @event.mapstate %> <%= @event.mapzip %><br />
-  <%= @event.mapcountry %><br />
-</p>
+<%= render :partial => 'shared/show_form', :locals => {:event => @event} %>
+
 <p>
   <strong>Track(s):</strong>
   <ol>  
@@ -49,20 +10,22 @@
     <% end %>  
   </ol>  
 </p>
-<p>
-  <strong>Speaker(s):</strong>
+
+<% if has_sessions?(@event.event_type) %>
+  <p>
+  <strong>Session(s):</strong>
       <ol>
-         <% for presenter in @event.presenters %>
-	   <li><%= presenter.name %> <%= presenter.title %> <%= presenter.org_name %></li>
+	 <% for session in @event.sessions %>
+	   <li><%= session.event_name %> <%= session.location %>  <%= link_to "Show", event_session_relationship_path(@event, session) %> | 
+	       <%= link_to "Remove", event_session_relationship_path(@event, session), :method => :delete %> </li>
 	 <% end %>
-      </ol>
-</p>
+     </ol>
+  </p>
+  <%= link_to "Add Sessions", new_event_session_relationship_url(@event) %>
+<% end %>
+
 <p>
   <%= link_to "Edit", edit_event_path(@event) %> |
   <%= link_to "Destroy", @event, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", events_path %> 
-  <% if @event.event_type == 'conf' %>
-     | <%= link_to "Add Speakers", presenters_path(:event_id => @event.id) %>
-     | <%= link_to "Add Sessions", new_session_relationship_path(@event, {:id => @event.id}) %>
-  <% end %>
+  <%= link_to "View All", events_url %> 
 </p>

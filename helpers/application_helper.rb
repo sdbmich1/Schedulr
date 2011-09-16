@@ -16,4 +16,12 @@ module ApplicationHelper
     end  
     link_to_function(name, h("add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")"))  
   end 
+
+  def get_nice_date(*args) 
+    args[0].blank? ? '' : args[1].blank? ? args[0].strftime("%D") : args[0].strftime('%m-%d-%Y') 
+  end
+
+  def get_nice_time(val)	  
+    val.blank? ? '' : val.strftime('%l:%M %p')
+  end
 end

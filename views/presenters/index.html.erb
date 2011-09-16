@@ -20,13 +20,13 @@
       <td><%= presenter.org_name %></td>
       <td><%= raw truncate(presenter.bio, :length=>50, :omission=>"...") %></td>
       <% unless @event.blank? %>
-        <td><%= link_to "Select", event_presenters_path(:event_id => @event.id, :presenter_id => presenter), :method => :post %></td>
+        <td><%= link_to "Select", manage_presenters_url(:event_id => @event, :presenter_id => presenter), :method => :post %></td>
       <% end %>
-      <td><%= link_to "Show", presenter %></td>
-      <td><%= link_to "Edit", edit_presenter_path(presenter) %></td>
-      <td><%= link_to "Destroy", presenter, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= link_to "Show", event_presenter_url(@event, presenter) %></td>
+      <td><%= link_to "Edit", edit_event_presenter_url(@event, presenter) %></td>
+      <td><%= link_to "Destroy", event_presenter_url(@event, presenter), :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>
 </table>
 
-<p><%= link_to "New Presenter", new_presenter_path %></p>
+<p><%= link_to "New Presenter", new_event_presenter_url %> | <%= link_to "Show Event", @event %></p>

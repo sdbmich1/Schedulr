@@ -1,43 +1,37 @@
 class SessionRelationshipsController < ApplicationController
-  def index
-    @session_relationships = SessionRelationship.all
+  def show
+    @event = Event.find(params[:event_id])
+    @s_event = Event.find(params[:id])
+    @picture = @s_event.pictures
   end
 
-  def show
-    @session_relationship = SessionRelationship.find(params[:id])
+  def edit
+    @event = Event.find(params[:event_id])
+    @session = @event.sessions
+    @picture = @event.pictures
   end
 
   def new
-    @event = Event.find(params[:id])
-    @session = @event.sessions.build
+    @event = Event.find(params[:event_id])
+    @session = @event.sessions.build(@event.attributes)
+    @session.event_name = @session.cbody = @session.bbody = nil
+    @picture = @event.pictures.build
   end
 
   def create
-    @event = Event.find(params[:id])
-    @session_relationship = @event.session_relationships.build(:session_id => params[:session_id])
-    if @session_relationship.save
-      redirect_to @event, :notice => "Successfully added session."
+    @event = Event.find(params[:event_id])
+    @new_event = Event.new(params[:event]) 
+    if @new_event.save
+      @session_relationship = @event.session_relationships.create(:session_id => @new_event.id)
+      redirect_to @new_event, :notice => "Successfully added session."
     else
       render :action => 'new'
     end
   end
 
-  def edit
-    @session_relationship = SessionRelationship.find(params[:id])
-  end
-
-  def update
-    @session_relationship = SessionRelationship.find(params[:id])
-    if @session_relationship.update_attributes(params[:session_relationship])
-      redirect_to @session_relationship, :notice  => "Successfully updated session relationship."
-    else
-      render :action => 'edit'
-    end
-  end
-
   def destroy
-    @session_relationship = SessionRelationship.find(params[:id])
+    @session_relationship = SessionRelationship.find_by_session_id(params[:id])
     @session_relationship.destroy
-    redirect_to session_relationships_url, :notice => "Successfully destroyed session relationship."
+    redirect_to :back, :notice => "Successfully destroyed session relationship."
   end
 end

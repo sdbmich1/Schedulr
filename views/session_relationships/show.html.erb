@@ -1,16 +1,10 @@
-<% title "Session Relationship" %>
+<% title "Session" %>
+
+<%= render :partial => 'shared/show_form', :locals => {:event => @s_event} %>
 
 <p>
-  <strong>Event:</strong>
-  <%= @session_relationship.event_id %>
-</p>
-<p>
-  <strong>Session:</strong>
-  <%= @session_relationship.session_id %>
-</p>
-
-<p>
-  <%= link_to "Edit", edit_session_relationship_path(@session_relationship) %> |
-  <%= link_to "Destroy", @session_relationship, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", session_relationships_path %>
+  <%= link_to "Back", @event %> |
+  <%= link_to "Edit", edit_event_path(@s_event) %> |
+  <%= link_to "Destroy", @s_event, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "Add Speakers", event_presenters_url(@s_event,{:event_id => @s_event}) %>
 </p>

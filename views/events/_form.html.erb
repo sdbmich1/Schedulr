@@ -72,9 +72,11 @@
     <%= f.label :location %><br />
     <%= f.text_field :location %>
   </p>
-  <%= f.fields_for :event_tracks do |builder| %>  
-    <%= render :partial => 'track', :locals => {:builder => builder} %>  
-  <% end %> 
+  <% if has_sessions?(@event.event_type) %>
+    <%= f.fields_for :event_tracks do |builder| %>  
+      <%= render :partial => 'track', :locals => {:builder => builder} %>  
+    <% end %> 
+  <% end %>  
   <p>
     <%= f.fields_for :pictures, @picture do |form| %>
       <%= form.label :photo, "Photo" %>  

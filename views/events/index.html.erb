@@ -11,13 +11,6 @@
     <th>Eventendtime</th>
     <th>Localgmtoffset</th>
     <th>Endgmtoffset</th>
-    <th>Mapstreet</th>
-    <th>Mapcity</th>
-    <th>Mapstate</th>
-    <th>Mapzip</th>
-    <th>Mapplacename</th>
-    <th>Mapcountry</th>
-    <th>Location</th>
   </tr>
   <% for event in @events %>
     <tr>
@@ -30,13 +23,6 @@
       <td><%= chk_offset(event.eventendtime, event.endGMToffset) %></td>
       <td><%= event.localGMToffset %></td>
       <td><%= event.endGMToffset %></td>
-      <td><%= event.mapstreet %></td>
-      <td><%= event.mapcity %></td>
-      <td><%= event.mapstate %></td>
-      <td><%= event.mapzip %></td>
-      <td><%= event.mapplacename %></td>
-      <td><%= event.mapcountry %></td>
-      <td><%= event.location %></td>
       <td><%= link_to "Show", event %></td>
       <td><%= link_to "Edit", edit_event_path(event) %></td>
       <td><%= link_to "Destroy", event, :confirm => 'Are you sure?', :method => :delete %></td>

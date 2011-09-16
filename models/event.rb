@@ -1,5 +1,5 @@
 class Event < ActiveRecord::Base
-  attr_accessible :event_name, :event_type, :cbody, :bbody, :eventstartdate, :eventenddate, :eventstarttime, :eventendtime, :localGMToffset, :endGMToffset, :mapstreet, :mapcity, :mapstate, :mapzip, :mapplacename, :mapcountry, :location, :imagelink, :status, :hide, :event_title, :event_tracks_attributes, :pictures_attributes, :presenters_attributes
+  attr_accessible :event_name, :event_type, :cbody, :bbody, :eventstartdate, :eventenddate, :eventstarttime, :eventendtime, :localGMToffset, :endGMToffset, :mapstreet, :mapcity, :mapstate, :mapzip, :mapplacename, :mapcountry, :location, :imagelink, :status, :hide, :event_title, :event_tracks_attributes, :pictures_attributes, :presenters_attributes, :speakertopic, :session_type, :track, :event_sites_attributes
 
   before_save :set_flds
 
@@ -10,11 +10,13 @@ class Event < ActiveRecord::Base
   has_many :event_presenters, :dependent => :destroy
   has_many :presenters, :through => :event_presenters
 
+  has_many :event_sites, :dependent => :destroy
   has_many :event_tracks, :dependent => :destroy
   has_many :pictures, :as => :imageable, :dependent => :destroy
 
   accepts_nested_attributes_for :pictures, :allow_destroy => true
   accepts_nested_attributes_for :event_tracks, :reject_if => lambda { |a| a[:name].blank? }, :allow_destroy => true
+  accepts_nested_attributes_for :event_sites, :reject_if => lambda { |a| a[:name].blank? }, :allow_destroy => true
 #  accepts_nested_attributes_for :presenters, :reject_if => lambda { |a| a[:name].blank? }, :allow_destroy => true
 
   scope :unhidden, where(:hide.downcase => 'no')
@@ -32,6 +34,7 @@ class Event < ActiveRecord::Base
     self.status = 'active' if self.status.blank?
     self.hide = 'no' if self.hide.blank?
 
+    self.event_type = 'se' unless self.session_type.blank?
     self.eventstarttime = self.eventstarttime.advance(:hours => self.localGMToffset)
     self.eventendtime = self.eventendtime.advance(:hours => self.endGMToffset)
   end
