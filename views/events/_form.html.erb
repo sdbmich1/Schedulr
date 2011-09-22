@@ -1,87 +1,33 @@
-<%= form_for @event, :html => { :multipart => true } do |f| %>
+<%= form_for @event, :html => { :multipart => true }, :validate => true do |f| %>
   <%= f.error_messages %>
   <p>
-    <%= f.label :event_name %><br />
+    <%= f.label "Event Name:" %><br />
     <%= f.text_field :event_name %>
   </p>
   <p>
-    <%= f.label :event_type %><br />
-    <%= f.text_field :event_type %>
+    <%= f.label "Event Type:" %><br />
+    <%= f.collection_select :event_type, EventType.all, :code, :description, :prompt => 'Select' %>
   </p>
   <p>
-    <%= f.label :status %><br />
+    <%= f.label "Status:" %><br />
     <%= f.text_field :status %>
   </p>
-  <p>
-    <%= f.label :cbody %><br />
-    <%= f.text_area :cbody %>
-  </p>
-  <p>
-    <%= f.label :bbody %><br />
-    <%= f.text_field :bbody %>
-  </p>
-  <p>
-    <%= f.label :eventstartdate %><br />
-    <%= f.date_select :eventstartdate %>
-  </p>
-  <p>
-    <%= f.label :eventenddate %><br />
-    <%= f.date_select :eventenddate %>
-  </p>
-  <p>
-    <%= f.label :eventstarttime %><br />
-    <%= f.time_select :eventstarttime, :value => chk_offset(@event.eventstarttime, @event.localGMToffset) %>
-  </p>
-  <p>
-    <%= f.label :eventendtime %><br />
-    <%= f.time_select :eventendtime, :value => chk_offset(@event.eventendtime, @event.endGMToffset) %>
-  </p>
-  <p>
-    <%= f.label :localGMToffset %><br />
-    <%= f.collection_select :localGMToffset, GmtTimezone.all, :code, :description, :prompt => 'Select Timezone' %>
-  </p>
-  <p>
-    <%= f.label :endGMToffset %><br />
-    <%= f.collection_select :endGMToffset, GmtTimezone.all, :code, :description, :prompt => 'Select Timezone' %>
-  </p>
-  <p>
-    <%= f.label :mapstreet %><br />
-    <%= f.text_field :mapstreet %>
-  </p>
-  <p>
-    <%= f.label :mapcity %><br />
-    <%= f.text_field :mapcity %>
-  </p>
-  <p>
-    <%= f.label :mapstate %><br />
-    <%= f.text_field :mapstate %>
-  </p>
-  <p>
-    <%= f.label :mapzip %><br />
-    <%= f.text_field :mapzip %>
-  </p>
-  <p>
-    <%= f.label :mapplacename %><br />
-    <%= f.text_field :mapplacename %>
-  </p>
-  <p>
-    <%= f.label :mapcountry %><br />
-    <%= f.text_field :mapcountry %>
-  </p>
-  <p>
-    <%= f.label :location %><br />
-    <%= f.text_field :location %>
-  </p>
+
+  <% if is_clone?(etype) %>
+    <%= f.hidden_field :etype, :value => 'Clone' %>
+  <% end %>
+
+  <%= render :partial => 'shared/form', :locals => {:f => f} %>
+  
   <% if has_sessions?(@event.event_type) %>
     <%= f.fields_for :event_tracks do |builder| %>  
       <%= render :partial => 'track', :locals => {:builder => builder} %>  
     <% end %> 
+
+    <%= f.fields_for :event_sites do |builder| %>  
+      <%= render :partial => 'site', :locals => {:builder => builder} %>  
+    <% end %> 
   <% end %>  
-  <p>
-    <%= f.fields_for :pictures, @picture do |form| %>
-      <%= form.label :photo, "Photo" %>  
-      <%= form.file_field :photo %> 
-    <% end %>
-  </p>	  
+
   <p><%= f.submit %></p>
 <% end %>

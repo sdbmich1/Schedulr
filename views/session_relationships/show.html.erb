@@ -3,8 +3,14 @@
 <%= render :partial => 'shared/show_form', :locals => {:event => @s_event} %>
 
 <p>
+  <strong>Speaker(s):</strong>
+    <%= render :partial => 'shared/presenter_list', :locals => { :spkrlist => 'Yes' } %>
+</p><br />
+       
+ <%= link_to "Add Speakers", event_presenters_url(@s_event,{:event_id => @s_event.id}) %><br />
+
+<p>
   <%= link_to "Back", @event %> |
-  <%= link_to "Edit", edit_event_path(@s_event) %> |
-  <%= link_to "Destroy", @s_event, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "Add Speakers", event_presenters_url(@s_event,{:event_id => @s_event}) %>
+  <%= link_to "Edit", edit_event_session_relationship_path(@event, @s_event) %> | 
+  <%= link_to "Destroy", @s_event, :confirm => 'Are you sure?', :method => :delete %> 
 </p>

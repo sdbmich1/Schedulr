@@ -1,90 +1,24 @@
-<%= form_for @session, :url => event_session_relationships_path(@event), :html => {:multipart => true} do |f| %>
+<%= form_for @session, :url => event_session_relationship_path(@event, @session), :html => {:multipart => true}, :validate => true do |f| %>
   <%= f.error_messages %>
   <p>
     <%= f.label "Event: " %><%= @event.event_title %>
     <%= f.hidden_field :event_title, :value => @event.event_title %>
+    <%= f.hidden_field :event_type, :value => 'se' %>
+    <%= f.hidden_field :etype, :value => 'Session' %>
   </p>
   <p>
-    <%= f.label :session_type %><br />
-    <%= f.collection_select :session_type, SessionType.all, :code, :description, :prompt => 'Select' %>
-  </p>
-  <p>
-    <%= f.label "Track" %><br />
-    <%= f.collection_select :track, EventTrack.get_track(@event.id), :name, :name, :prompt => 'Select' %>
-  </p>
-  <p>
-    <%= f.label "Session Name" %><br />
+    <%= f.label "Session Name:" %><br />
     <%= f.text_field :event_name %>
   </p>
   <p>
-    <%= f.label "Topic: " %><br />
-    <%= f.text_field :speakertopic %>
+    <%= f.label "Session Type: " %><br />
+    <%= f.collection_select :session_type, SessionType.all, :code, :description, :prompt => 'Select' %>
   </p>
   <p>
-    <%= f.label :cbody %><br />
-    <%= f.text_area :cbody %>
+    <%= f.label "Track:" %><br />
+    <%= f.collection_select :track, EventTrack.get_track(@event.id), :name, :name, :prompt => 'Select' %>
   </p>
-  <p>
-    <%= f.label :bbody %><br />
-    <%= f.text_field :bbody %>
-  </p>
-  <p>
-    <%= f.label "Start Date: " %>
-    <%= f.date_select :eventstartdate %>
-  </p>
-  <p>
-    <%= f.label "End Date: " %>
-    <%= f.date_select :eventenddate %>
-  </p>
-  <p>
-    <%= f.label "Start Time: " %>
-    <%= f.time_select :eventstarttime, :value => chk_offset(@event.eventstarttime, @event.localGMToffset) %>
-  </p>
-  <p>
-    <%= f.label "End Time: " %>
-    <%= f.time_select :eventendtime, :value => chk_offset(@event.eventendtime, @event.endGMToffset) %>
-  </p>
-  <p>
-    <%= f.label "Start Timezone: " %>
-    <%= f.collection_select :localGMToffset, GmtTimezone.all, :code, :description, {:selected => @event.localGMToffset} %> 
-  </p>
-  <p>
-    <%= f.label "End Timezone: " %>
-    <%= f.collection_select :endGMToffset, GmtTimezone.all, :code, :description, {:selected => @event.endGMToffset} %>
-  </p>
-  <p>
-    <%= f.label "Address: " %>
-    <%= f.text_field :mapstreet %>
-  </p>
-  <p>
-    <%= f.label "City: " %>
-    <%= f.text_field :mapcity %>
-  </p>
-  <p>
-    <%= f.label "State: " %>
-    <%= f.text_field :mapstate %>
-  </p>
-  <p>
-    <%= f.label "Zip: " %>
-    <%= f.text_field :mapzip %>
-  </p>
-  <p>
-    <%= f.label "Place: " %>
-    <%= f.text_field :mapplacename %>
-  </p>
-  <p>
-    <%= f.label :mapcountry %><br />
-    <%= f.text_field :mapcountry %>
-  </p>
-  <p>
-    <%= f.label :location %><br />
-    <%= f.text_field :location %>
-  </p>
-  <p>
-    <%= f.fields_for :pictures, @picture do |form| %>
-      <%= form.label :photo, "Photo" %>
-      <%= form.file_field :photo %>
-    <% end %>
-  </p>
+  <%= render :partial => 'shared/form', :locals => {:f => f} %>
+
   <p><%= f.submit %></p>
 <% end %>

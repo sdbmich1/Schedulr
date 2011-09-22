@@ -1,7 +1,8 @@
 <% title "Event" %>
 
-<%= render :partial => 'shared/show_form', :locals => {:event => @event} %>
+<%= render :partial => 'shared/show_form', :locals => {:event => @event} %><br />
 
+<% if has_sessions?(@event.event_type) %>
 <p>
   <strong>Track(s):</strong>
   <ol>  
@@ -9,20 +10,26 @@
       <li><%= etrack.name %> <%= etrack.description %></li>  
     <% end %>  
   </ol>  
-</p>
+</p><br />
 
-<% if has_sessions?(@event.event_type) %>
-  <p>
-  <strong>Session(s):</strong>
-      <ol>
-	 <% for session in @event.sessions %>
-	   <li><%= session.event_name %> <%= session.location %>  <%= link_to "Show", event_session_relationship_path(@event, session) %> | 
-	       <%= link_to "Remove", event_session_relationship_path(@event, session), :method => :delete %> </li>
-	 <% end %>
-     </ol>
-  </p>
-  <%= link_to "Add Sessions", new_event_session_relationship_url(@event) %>
+<p>
+  <strong>Site(s):</strong>
+  <ol>  
+    <% for esite in @event.event_sites %>  
+      <li><%= esite.name %> <%= esite.description %></li>  
+    <% end %>  
+  </ol>  
+</p><br />
+
+  <%= render :partial => 'shared/sessions', :locals => {:event => @event} %><br />
 <% end %>
+
+<p>
+  <strong>Speaker(s):</strong>
+  <%= render :partial => 'shared/presenter_list', :locals => { :spkrlist => 'Yes' } %>
+</p><br />
+
+<%= link_to "Add Speakers", event_presenters_url(@event,{:event_id => @event.id}) %><br />
 
 <p>
   <%= link_to "Edit", edit_event_path(@event) %> |

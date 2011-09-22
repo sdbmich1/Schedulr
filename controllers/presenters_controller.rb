@@ -1,7 +1,7 @@
 class PresentersController < ApplicationController
   def index
     @event = Event.find(params[:event_id]) if params[:event_id]
-    @presenters = Presenter.all
+    @presenters = Presenter.paginate(:page => params[:page], :per_page => 20)
   end
 
   def show
@@ -29,6 +29,7 @@ class PresentersController < ApplicationController
     @event = Event.find(params[:event_id]) if params[:event_id]
     @presenter = Presenter.find(params[:id])
     @presenter.pictures.blank? ? @picture = @presenter.pictures.build : @picture = @presenter.pictures
+    #@presenter.pictures.build if @presenter.pictures.blank?
     @presenter.contact_details.build if @presenter.contact_details.blank?
   end
 
@@ -36,7 +37,7 @@ class PresentersController < ApplicationController
     @event = Event.find(params[:event_id]) if params[:event_id]
     @presenter = Presenter.find(params[:id])
     if @presenter.update_attributes(params[:presenter])
-      redirect_to @event, @presenter, :notice  => "Successfully updated presenter."
+      redirect_to [@event, @presenter], :notice  => "Successfully updated presenter."
     else
       render :action => 'edit'
     end

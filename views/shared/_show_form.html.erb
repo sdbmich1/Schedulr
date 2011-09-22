@@ -1,23 +1,22 @@
-<p>
+<div class="span-4">
   <% for pic in event.pictures %>
       <%= image_tag pic.photo.url, :size => '120x120' %>
   <% end %>
-</p>
-<p>
-  <strong>Event Name:</strong>
-  <%= event.event_name %>
-</p>
+</div>
+<div class="span-20">
+  <strong><%= event.event_name %></strong>
+</div><br />
 <p>
   <strong>Event Type:</strong>
-  <%= event.event_type %>
-</p>
-<p>
-  <strong>Description:</strong>
-  <%= event.cbody %>
+  <%= get_event_type(event.event_type) %>
 </p>
 <p>
   <strong>Overview:</strong>
   <%= event.bbody %>
+</p>
+<p>
+  <strong>Description:</strong>
+  <%= event.cbody %>
 </p>
 <p>
   <strong>Start:</strong>
@@ -39,18 +38,3 @@
   <%= event.mapcity %>, <%= event.mapstate %> <%= event.mapzip %><br />
   <%= event.mapcountry %><br />
 </p>
-<p>
-  <strong>Speaker(s):</strong>
-      <ol>
-         <% for presenter in event.presenters %>
-	   <li>
-             <% for pic in presenter.pictures %>
-                <%= image_tag pic.photo.url, :size=>'48x48' %>
-	     <% end %>
-	     <%= presenter.name %> <%= presenter.title %> <%= presenter.org_name %> 
-	     (<%= link_to "remove", event_presenter_path(event, presenter), :method => :delete %>)
-	   </li>
-	 <% end %>
-      </ol>
-</p>
-<%= link_to "Add Speakers", event_presenters_url(event,{:event_id => event}) %>

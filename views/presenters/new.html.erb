@@ -1,5 +1,7 @@
 <% title "New Presenter" %>
 
-<%= render 'form' %>
+<%= form_for @presenter, :url => { :action => :create }, :html => { :multipart => true } do |f| %>
+  <%= render :partial => 'form', :locals => { :f => f } %> 
+<% end %>
 
 <p><%= link_to "Back to List", event_presenters_path %></p>

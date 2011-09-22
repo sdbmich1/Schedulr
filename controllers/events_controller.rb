@@ -1,16 +1,19 @@
 class EventsController < ApplicationController
   def index
-    @events = Event.get_conferences
+    @events = Event.get_events params[:page]
   end
 
   def show
     @event = Event.find(params[:id])
+    @presenters = @event.presenters.paginate(:page => params[:page], :per_page => 15)
+    @sessions = @event.sessions.paginate(:page => params[:page], :per_page => 15)
   end
 
   def new
     @event = Event.new
     @picture = @event.pictures.build
     8.times { @event.event_tracks.build }
+    8.times { @event.event_sites.build }
   end
 
   def create
@@ -25,11 +28,8 @@ class EventsController < ApplicationController
   def edit
     @event = Event.find(params[:id])
     @event.pictures.blank? ? @picture = @event.pictures.build : @picture = @event.pictures
-    if @event.event_tracks.blank?
-      8.times { @event.event_tracks.build }
-    else
-      (8 - @event.event_tracks.count).times { @event.event_tracks.build }
-    end
+    set_associations(@event.event_tracks) if @event
+    set_associations(@event.event_sites) if @event
   end
 
   def update
@@ -45,5 +45,23 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @event.destroy
     redirect_to events_url, :notice => "Successfully destroyed event."
+  end
+
+  def clone
+    @event = Event.find(params[:id]).clone_event
+    @event.pictures.blank? ? @picture = @event.pictures.build : @picture = @event.pictures
+    set_associations(@event.event_tracks) if @event
+    set_associations(@event.event_sites) if @event
+  end
+
+  private
+
+  def set_associations(assn)
+    if assn.blank?
+      8.times { assn.build }
+    else
+      (8 - assn.count).times { assn.build }
+    end
+    assn
   end
 end

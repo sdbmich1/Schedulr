@@ -1,8 +1,10 @@
 <% title "Edit Presenter" %>
 
-<%= render 'form' %>
+<%= form_for ([@event, @presenter]), :html => { :multipart => true }, :validate => true do |f| %>
+  <%= render :partial => 'form', :locals => { :f => f } %>
+<% end %>
 
 <p>
-  <%= link_to "Show", @presenter %> |
-  <%= link_to "View All", presenters_path %>
+  <%= link_to "Show", [@event, @presenter] %> |
+  <%= link_to "View All", event_presenters_url %>
 </p>

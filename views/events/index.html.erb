@@ -3,31 +3,30 @@
 <table>
   <tr>
     <th>Event Name</th>
-    <th>Event Type</th>
-    <th>Bbody</th>
-    <th>Eventstartdate</th>
-    <th>Eventenddate</th>
-    <th>Eventstarttime</th>
-    <th>Eventendtime</th>
-    <th>Localgmtoffset</th>
-    <th>Endgmtoffset</th>
+    <th>Overview</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+    <th>Start Time</th>
+    <th>End Time</th>
+    <th>Status</th>
+    <th></th>
+    <th></th>
   </tr>
   <% for event in @events %>
     <tr>
-      <td><%= event.event_name %></td>
-      <td><%= event.event_type %></td>
-      <td><%= event.bbody %></td>
-      <td><%= event.eventstartdate %></td>
-      <td><%= event.eventenddate %></td>
-      <td><%= chk_offset(event.eventstarttime, event.localGMToffset) %></td>
-      <td><%= chk_offset(event.eventendtime, event.endGMToffset) %></td>
-      <td><%= event.localGMToffset %></td>
-      <td><%= event.endGMToffset %></td>
-      <td><%= link_to "Show", event %></td>
+      <td><%= link_to event.event_name, event %></td>
+      <td><%= truncate(event.bbody, :length => 40, :omission => "...") %></td>
+      <td><%= get_nice_date(event.eventstartdate,'List') %></td>
+      <td><%= get_nice_date(event.eventenddate,'List') %></td>
+      <td><%= get_nice_time(chk_offset(event.eventstarttime, event.localGMToffset)) %>
+      <td><%= get_nice_time(chk_offset(event.eventendtime, event.endGMToffset)) %></td>
+      <td><%= event.status.titleize %></td>
       <td><%= link_to "Edit", edit_event_path(event) %></td>
-      <td><%= link_to "Destroy", event, :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= link_to "Clone", clone_event_path(event), :confirm => 'Are you sure?' %></td>
     </tr>
   <% end %>
 </table>
 
 <p><%= link_to "New Event", new_event_path %></p>
+
+<%= will_paginate @events %>

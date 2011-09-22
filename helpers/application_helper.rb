@@ -1,9 +1,18 @@
 module ApplicationHelper
 
   def chk_offset(*tm)
-    tm[0] = tm[0].advance(:hours => (0 - tm[1]).to_i) unless tm[1].blank?
+    #tm[0] = tm[0].advance(:hours => ( tm[1]).to_i) unless tm[1].blank?
     tm[0]
   end	
+
+  def truncate_txt(txt)
+    truncate(txt, :length => 40, :omission =>"...")
+  end
+
+  def get_event_type(etype)
+    ecode = EventType.find_by_code(etype)
+    ecode.blank? ? etype : ecode.description
+  end
 
   def link_to_remove_fields(name, f)
     f.hidden_field(:_destroy) + link_to_function(name, "remove_fields(this)")

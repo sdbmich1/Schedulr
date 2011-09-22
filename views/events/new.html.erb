@@ -1,5 +1,5 @@
 <% title "New Event" %>
 
-<%= render 'form' %>
+<%= render :partial => 'form', :locals => { :etype => 'Event' } %>
 
 <p><%= link_to "Back to List", events_path %></p>
