@@ -9,28 +9,42 @@
     <th></th>
     <th></th>
   </tr>
-  <% for presenter in get_presenters(@presenters) %>
+  <% for presenter in @presenters %>
     <tr>
       <td>
         <% for pic in presenter.pictures %>
           <%= image_tag pic.photo.url, :size=>'48x48' %>
 	<% end %>
       </td>
-      <td><%= link_to presenter.name, event_presenter_url(@event, presenter) %></td>
+
+      <% if has_sessions?(event.event_type) %>
+        <td><%= link_to presenter.name, event_presenter_url(event, presenter) %></td>
+      <% else %>
+        <td><%= link_to presenter.name, event_presenter_url(event, presenter, :parent_id => parent) %></td>
+      <% end %>
+
       <td><%= presenter.title %></td>
       <td><%= presenter.org_name %></td>
       <td><%= truncate(presenter.bio, :length=>80, :omission=>"...") %></td>
 
       <% if spkrlist == 'No' %>
-        <td><%= link_to "Select", manage_presenters_url(:event_id => @event, :presenter_id => presenter), :method => :post %></td>
+        <td><%= link_to "Select", manage_presenters_url(:event_id => event, :presenter_id => presenter, :parent_id => parent), :method => :post %></td>
       <% end %>
 
-      <td><%= link_to "Edit", edit_event_presenter_url(@event, presenter) %></td>
+      <% if has_sessions?(event.event_type) %>
+        <td><%= link_to "Edit", edit_event_presenter_url(event, presenter) %></td>
+      <% else %>
+        <td><%= link_to "Edit", edit_event_presenter_url(event, presenter, :parent_id => parent) %></td>
+      <% end %>
 
       <% if spkrlist == 'No' %>
-        <td><%= link_to "Remove", event_presenter_url(@event, presenter), :confirm => 'Are you sure?', :method => :delete %></td>
+        <% if has_sessions?(event.event_type) %>
+          <td><%= link_to "Remove", event_presenter_url(event, presenter), :confirm => 'Are you sure?', :method => :delete %></td>
+	<% else %>
+	  <td></td>
+	<% end %>
       <% else %>
-        <td><%= link_to "Remove", manage_presenters_url(:event_id => @event, :presenter_id => presenter), :confirm => 'Are you sure?', :method => :delete %></td>
+        <td><%= link_to "Remove", manage_presenter_url(event, :presenter_id => presenter), :confirm => 'Are you sure?', :method => :delete %></td>
       <% end %>
     </tr>
   <% end %>

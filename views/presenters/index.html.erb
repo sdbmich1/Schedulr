@@ -1,9 +1,11 @@
 <% title "Presenters" %>
 
 <div class="nav-right">
-  <p><%= link_to "Back", @event %></p>
+  <p><%= link_to "Back", eventlist %></p>
 </div>
 
-<%= render :partial => 'shared/presenter_list', :locals => { :spkrlist => 'No' } %>
+<%= render :partial => 'shared/presenter_list', :locals => { :event => @event, :spkrlist => 'No', :parent => @parent_event } %>
 
-<p><%= link_to "Add Presenter", new_event_presenter_url %> | <%= link_to "Back", @event %></p>
+<% unless @parent_event %>
+  <p><%= link_to "New Presenter", new_event_presenter_url %> | <%= link_to "Back", eventlist %></p>
+<% end %>

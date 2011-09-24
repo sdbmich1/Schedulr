@@ -34,9 +34,15 @@
     <% end %>
 </p>
 <p>
-  <%= link_to "Select", manage_presenters_url(:event_id => @event, :presenter_id => @presenter), :method => :post %> |
-  <%= link_to "Edit", edit_event_presenter_url(@event, @presenter) %> |
-  <%= link_to "Destroy", event_presenter_url(@event, @presenter), :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", event_presenters_url %> | 
-  <%= link_to "Back to Event", @event %> 
+  <% if @parent_event %>
+    <%= link_to "Select", manage_presenters_url(:event_id => @event, :presenter_id => @presenter, :parent_id => @parent_event), :method => :post %> |
+    <%= link_to "Edit", edit_event_presenter_url(@event, @presenter, :parent_id => @parent_event) %> |
+    <%= link_to "Destroy", event_presenter_url(@event, @presenter, :parent_id => @parent_event), :confirm => 'Are you sure?', :method => :delete %> |
+    <%= link_to "Back to Event", event_session_relationship_url(@parent_event, @event) %> 
+  <% else %>
+    <%= link_to "Select", manage_presenters_url(:event_id => @event, :presenter_id => @presenter), :method => :post %> |
+    <%= link_to "Edit", edit_event_presenter_url(@event, @presenter) %> |
+    <%= link_to "Destroy", event_presenter_url(@event, @presenter), :confirm => 'Are you sure?', :method => :delete %> |
+    <%= link_to "Back to Event", @event %> 
+  <% end %>
 </p>

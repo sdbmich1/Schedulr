@@ -1,5 +1,7 @@
 <% title "Add Session " %>
 
-<%= render 'form' %>
+<%= form_for @session_event, :url => event_session_relationships_path(@event), :html => {:multipart => true} do |f| %>
+  <%= render :partial => 'form', :locals => { :f => f } %>
+<% end %>
 
-<p><%= link_to "Back to Event", @event %></p>
+<p><%= link_to "Back", @event %></p>

@@ -26,10 +26,10 @@
 
 <p>
   <strong>Speaker(s):</strong>
-  <%= render :partial => 'shared/presenter_list', :locals => { :spkrlist => 'Yes' } %>
+  <%= render :partial => 'shared/presenter_list', :locals => { :event => @event, :spkrlist => 'Yes', :parent => [] } %>
 </p><br />
 
-<%= link_to "Add Speakers", event_presenters_url(@event,{:event_id => @event.id}) %><br />
+<%= link_to "Add Speakers", event_presenters_url(@event,{:event_id => @event}) %><br />
 
 <p>
   <%= link_to "Edit", edit_event_path(@event) %> |

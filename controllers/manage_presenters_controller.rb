@@ -1,28 +1,25 @@
 class ManagePresentersController < ApplicationController
-  def show
-    @event_presenter = EventPresenter.find(params[:id])
-  end
-
-  def index
-    @event = Event.find(params[:id]) 
-    @event_presenters = @event.presenters
-  end
-
   def create
     @event = Event.find(params[:event_id])
-    @event_presenter = @event.event_presenters.build(:presenter_id => params[:presenter_id])
-    if @event_presenter.save
-      redirect_to event_url(@event), :notice => "Successfully added presenter."
-    else
-      redirect_to event_url(@event), :notice => "Unable to add presenter."
+    @parent_event = Event.find(params[:parent_id]) if params[:parent_id]
+    @event_presenter = EventPresenter.new(:event_id => @event.id, :presenter_id => params[:presenter_id])
+    @event_presenter.save ? flash[:notice] = "Successfully added presenter." : flash[:notice] = "Unable to add presenter."
+    if @parent_event 
+      redirect_to event_session_relationship_path(@parent_event, @event) 
+    else 
+      redirect_to @event
     end
   end
 
   def destroy
-    # @event_presenter = EventPresenter.find(params[:id])
-    @event = Event.find(params[:event_id])
-    @event_presenter = @event.event_presenters.build(:presenter_id => params[:presenter_id])
-    @event_presenter.destroy
-    redirect_to event_url(@event), :notice => "Successfully deleted event presenter."
+    @event = Event.find(params[:id])
+    @parent_event = Event.find(params[:parent_id]) if params[:parent_id]
+    @event_presenter = EventPresenter.find_by_event_id_and_presenter_id(params[:id], params[:presenter_id])
+    @event_presenter.destroy ? flash[:notice] = "Successfully deleted event presenter." : flash[:notice] = "Unable to delete presenter."
+    if @parent_event 
+      redirect_to event_session_relationship_path(@parent_event, @event)
+    else 
+      redirect_to @event
+    end
   end
 end

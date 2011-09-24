@@ -1,4 +1,3 @@
-<%= form_for @session, :url => event_session_relationship_path(@event, @session), :html => {:multipart => true}, :validate => true do |f| %>
   <%= f.error_messages %>
   <p>
     <%= f.label "Event: " %><%= @event.event_title %>
@@ -21,4 +20,3 @@
   <%= render :partial => 'shared/form', :locals => {:f => f} %>
 
   <p><%= f.submit %></p>
-<% end %>

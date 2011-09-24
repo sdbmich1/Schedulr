@@ -5,11 +5,12 @@ class Event < ActiveRecord::Base
   validates :event_name, :presence => true, :length => { :maximum => 80 }
   validates_presence_of :event_type
   validates :eventstartdate, :presence => true, :date => {:after_or_equal_to => Date.today}
-  validates :eventenddate, :presence => true, :date => {:after_or_equal_to => :eventstartdate}
+  validates :eventenddate, :presence => true, :allow_blank => false, :date => {:after_or_equal_to => :eventstartdate}
   validates_presence_of :eventstarttime
-  validates :eventendtime, :presence => true, :timeliness => {:on_or_after => lambda { :eventstarttime }, :type => :time}, :if => :same_day?
+  validates :eventendtime, :presence => true, :allow_blank => false
+  validates_time :eventendtime, :after => :eventstarttime, :if => :same_day?
   validates :bbody, :length => { :maximum => 255 }
-  validates :location, :presence => true, :if => :is_session?
+  validates :location, :presence => true, :if => :is_session?, :unless => :is_break?
   validates :session_type, :presence => true, :if => :is_session?
   
   before_save :set_flds
@@ -44,6 +45,10 @@ class Event < ActiveRecord::Base
     event_type == 'se'
   end
 
+  def is_break?
+    (%w(wkshp cls mtg key brkout panel).detect { |x| x == session_type }).blank?
+  end
+
   def is_clone?
     etype == 'Clone'
   end
@@ -58,10 +63,14 @@ class Event < ActiveRecord::Base
     self.hide = 'no' if self.hide.blank?
   end
 
+  def reset_session_values
+    self.event_name = self.cbody = self.bbody = nil
+    self
+  end
+
   protected 
 
   def reset_session_data
-    self.status = 'Test'
 
     self.sessions.each do |s|
       ev = Event.find(s.id)
@@ -87,9 +96,6 @@ class Event < ActiveRecord::Base
     new_event.event_tracks << self.event_tracks.collect { |event_track| event_track.clone } 
     new_event.event_sites << self.event_sites.collect { |event_site| event_site.clone } 
     new_event.event_presenters << self.event_presenters.collect { |event_presenter| event_presenter.clone } 
-#    new_event.pictures << self.pictures.collect { |picture| picture.clone } 
-#    new_event.session_relationships << self.session_relationships.collect { |session_relationship| session_relationship.clone } 
-#    @event.session_relationships.create(:session_id => @new_event.id)
 
     self.pictures.each do |p|
       unless (p.photo.url =~ /\?/i).nil?
@@ -102,8 +108,8 @@ class Event < ActiveRecord::Base
     new_event.save
 
     self.sessions.each do |s|
-      sevent = Event.create(s.attributes)
-      new_event.session_relationships.create(:session_id => sevent.id)
+      session_event = Event.create(s.attributes)
+      new_event.session_relationships.create(:session_id => session_event.id)
     end
 
     new_event

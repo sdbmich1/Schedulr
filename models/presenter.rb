@@ -2,11 +2,11 @@ class Presenter < ActiveRecord::Base
   attr_accessible :name, :title, :bio, :org_name, :pictures_attributes, :contact_details_attributes
 
   name_regex = 	/^[A-Z]'?[- a-zA-Z]+$/i
-  text_regex = /^[-\w\._@]+$/i
+  text_regex = /^[-\w\. _\/&@]+$/i
 
-  validates :name, :presence => true, :format => { :with => name_regex }
-  validates :org_name, :presence => true #, :format => { :with => text_regex }
-  validates :title, :format => { :with => name_regex }
+  validates :name, :presence => true, :uniqueness => { :scope => [:org_name, :title] }, :format => { :with => name_regex }
+  validates :org_name, :presence => true, :format => { :with => text_regex }
+  validates :title, :format => { :with => text_regex }
   validates :bio, :presence => true
 
   default_scope :order => 'name ASC'
