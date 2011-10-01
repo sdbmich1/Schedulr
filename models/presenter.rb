@@ -5,7 +5,7 @@ class Presenter < ActiveRecord::Base
   text_regex = /^[-\w\. _\/&@]+$/i
 
   validates :name, :presence => true, :uniqueness => { :scope => [:org_name, :title] }, :format => { :with => name_regex }
-  validates :org_name, :presence => true, :format => { :with => text_regex }
+#  validates :org_name, :presence => true, :format => { :with => text_regex }
   validates :title, :format => { :with => text_regex }
   validates :bio, :presence => true
 

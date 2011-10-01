@@ -1,0 +1,56 @@
+<%= form_for @channel do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :channelID %><br />
+    <%= f.text_field :channelID %>
+  </p>
+  <p>
+    <%= f.label :hostprofileID %><br />
+    <%= f.text_field :hostprofileID %>
+  </p>
+  <p>
+    <%= f.label :channel_name %><br />
+    <%= f.text_field :channel_name %>
+  </p>
+  <p>
+    <%= f.label :channel_title %><br />
+    <%= f.text_field :channel_title %>
+  </p>
+  <p>
+    <%= f.label :channel_class %><br />
+    <%= f.text_field :channel_class %>
+  </p>
+  <p>
+    <%= f.label :channel_type %><br />
+    <%= f.text_field :channel_type %>
+  </p>
+  <p>
+    <%= f.label :cbody %><br />
+    <%= f.text_area :cbody %>
+  </p>
+  <p>
+    <%= f.label :bbody %><br />
+    <%= f.text_field :bbody %>
+  </p>
+  <p>
+    <%= f.label :status %><br />
+    <%= f.text_field :status %>
+  </p>
+  <p>
+    <%= f.label :hide %><br />
+    <%= f.text_field :hide %>
+  </p>
+  <p>
+    <%= f.label :sortkey %><br />
+    <%= f.text_field :sortkey %>
+  </p>
+  <p>
+    <%= f.label :subscriptionsourceID %><br />
+    <%= f.text_field :subscriptionsourceID %>
+  </p>
+  <p>
+    <%= f.label :subscriptionsourceURL %><br />
+    <%= f.text_field :subscriptionsourceURL %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>

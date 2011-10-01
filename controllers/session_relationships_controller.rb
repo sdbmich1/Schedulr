@@ -45,4 +45,10 @@ class SessionRelationshipsController < ApplicationController
     @session_relationship.destroy
     redirect_to :back, :notice => "Successfully destroyed session relationship."
   end
+
+  def clone
+    @event = Event.find(params[:event_id])
+    @session_event = Event.find(params[:id]).clone_event
+    @session_event.pictures.blank? ? @picture = @session_event.pictures.build : @picture = @session_event.pictures
+  end
 end

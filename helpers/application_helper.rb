@@ -9,9 +9,12 @@ module ApplicationHelper
     truncate(txt, :length => 40, :omission =>"...")
   end
 
-  def get_event_type(etype)
-    ecode = EventType.find_by_code(etype)
-    ecode.blank? ? etype : ecode.description
+  def get_event_type(val)
+    EventType.find_by_code(val).description
+  end
+
+  def get_time_zone(val)
+    GmtTimezone.find_by_code(val).description
   end
 
   def link_to_remove_fields(name, f)

@@ -1,0 +1,60 @@
+<% title "Channel" %>
+
+<p>
+  <strong>Channelid:</strong>
+  <%= @channel.channelID %>
+</p>
+<p>
+  <strong>Hostprofileid:</strong>
+  <%= @channel.hostprofileID %>
+</p>
+<p>
+  <strong>Channel Name:</strong>
+  <%= @channel.channel_name %>
+</p>
+<p>
+  <strong>Channel Title:</strong>
+  <%= @channel.channel_title %>
+</p>
+<p>
+  <strong>Channel Class:</strong>
+  <%= @channel.channel_class %>
+</p>
+<p>
+  <strong>Channel Type:</strong>
+  <%= @channel.channel_type %>
+</p>
+<p>
+  <strong>Cbody:</strong>
+  <%= @channel.cbody %>
+</p>
+<p>
+  <strong>Bbody:</strong>
+  <%= @channel.bbody %>
+</p>
+<p>
+  <strong>Status:</strong>
+  <%= @channel.status %>
+</p>
+<p>
+  <strong>Hide:</strong>
+  <%= @channel.hide %>
+</p>
+<p>
+  <strong>Sortkey:</strong>
+  <%= @channel.sortkey %>
+</p>
+<p>
+  <strong>Subscriptionsourceid:</strong>
+  <%= @channel.subscriptionsourceID %>
+</p>
+<p>
+  <strong>Subscriptionsourceurl:</strong>
+  <%= @channel.subscriptionsourceURL %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_channel_path(@channel) %> |
+  <%= link_to "Destroy", @channel, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", channels_path %>
+</p>

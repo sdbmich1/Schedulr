@@ -1,0 +1,36 @@
+<% title "Organization" %>
+
+<p>
+  <strong>Orgname:</strong>
+  <%= @organization.orgname %>
+</p>
+<p>
+  <strong>Status:</strong>
+  <%= @organization.status %>
+</p>
+<p>
+  <strong>Hide:</strong>
+  <%= @organization.hide %>
+</p>
+<p>
+  <strong>Sortkey:</strong>
+  <%= @organization.sortkey %>
+</p>
+<p>
+  <strong>Channelid:</strong>
+  <%= @organization.channelID %>
+</p>
+<p>
+  <strong>Subscriptionsourceid:</strong>
+  <%= @organization.subscriptionsourceID %>
+</p>
+<p>
+  <strong>Subscriptionsourceurl:</strong>
+  <%= @organization.subscriptionsourceURL %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_organization_path(@organization) %> |
+  <%= link_to "Destroy", @organization, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", organizations_path %>
+</p>

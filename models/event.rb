@@ -1,12 +1,15 @@
 class Event < ActiveRecord::Base
-  attr_accessor :etype
-  attr_accessible :etype, :event_name, :event_type, :cbody, :bbody, :eventstartdate, :eventenddate, :eventstarttime, :eventendtime, :localGMToffset, :endGMToffset, :mapstreet, :mapcity, :mapstate, :mapzip, :mapplacename, :mapcountry, :location, :imagelink, :status, :hide, :event_title, :event_tracks_attributes, :pictures_attributes, :speakertopic, :session_type, :track, :event_sites_attributes
+  set_primary_key :ID
 
-  validates :event_name, :presence => true, :length => { :maximum => 80 }
-  validates_presence_of :event_type
+  attr_accessor :etype
+  attr_accessible :etype, :event_name, :event_type, :cbody, :bbody, :eventstartdate, :eventenddate, :eventstarttime, :eventendtime, :localGMToffset, :endGMToffset, :mapstreet, :mapcity, :mapstate, :mapzip, :mapplacename, :mapcountry, :location, :imagelink, :status, :hide, :event_title, :event_tracks_attributes, :pictures_attributes, :speakertopic, :session_type, :track, :event_sites_attributes, :host, :RSVPemail, :created_at, :rsvp, :eventid, :speaker, :updated_at,
+  :contentsourceID, :subscriptionsourceID, :event_presenters_attributes
+
+  validates :event_name, :presence => true, :length => { :maximum => 100 }
+  validates :event_type, :presence => true
   validates :eventstartdate, :presence => true, :date => {:after_or_equal_to => Date.today}
   validates :eventenddate, :presence => true, :allow_blank => false, :date => {:after_or_equal_to => :eventstartdate}
-  validates_presence_of :eventstarttime
+  validates :eventstarttime, :presence => true
   validates :eventendtime, :presence => true, :allow_blank => false
   validates_time :eventendtime, :after => :eventstarttime, :if => :same_day?
   validates :bbody, :length => { :maximum => 255 }
@@ -15,6 +18,8 @@ class Event < ActiveRecord::Base
   
   before_save :set_flds
   after_save :reset_session_data, :unless => "etype.blank?"
+
+  belongs_to :channel, :counter_cache => true 
 
   has_many :session_relationships, :dependent => :destroy
   has_many :sessions, :through => :session_relationships, :dependent => :destroy
@@ -38,11 +43,11 @@ class Event < ActiveRecord::Base
   end
 
   def self.get_events(page)
-    where(:event_type.downcase => ['conf','fest','te','ue','mtg']).paginate(:page => page).order('eventstartdate, eventstarttime DESC')
+    where("event_type != 'es'" ).paginate(:page => page).order('eventstartdate, eventstarttime DESC')
   end
 
   def is_session?
-    event_type == 'se'
+    event_type == 'es'
   end
 
   def is_break?
@@ -93,23 +98,23 @@ class Event < ActiveRecord::Base
   def clone_event
     new_event = self.clone
 
-    new_event.event_tracks << self.event_tracks.collect { |event_track| event_track.clone } 
-    new_event.event_sites << self.event_sites.collect { |event_site| event_site.clone } 
-    new_event.event_presenters << self.event_presenters.collect { |event_presenter| event_presenter.clone } 
-
-    self.pictures.each do |p|
-      unless (p.photo.url =~ /\?/i).nil?
-        fname = $`
-        new_event.pictures.build(:photo_file_name=>File.open("#{Rails.root}/public#{fname}", "r"))
-      end 
-    end
-
     new_event.status = 'pending'
     new_event.save
 
+    if is_session?
+      sr = SessionRelationship.find_by_session_id(self.id)
+      Event.find(sr.event_id).session_relationship.create(:session_id => new_event)
+    end
+
+    new_event.event_tracks << self.event_tracks.collect { |event_track| event_track.clone } 
+    new_event.event_sites << self.event_sites.collect { |event_site| event_site.clone } 
+    new_event.event_presenters << self.event_presenters.collect { |event_presenter| event_presenter.clone } 
+    new_event.pictures.create(:photo => self.pictures.first.photo) unless new_event.pictures.blank?
+
     self.sessions.each do |s|
       session_event = Event.create(s.attributes)
-      new_event.session_relationships.create(:session_id => session_event.id)
+      session_event.event_presenters << s.event_presenters.collect { |event_presenter| event_presenter.clone } 
+      new_event.session_relationships.create(:session_id => session_event)
     end
 
     new_event
