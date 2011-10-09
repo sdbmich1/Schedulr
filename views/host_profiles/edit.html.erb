@@ -3,6 +3,8 @@
 <%= render 'form' %>
 
 <p>
-  <%= link_to "Show", @organization %> |
-  <%= link_to "View All", organizations_path %>
+  <%= link_to "Show", [@user, @host_profile] %> 
+  <% if @channel %>
+    <%= link_to "Edit Channels", edit_channel_url(@channel) %> 
+  <% end %>
 </p>

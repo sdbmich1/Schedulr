@@ -1,4 +1,6 @@
 class PresentersController < ApplicationController
+  before_filter :authenticate_user!
+
   def index
     @event = Event.find(params[:event_id]) if params[:event_id]
     @parent_event = Event.find(params[:parent_id]) if params[:parent_id]

@@ -1,5 +1,10 @@
 module ApplicationHelper
 
+  # returns logo or name
+  def get_name_or_logo(*args)
+    args[0] ? @name = "koncierge.png" : @name = "Schedulr"
+  end
+
   def chk_offset(*tm)
     #tm[0] = tm[0].advance(:hours => ( tm[1]).to_i) unless tm[1].blank?
     tm[0]
@@ -35,5 +40,17 @@ module ApplicationHelper
 
   def get_nice_time(val)	  
     val.blank? ? '' : val.strftime('%l:%M %p')
+  end
+
+  def resource_name
+    :user
+  end
+
+  def resource
+    @resource ||= User.new
+  end
+
+  def devise_mapping
+    @devise_mapping ||= Devise.mappings[:user]
   end
 end

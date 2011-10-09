@@ -19,7 +19,7 @@ class Event < ActiveRecord::Base
   before_save :set_flds
   after_save :reset_session_data, :unless => "etype.blank?"
 
-  belongs_to :channel, :counter_cache => true 
+  belongs_to :channel
 
   has_many :session_relationships, :dependent => :destroy
   has_many :sessions, :through => :session_relationships, :dependent => :destroy

@@ -1,6 +1,7 @@
 class Category < KitsDevelopmentModel
 
   has_many :interests
+  has_many :channel_interests, :through => :interests
   has_many :channels, :through => :channel_interests
 
   has_many :events, :through => :channels
