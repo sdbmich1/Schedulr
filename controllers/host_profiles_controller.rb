@@ -33,7 +33,7 @@ class HostProfilesController < ApplicationController
   def update
     @host_profile = HostProfile.find(params[:id])
     if @host_profile.update_attributes(params[:host_profile])
-      redirect_to @host_profile, :notice  => "Successfully updated host_profile."
+      redirect_to [@user, @host_profile], :notice  => "Successfully updated host_profile."
     else
       render :action => 'edit'
     end
@@ -42,7 +42,7 @@ class HostProfilesController < ApplicationController
   def destroy
     @host_profile = HostProfile.find(params[:id])
     @host_profile.destroy
-    redirect_to host_profiles_url, :notice => "Successfully destroyed host_profile."
+    redirect_to user_host_profiles_url, :notice => "Successfully destroyed host_profile."
   end
 
 end

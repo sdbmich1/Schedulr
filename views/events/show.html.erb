@@ -4,10 +4,11 @@
 
 <% if has_sessions?(@event.event_type) %>
 <p>
+  <br />
   <strong>Track(s):</strong>
   <ol>  
     <% for etrack in @event.event_tracks %>  
-      <li><%= etrack.name %> <%= etrack.description %></li>  
+      <li><%= etrack.name %>: <%= etrack.description %></li>  
     <% end %>  
   </ol>  
 </p><br />
@@ -16,7 +17,7 @@
   <strong>Site(s):</strong>
   <ol>  
     <% for esite in @event.event_sites %>  
-      <li><%= esite.name %> <%= esite.description %></li>  
+      <li><%= esite.name %>: <%= esite.description %></li>  
     <% end %>  
   </ol>  
 </p><br />
@@ -24,15 +25,14 @@
   <%= render :partial => 'shared/sessions', :locals => {:event => @event} %><br />
 <% end %>
 
-<p>
+<p><br />
   <strong>Speaker(s):</strong>
   <%= render :partial => 'shared/presenter_list', :locals => { :event => @event, :spkrlist => 'Yes', :parent => [] } %>
-</p><br />
-
-<%= link_to "Add Speakers", event_presenters_url(@event,{:event_id => @event}) %><br />
+</p>
 
 <p>
-  <%= link_to "Edit", edit_event_path(@event) %> |
-  <%= link_to "Destroy", @event, :confirm => 'Are you sure?', :method => :delete %> |
+<%= link_to "Add Speakers", event_presenters_url(@event,{:event_id => @event}) %> |
+  <%= link_to "Edit Event", edit_event_path(@event) %> |
+  <%= link_to "Remove Event", @event, :confirm => 'Are you sure?', :method => :delete %> |
   <%= link_to "View All", events_url %> 
 </p>

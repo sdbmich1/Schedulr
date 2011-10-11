@@ -1,5 +1,5 @@
 class Presenter < ActiveRecord::Base
-  attr_accessible :name, :title, :bio, :org_name, :pictures_attributes, :contact_details_attributes
+  attr_accessible :name, :title, :bio, :org_name, :pictures_attributes, :contact_details_attributes, :subscriptionsourceID, :contentsourceID
 
   name_regex = 	/^[A-Z]'?[- a-zA-Z]+$/i
   text_regex = /^[-\w\. _\/&@]+$/i

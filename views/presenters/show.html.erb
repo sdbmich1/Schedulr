@@ -4,24 +4,12 @@
   <% for pic in @presenter.pictures %>
     <%= image_tag pic.photo.url, :size=>'120x120' %>
   <% end %>
+  <% if @presenter.try(:pictures).blank? %>
+    <%= image_tag "headshot1.jpg", :alt => "none", :size => "120x120" %>
+  <% end %>
 </p>
-<p>
-  <strong>Name:</strong>
-  <%= @presenter.name %>
-</p>
-<p>
-  <strong>Title:</strong>
-  <%= @presenter.title %>
-</p>
-<p>
-  <strong>Company Name:</strong>
-  <%= @presenter.org_name %>
-</p>
-<p>
-  <strong>Bio:</strong>
-  <%= @presenter.bio %>
-</p>
-<p>
+<%= render :partial => 'shared/show_presenter' %>
+<p><br />
   <strong>Contact Info:</strong><br />
     <% for contact in @presenter.contact_details %>
       Work Phone: <%= contact.work_phone %><br /> 
@@ -33,16 +21,16 @@
       Skype: <%= contact.skype_name %><br /> 
     <% end %>
 </p>
-<p>
+<p><br />
   <% if @parent_event %>
     <%= link_to "Select", manage_presenters_url(:event_id => @event, :presenter_id => @presenter, :parent_id => @parent_event), :method => :post %> |
     <%= link_to "Edit", edit_event_presenter_url(@event, @presenter, :parent_id => @parent_event) %> |
-    <%= link_to "Destroy", event_presenter_url(@event, @presenter, :parent_id => @parent_event), :confirm => 'Are you sure?', :method => :delete %> |
+    <%= link_to "Remove", event_presenter_url(@event, @presenter, :parent_id => @parent_event), :confirm => 'Are you sure?', :method => :delete %> |
     <%= link_to "Back to Event", event_session_relationship_url(@parent_event, @event) %> 
   <% else %>
     <%= link_to "Select", manage_presenters_url(:event_id => @event, :presenter_id => @presenter), :method => :post %> |
     <%= link_to "Edit", edit_event_presenter_url(@event, @presenter) %> |
-    <%= link_to "Destroy", event_presenter_url(@event, @presenter), :confirm => 'Are you sure?', :method => :delete %> |
+    <%= link_to "Remove", event_presenter_url(@event, @presenter), :confirm => 'Are you sure?', :method => :delete %> |
     <%= link_to "Back to Event", @event %> 
   <% end %>
 </p>

@@ -43,7 +43,8 @@ class Event < ActiveRecord::Base
   end
 
   def self.get_events(page)
-    where("event_type != 'es'" ).paginate(:page => page).order('eventstartdate, eventstarttime DESC')
+    where("event_type != 'es' " ).paginate(:page => page).order('eventstartdate, eventstarttime DESC')
+ #   where("event_type != 'es' AND subscriptionsourceID = cid" ).paginate(:page => page).order('eventstartdate, eventstarttime DESC')
   end
 
   def is_session?

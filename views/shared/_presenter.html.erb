@@ -25,6 +25,8 @@
   <%= render 'shared/contact_details', :f => builder %>  
 <% end %>
 
+  <%= f.hidden_field :subscriptionsourceID, :value => @host_profile.HostChannelID %>
+  <%= f.hidden_field :contentsourceID, :value => @host_profile.subscriptionsourceID %>
 <p>
    <%= link_to_remove_fields "Remove", f%><br />  
 </p>

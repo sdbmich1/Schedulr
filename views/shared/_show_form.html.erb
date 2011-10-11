@@ -1,40 +1,9 @@
 <div class="span-4">
   <% for pic in event.pictures %>
-      <%= image_tag pic.photo.url, :size => '120x120' %>
+      <%= image_tag chk_image(pic.photo.url), :size => '120x120' %>
+  <% end %>
+  <% if event.try(:pictures).blank? %>
+    <%= image_tag "schedule1.jpg", :alt => "none", :size => "120x120" %>
   <% end %>
 </div>
-<div class="span-20">
-  <strong><%= event.event_name %></strong>
-</div><br />
-<p>
-  <strong>Event Type:</strong>
-  <%= get_event_type(event.event_type) %>
-</p>
-<p>
-  <strong>Overview:</strong>
-  <%= event.bbody %>
-</p>
-<p>
-  <strong>Description:</strong>
-  <%= event.cbody %>
-</p>
-<p>
-  <strong>Start:</strong>
-  <%= get_nice_date(event.eventstartdate) %>
-  <strong>Time:</strong>
-  <%= get_nice_time(chk_offset(event.eventstarttime, event.localGMToffset)) %> TimeZone: <%= event.localGMToffset %>
-</p>
-<p>
-  <strong>End:</strong>
-  <%= get_nice_date(event.eventenddate) %>
-  <strong>Time:</strong>
-  <%= get_nice_time(chk_offset(event.eventendtime, event.endGMToffset)) %> TimeZone: <%= event.endGMToffset %>
-</p>
-<p>
-  <strong>Location:</strong><br />
-  <%= event.mapplacename %><br />
-  <%= event.location %><br />
-  <%= event.mapstreet %><br />
-  <%= event.mapcity %>, <%= event.mapstate %> <%= event.mapzip %><br />
-  <%= event.mapcountry %><br />
-</p>
+<%= render :partial => 'shared/show_event', :locals => {:event => event} %>

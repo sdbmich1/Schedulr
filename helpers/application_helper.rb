@@ -8,7 +8,12 @@ module ApplicationHelper
   def chk_offset(*tm)
     #tm[0] = tm[0].advance(:hours => ( tm[1]).to_i) unless tm[1].blank?
     tm[0]
+    #tm.blank? ? tm[0].strftime("%l:%M %p") : tm.strftime("%l:%M %p")
   end	
+
+  def chk_image(img)
+    img.blank? ? "schedule1.jpg" : img
+  end
 
   def truncate_txt(txt)
     truncate(txt, :length => 40, :omission =>"...")

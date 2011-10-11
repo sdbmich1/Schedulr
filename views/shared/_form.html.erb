@@ -68,3 +68,5 @@
       <%= form.file_field :photo %> 
     <% end %>
   </p>	  
+  <%= f.hidden_field :subscriptionsourceID, :value => @host_profile.HostChannelID %>
+  <%= f.hidden_field :contentsourceID, :value => @host_profile.subscriptionsourceID %>
