@@ -1,0 +1,45 @@
+one:
+  event_name: MyString
+  event_type: MyString
+  cbody: MyText
+  bbody: MyString
+  eventstartdate: 2011-09-09
+  eventenddate: 2011-09-09
+  eventstarttime: 2011-09-09 17:44:38
+  eventendtime: 2011-09-09 17:44:38
+  localGMToffset: 1.5
+  endGMToffset: 1.5
+  mapstreet: MyString
+  mapcity: MyString
+  mapstate: MyString
+  mapzip: MyString
+  mapplacename: MyString
+  mapcountry: MyString
+  location: MyString
+  imagelink: MyString
+  session_type: MyString
+  event_id: 1
+  event_track_id: 1
+
+two:
+  event_name: MyString
+  event_type: MyString
+  cbody: MyText
+  bbody: MyString
+  eventstartdate: 2011-09-09
+  eventenddate: 2011-09-09
+  eventstarttime: 2011-09-09 17:44:38
+  eventendtime: 2011-09-09 17:44:38
+  localGMToffset: 1.5
+  endGMToffset: 1.5
+  mapstreet: MyString
+  mapcity: MyString
+  mapstate: MyString
+  mapzip: MyString
+  mapplacename: MyString
+  mapcountry: MyString
+  location: MyString
+  imagelink: MyString
+  session_type: MyString
+  event_id: 1
+  event_track_id: 1

@@ -1,0 +1,17 @@
+one:
+  orgname: MyString
+  status: MyString
+  hide: MyString
+  sortkey: 1
+  channelID: MyString
+  subscriptionsourceID: MyString
+  subscriptionsourceURL: MyString
+
+two:
+  orgname: MyString
+  status: MyString
+  hide: MyString
+  sortkey: 1
+  channelID: MyString
+  subscriptionsourceID: MyString
+  subscriptionsourceURL: MyString

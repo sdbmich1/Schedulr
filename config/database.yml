@@ -1,0 +1,30 @@
+login: &login
+  adapter: mysql2
+  encoding: utf8
+  username: rubyuser
+  password: 'ruby#123'
+  socket: /tmp/mysql.sock
+
+development:
+  database: kitsknndb
+  <<: *login
+
+test:
+  database: kits_test
+  <<: *login
+
+kits_development:
+  database: kits_development
+  <<: *login
+
+production:
+  database: kits_production
+  <<: *login
+
+kits_central:
+  database: kitscentraldb
+  <<: *login
+
+kits_sub:
+  database: kitssubdb
+  <<: *login

@@ -1,0 +1,29 @@
+one:
+  channelID: MyString
+  hostprofileID: 1
+  channel_name: MyString
+  channel_title: MyString
+  channel_class: MyString
+  channel_type: MyString
+  cbody: MyText
+  bbody: MyString
+  status: MyString
+  hide: MyString
+  sortkey: 1
+  subscriptionsourceID: MyString
+  subscriptionsourceURL: MyString
+
+two:
+  channelID: MyString
+  hostprofileID: 1
+  channel_name: MyString
+  channel_title: MyString
+  channel_class: MyString
+  channel_type: MyString
+  cbody: MyText
+  bbody: MyString
+  status: MyString
+  hide: MyString
+  sortkey: 1
+  subscriptionsourceID: MyString
+  subscriptionsourceURL: MyString
