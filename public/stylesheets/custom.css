@@ -10,3 +10,5 @@ th { background: #000000; color: #ffffff; font-weight: bold }
    padding-left: 5px;  
    font-size: 12px;  
  }  
+
+#channel_cbody, #event_cbody, #presenter_bio { height: 100px; width: 500px; }

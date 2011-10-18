@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111009075254) do
+ActiveRecord::Schema.define(:version => 20111017220543) do
 
   create_table "categories", :force => true do |t|
     t.string   "code"
@@ -44,11 +44,13 @@ ActiveRecord::Schema.define(:version => 20111009075254) do
   end
 
   create_table "channel_locations", :force => true do |t|
-    t.integer  "channel_id"
     t.integer  "location_id"
+    t.integer  "channel_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "channel_locations", ["location_id", "channel_id"], :name => "index_channel_locations_on_location_id"
 
   create_table "channels", :force => true do |t|
     t.string   "channelID",                            :null => false
@@ -72,6 +74,7 @@ ActiveRecord::Schema.define(:version => 20111009075254) do
     t.string   "mapstreet"
     t.string   "mapzip",                :limit => 20
     t.string   "mapcountry",            :limit => 100
+    t.string   "mapstate",              :limit => 4
   end
 
   create_table "companies", :force => true do |t|
@@ -104,6 +107,12 @@ ActiveRecord::Schema.define(:version => 20111009075254) do
   end
 
   create_table "countries", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "entity_types", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -421,7 +430,14 @@ ActiveRecord::Schema.define(:version => 20111009075254) do
     t.string   "org_name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "subscriptionsourceID"
+    t.string   "contentsourceID"
+    t.string   "hide",                 :limit => 45
+    t.string   "status",               :limit => 45
+    t.integer  "sortkey"
   end
+
+  add_index "presenters", ["subscriptionsourceID", "contentsourceID"], :name => "ssid_idx"
 
   create_table "promotions", :force => true do |t|
     t.string   "name"
@@ -459,12 +475,27 @@ ActiveRecord::Schema.define(:version => 20111009075254) do
     t.string   "code",        :limit => 45
   end
 
-  create_table "subscriptions", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "HostChannelID"
+  create_table "status_types", :force => true do |t|
+    t.string   "code"
+    t.string   "description"
+    t.string   "hide"
+    t.integer  "sortkey"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "subscriptions", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "channelID"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "contentsourceID"
+    t.string   "status",          :limit => 45
+    t.string   "hide",            :limit => 45
+    t.integer  "sortkey"
+  end
+
+  add_index "subscriptions", ["channelID", "contentsourceID"], :name => "channel_csid_idx"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false

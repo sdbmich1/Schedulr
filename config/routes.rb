@@ -6,8 +6,6 @@ Schedulr::Application.routes.draw do
 
   resources :channels
 
-  match '/channels/category_select/:id' => "channels#category_select"
-
   resources :users do 
     resources :host_profiles
   end 
@@ -29,5 +27,6 @@ Schedulr::Application.routes.draw do
     root :to => "users#show", :as => :user_root
   end
 
+  match '/channels/category_select/:id' => "channels#category_select"
   root :to => "pages#index"
 end

@@ -8,30 +8,38 @@ jQuery.ajaxSetup({
     'success': function() {}  
 }); 
 
-
 $(function (){
+
   // when the #event id field changes
-    $("#channel_channel_interest_category_id").live('change',function() {
+  $("select[id*=category_id]").live('change',function() {
 
-    // make a POST call and replace the content
-	var category = $('select#channel_channel_interest_category_id :selected').val();
-	if(category == "") category="0";
+     // make a POST call and replace the content
+     var category = $(this).val();
+     if(category == "") category="0";
 
-$.ajax({
-  dataType: 'json',
-  url: '/channels/category_select/' + category,
-  error: function(XMLHttpRequest, errorTextStatus, error){
+     var nxtID = $(this).next();
+     var nxtWidth = $(nxtID).width() + 5;
+
+  $.ajax({
+    dataType: 'json',
+    url: '/channels/category_select/' + category,
+    error: function(XMLHttpRequest, errorTextStatus, error){
               alert("Failed to submit : "+ errorTextStatus+" ;"+error);
              },
-  success:  function(data){
-		 $("#interest_id option").remove();
+    success:  function(data){
+		 $(nxtID).find("option").detach();
+
+                 //put in a empty default line
+		 var row = "<option value=\"" + "" + "\">" + "Select" + "</option>";
+	         $(row).appendTo(nxtID);                     
+
  	         $.each(data, function(i, j){
                        row = "<option value=\"" + j.interest.id + "\">" + j.interest.name + "</option>";   
-	               $(row).appendTo("#interest_id");                     
+	               $(row).appendTo(nxtID);                     
 	              });     
-         }
+		 $(nxtID).css({width: nxtWidth + 'px' });
+          }
 	});
-
     });
 });
 
