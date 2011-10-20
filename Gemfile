@@ -15,6 +15,9 @@ gem "nifty-generators", :group => :development
 
 # add simple forms
 gem 'simple_form'
+ 
+# add money handler
+gem 'money'
 
 # add paperclip for photos
 gem 'paperclip'
@@ -57,6 +60,9 @@ gem 'deep_cloneable'
 #add validation
 gem 'will_paginate', '~> 3.0'
 
+# tinymce editor to add rtf text editor to text area fields
+gem 'use_tinymce'
+
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
@@ -77,3 +83,6 @@ group :test do
   gem 'turn', :require => false
 end
 gem "mocha", :group => :test
+
+# Deploy with Capistrano
+gem 'capistrano'

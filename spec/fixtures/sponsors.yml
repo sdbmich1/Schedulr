@@ -1,0 +1,13 @@
+one:
+  sponsor_name: MyString
+  subscriptionsourceID: MyString
+  contentsourceID: MyString
+  status: MyString
+  hide: MyString
+
+two:
+  sponsor_name: MyString
+  subscriptionsourceID: MyString
+  contentsourceID: MyString
+  status: MyString
+  hide: MyString

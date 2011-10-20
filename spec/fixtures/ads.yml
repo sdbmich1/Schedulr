@@ -1,0 +1,25 @@
+one:
+  ad_name: MyString
+  ad_type: MyString
+  startdate: 2011-10-17 20:37:19
+  starttime: 2011-10-17 20:37:19
+  enddate: 2011-10-17 20:37:19
+  endtime: 2011-10-17 20:37:19
+  contentsourceID: MyString
+  subscriptionsourceID: MyString
+  status: MyString
+  hide: MyString
+  sortkey: 1
+
+two:
+  ad_name: MyString
+  ad_type: MyString
+  startdate: 2011-10-17 20:37:19
+  starttime: 2011-10-17 20:37:19
+  enddate: 2011-10-17 20:37:19
+  endtime: 2011-10-17 20:37:19
+  contentsourceID: MyString
+  subscriptionsourceID: MyString
+  status: MyString
+  hide: MyString
+  sortkey: 1

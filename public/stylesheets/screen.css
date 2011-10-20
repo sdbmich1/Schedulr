@@ -4,15 +4,10 @@ body {
 }
 
 input[type='submit'] {  
-  	  font-weight: bold;
-  	  background: #0c6fcb;
-      width: 100px;
-  	  color: #ffffff;
-  	  margin-left: 105px;
- /*    padding: 5px;
-      margin-top: 10px;  
-      margin-bottom: 10px;  
-      background:#acb4cb; color:#fff; */
+    font-weight: bold;
+    background: #0c6fcb;
+    width: 100px;
+    color: #ffffff;
     cursor:pointer;
     padding:5px 10px;
     -moz-border-radius:4px;
@@ -81,13 +76,25 @@ a.cb_label {
 	margin:7px 5px 0px 0px;
 }
 
+#newreg input[type='submit'] {  
+    font-weight: bold;
+    background: #0c6fcb;
+    width: 100px;
+    color: #ffffff;
+    margin-left: 105px;
+    cursor:pointer;
+    padding:5px 10px;
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px
+   }  
+   
 .new-reg {
 	display:block;
 	float:left;
 	width:100px;
 	text-align:right;
 	font-weight:normal;
-    line-height:18px;
+        line-height:18px;
 	vertical-align: middle;
 	margin:7px 5px 0px 0px;
 }

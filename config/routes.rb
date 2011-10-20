@@ -1,5 +1,9 @@
 Schedulr::Application.routes.draw do
 
+  resources :sponsors
+
+  resources :ads
+
   devise_for :users, :controllers => { :registrations => "registrations" } do
     match "/registrations/list" => "registrations#list"
   end

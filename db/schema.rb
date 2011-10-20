@@ -10,7 +10,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111017220543) do
+ActiveRecord::Schema.define(:version => 20111019031554) do
+
+  create_table "ads", :force => true do |t|
+    t.string   "ad_name"
+    t.string   "ad_type"
+    t.datetime "startdate"
+    t.time     "starttime"
+    t.datetime "enddate"
+    t.time     "endtime"
+    t.string   "contentsourceID"
+    t.string   "subscriptionsourceID"
+    t.string   "status"
+    t.string   "hide"
+    t.integer  "sortkey"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "categories", :force => true do |t|
     t.string   "code"
@@ -137,6 +153,13 @@ ActiveRecord::Schema.define(:version => 20111017220543) do
     t.string   "description"
   end
 
+  create_table "event_sponsors", :force => true do |t|
+    t.integer  "event_id"
+    t.integer  "sponsor_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "event_tracks", :force => true do |t|
     t.string   "name"
     t.string   "description"
@@ -191,9 +214,107 @@ ActiveRecord::Schema.define(:version => 20111017220543) do
     t.string   "track"
     t.datetime "eventstarttime"
     t.datetime "eventendtime"
+    t.integer  "member_fee_cents",     :default => 0, :null => false
+    t.integer  "nonmember_fee_cents",  :default => 0, :null => false
+    t.string   "currency"
   end
 
   add_index "events", ["subscriptionsourceID", "contentsourceID"], :name => "ssid_idx"
+
+  create_table "eventstsd", :primary_key => "ID", :force => true do |t|
+    t.string   "eventid",               :limit => 20
+    t.string   "parenteventid",         :limit => 20
+    t.string   "event_name",            :limit => 100
+    t.string   "event_title",           :limit => 200
+    t.string   "event_type",            :limit => 20
+    t.datetime "eventstartdate"
+    t.datetime "eventenddate"
+    t.datetime "eventstarttime"
+    t.datetime "eventendtime"
+    t.string   "AllDay",                :limit => 5
+    t.float    "localGMToffset"
+    t.float    "endGMToffset"
+    t.string   "location"
+    t.datetime "postdate"
+    t.string   "cformat",               :limit => 10
+    t.string   "speaker",               :limit => 100
+    t.string   "speakertopic"
+    t.string   "host",                  :limit => 100
+    t.text     "cbody",                 :limit => 2147483647
+    t.text     "bbody",                 :limit => 2147483647
+    t.string   "agendaID",              :limit => 50
+    t.string   "minutesID",             :limit => 50
+    t.string   "MembershipType",        :limit => 20
+    t.string   "Committee",             :limit => 20
+    t.string   "rsvp",                  :limit => 50
+    t.string   "RSVPemail",             :limit => 50
+    t.string   "imageID",               :limit => 50
+    t.string   "imagetitle",            :limit => 50
+    t.string   "imagecaption",          :limit => 100
+    t.string   "pdfFilename",           :limit => 50
+    t.string   "imagelink",             :limit => 50
+    t.string   "fundraiser",            :limit => 50
+    t.string   "progserv",              :limit => 5
+    t.string   "prodserv",              :limit => 5
+    t.string   "profserv",              :limit => 5
+    t.string   "listID",                :limit => 20
+    t.string   "coordinatorID",         :limit => 50
+    t.string   "notice1send",           :limit => 5
+    t.string   "notice2send",           :limit => 5
+    t.datetime "expirationdate"
+    t.decimal  "MemberFee",                                   :precision => 19, :scale => 2
+    t.decimal  "SpouseFee",                                   :precision => 19, :scale => 2
+    t.decimal  "NonMemberFee",                                :precision => 19, :scale => 2
+    t.decimal  "AtDoorFee",                                   :precision => 19, :scale => 2
+    t.decimal  "GroupFee",                                    :precision => 19, :scale => 2
+    t.decimal  "AffiliateFee",                                :precision => 19, :scale => 2
+    t.datetime "LateFeeDate"
+    t.decimal  "LateMemberFee",                               :precision => 19, :scale => 2
+    t.decimal  "LateSpouseFee",                               :precision => 19, :scale => 2
+    t.decimal  "LateNonMemberFee",                            :precision => 19, :scale => 2
+    t.decimal  "LateGroupFee",                                :precision => 19, :scale => 2
+    t.decimal  "LateAffiliateFee",                            :precision => 19, :scale => 2
+    t.string   "Other1Title",           :limit => 50
+    t.decimal  "Other1Fee",                                   :precision => 19, :scale => 2
+    t.string   "Other2Title",           :limit => 50
+    t.decimal  "Other2Fee",                                   :precision => 19, :scale => 2
+    t.string   "Other3Title",           :limit => 50
+    t.decimal  "Other3Fee",                                   :precision => 19, :scale => 2
+    t.string   "Other4Title",           :limit => 50
+    t.decimal  "Other4Fee",                                   :precision => 19, :scale => 2
+    t.string   "Other5Title",           :limit => 50
+    t.decimal  "Other5Fee",                                   :precision => 19, :scale => 2
+    t.string   "Other6Title",           :limit => 50
+    t.decimal  "Other6Fee",                                   :precision => 19, :scale => 2
+    t.string   "GalleryID",             :limit => 50
+    t.string   "allowsubscription",     :limit => 3
+    t.string   "subscriberentry",       :limit => 3
+    t.string   "memberonly",            :limit => 5
+    t.string   "hide",                  :limit => 3
+    t.string   "status",                :limit => 10
+    t.datetime "CreateDateTime"
+    t.datetime "LastModifyDateTime"
+    t.string   "LastModifyBy",          :limit => 50
+    t.string   "image2ID",              :limit => 50
+    t.string   "image2title",           :limit => 50
+    t.string   "image2caption",         :limit => 100
+    t.string   "image2link",            :limit => 50
+    t.string   "sponsorlink",           :limit => 100
+    t.string   "mapstreet",             :limit => 40
+    t.string   "mapcity",               :limit => 40
+    t.string   "mapstate",              :limit => 25
+    t.string   "mapzip",                :limit => 10
+    t.string   "mapcountry",            :limit => 40
+    t.string   "mapplacename",          :limit => 60
+    t.integer  "reliability"
+    t.datetime "globalupdatedatetime"
+    t.string   "resvtargetID",          :limit => 50
+    t.string   "contentsourceID",       :limit => 50
+    t.string   "contentsourceURL",      :limit => 250
+    t.string   "subscriptionsourceID",  :limit => 50
+    t.string   "subscriptionsourceURL", :limit => 100
+    t.string   "sourceURL",             :limit => 250
+  end
 
   create_table "gmttimezones", :id => false, :force => true do |t|
     t.float    "ID"
@@ -473,6 +594,16 @@ ActiveRecord::Schema.define(:version => 20111017220543) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "code",        :limit => 45
+  end
+
+  create_table "sponsors", :force => true do |t|
+    t.string   "sponsor_name"
+    t.string   "subscriptionsourceID"
+    t.string   "contentsourceID"
+    t.string   "status"
+    t.string   "hide"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "status_types", :force => true do |t|
