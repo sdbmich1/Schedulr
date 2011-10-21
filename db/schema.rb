@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111019031554) do
+ActiveRecord::Schema.define(:version => 20111021082252) do
 
   create_table "ads", :force => true do |t|
     t.string   "ad_name"
@@ -151,6 +151,13 @@ ActiveRecord::Schema.define(:version => 20111019031554) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "description"
+  end
+
+  create_table "event_sponsor_pages", :force => true do |t|
+    t.integer  "event_id"
+    t.integer  "sponsor_page_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "event_sponsors", :force => true do |t|
@@ -531,6 +538,17 @@ ActiveRecord::Schema.define(:version => 20111019031554) do
     t.datetime "updated_at"
   end
 
+  create_table "logo_types", :force => true do |t|
+    t.string   "code"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "status",      :limit => 45
+    t.string   "hide",        :limit => 45
+    t.integer  "sortkey"
+    t.string   "logo_size",   :limit => 45
+  end
+
   create_table "pictures", :force => true do |t|
     t.string   "name"
     t.integer  "imageable_id"
@@ -596,6 +614,19 @@ ActiveRecord::Schema.define(:version => 20111019031554) do
     t.string   "code",        :limit => 45
   end
 
+  create_table "sponsor_pages", :force => true do |t|
+    t.string   "name"
+    t.string   "message"
+    t.string   "subscriptionsourceID"
+    t.string   "contentsourceID"
+    t.string   "status"
+    t.string   "hide"
+    t.string   "sponsorable_type"
+    t.integer  "sponsorable_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sponsors", :force => true do |t|
     t.string   "sponsor_name"
     t.string   "subscriptionsourceID"
@@ -604,6 +635,11 @@ ActiveRecord::Schema.define(:version => 20111019031554) do
     t.string   "hide"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "sponsorURL"
+    t.integer  "sponsorable_id",                     :null => false
+    t.string   "sponsorable_type",                   :null => false
+    t.string   "sponsor_type"
+    t.string   "logo_type",            :limit => 45
   end
 
   create_table "status_types", :force => true do |t|

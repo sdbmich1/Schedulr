@@ -1,0 +1,19 @@
+one:
+  name: MyString
+  page_header: MyString
+  subscriptionsourceID: MyString
+  contentsourceID: MyString
+  status: MyString
+  hide: MyString
+  sponsorable_type: MyString
+  sponsorable_id: 1
+
+two:
+  name: MyString
+  page_header: MyString
+  subscriptionsourceID: MyString
+  contentsourceID: MyString
+  status: MyString
+  hide: MyString
+  sponsorable_type: MyString
+  sponsorable_id: 1

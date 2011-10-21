@@ -23,9 +23,9 @@ h2 { margin-bottom: 0 }
 
 .grp-hdr { color: #0c6fcb; font-weight:bold; }	
 
-#link-btn { background: #cccccc; font-size:0.75em;
+#link-btn { background: #0c6fcb; font-size:0.75em;
    font-weight:bold; display:block; text-align: center;
-   padding: 5px; color: #000000; margin-right: auto; margin-left: auto;
+   padding: 5px; color: #ffffff; margin-right: auto; margin-left: auto;
    }
 
 #nav-btn { background: #cccccc; font-size:0.75em;
