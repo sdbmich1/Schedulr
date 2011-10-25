@@ -28,6 +28,13 @@ $(function (){
     });
 });
 
+$(function () {
+  $('#pres-list .pagination a, #event-list .pagination a, #session-list .pagination a').live('click', function () {
+         $.getScript(this.href);
+	 return false;
+   });
+});
+
 $(function (){
 
   // when the #event id field changes
