@@ -11,6 +11,26 @@ jQuery.ajaxSetup({
 $(function (){
 
   // when the #event id field changes
+  $("select[id*=event_type]").live('change',function() {
+
+     // make a POST call and replace the content
+     var etype = $(this).val().toLowerCase();
+     if(etype == "ue" || etype == "mtg" || etype == "te")
+        {
+         $('#track-site').hide('fast');
+   	 return false;
+	}
+     else
+        {
+         $('#track-site').show('slow');
+   	 return false;
+	}
+    });
+});
+
+$(function (){
+
+  // when the #event id field changes
   $("select[id*=category_id]").live('change',function() {
 
      // make a POST call and replace the content

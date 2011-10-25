@@ -1,0 +1,23 @@
+one:
+  code: MyString
+  description: MyString
+  amt: 1
+  currency: MyString
+  transaction_date: 2011-10-23 20:01:39
+  channelID: MyString
+  HostProfileID: MyString
+  user_id: 1
+  status: MyString
+  hide: MyString
+
+two:
+  code: MyString
+  description: MyString
+  amt: 1
+  currency: MyString
+  transaction_date: 2011-10-23 20:01:39
+  channelID: MyString
+  HostProfileID: MyString
+  user_id: 1
+  status: MyString
+  hide: MyString

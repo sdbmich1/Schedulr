@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111021082252) do
+ActiveRecord::Schema.define(:version => 20111024030139) do
 
   create_table "ads", :force => true do |t|
     t.string   "ad_name"
@@ -53,10 +53,11 @@ ActiveRecord::Schema.define(:version => 20111021082252) do
   end
 
   create_table "channel_interests", :force => true do |t|
-    t.integer  "channel_id"
-    t.integer  "interest_id"
+    t.integer  "channel_id",  :null => false
+    t.integer  "interest_id", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "category_id"
   end
 
   create_table "channel_locations", :force => true do |t|
@@ -224,6 +225,13 @@ ActiveRecord::Schema.define(:version => 20111021082252) do
     t.integer  "member_fee_cents",     :default => 0, :null => false
     t.integer  "nonmember_fee_cents",  :default => 0, :null => false
     t.string   "currency"
+    t.integer  "affiliate_fee_cents",  :default => 0, :null => false
+    t.integer  "spouse_fee_cents",     :default => 0, :null => false
+    t.integer  "student_fee_cents",    :default => 0, :null => false
+    t.integer  "group_fee_cents",      :default => 0, :null => false
+    t.integer  "senior_fee_cents",     :default => 0, :null => false
+    t.integer  "prepaid_fee_cents",    :default => 0, :null => false
+    t.integer  "atdoor_fee_cents",     :default => 0, :null => false
   end
 
   add_index "events", ["subscriptionsourceID", "contentsourceID"], :name => "ssid_idx"
@@ -663,6 +671,21 @@ ActiveRecord::Schema.define(:version => 20111021082252) do
   end
 
   add_index "subscriptions", ["channelID", "contentsourceID"], :name => "channel_csid_idx"
+
+  create_table "transactions", :force => true do |t|
+    t.string   "code"
+    t.string   "description"
+    t.integer  "amt"
+    t.string   "currency"
+    t.datetime "transaction_date"
+    t.string   "channelID"
+    t.string   "HostProfileID"
+    t.integer  "user_id"
+    t.string   "status"
+    t.string   "hide"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false

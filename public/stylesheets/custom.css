@@ -3,6 +3,8 @@ table { border: 1px solid grey; }
 th { background: #000000; color: #ffffff; font-weight: bold }
 
 .nav-right { float: right; }
+.nav-left { float: left; }
+.clear-all { clear:both }
 
 .field_with_errors { display: inline; }  
 .field_with_errors .message {  
@@ -23,9 +25,11 @@ h2 { margin-bottom: 0 }
 
 .grp-hdr { color: #0c6fcb; font-weight:bold; }	
 
+.mtop { margin-top: 10px }
+
 #link-btn { background: #0c6fcb; font-size:0.75em;
    font-weight:bold; display:block; text-align: center;
-   padding: 5px; color: #ffffff; margin-right: auto; margin-left: auto;
+   padding: 5px; color: #ffffff; margin-right: auto; margin-left: 0;
    }
 
 #nav-btn { background: #cccccc; font-size:0.75em;
