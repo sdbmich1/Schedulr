@@ -1,6 +1,6 @@
 Schedulr::Application.routes.draw do
 
-  resources :transactions
+  resources :transactions, :accounts
 
   resources :sponsor_pages
 

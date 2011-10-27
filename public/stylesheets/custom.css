@@ -5,6 +5,8 @@ th { background: #000000; color: #ffffff; font-weight: bold }
 .nav-right { float: right; }
 .nav-left { float: left; }
 .clear-all { clear:both }
+.clear-right { clear:right }
+.lbl-top { margin-top: 8px }
 
 .field_with_errors { display: inline; }  
 .field_with_errors .message {  
@@ -27,6 +29,7 @@ h2 { margin-bottom: 0 }
 
 .mtop { margin-top: 10px }
 
+/* Nav Links */
 #link-btn { background: #0c6fcb; font-size:0.75em;
    font-weight:bold; display:block; text-align: center;
    padding: 5px; color: #ffffff; margin-right: auto; margin-left: 0;

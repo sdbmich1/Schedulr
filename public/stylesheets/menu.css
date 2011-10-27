@@ -1,0 +1,137 @@
+#menu {
+    background-color: #0c6fcb;
+    width: 75%;
+    height:30px;
+    display:inline-block;
+    padding:0px;
+    color: #ffffff; position:absolute; top: 0;
+}
+
+#menu img {
+	vertical-align: baseline;
+	margin-top:3px;
+}
+
+#menu input {
+	margin-top:3px;
+	float:left;
+	height:20px;
+}
+
+.menu-offset {
+   background-color: #0c6fcb;
+/*    margin-left:15%; */
+    margin-bottom: 20px; 
+}
+
+#menu ul {
+  font-family: Arial, Verdana;
+  font-size: 12px;
+  font-weight:bold;
+  vertical-align:middle;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#menu li {  
+	list-style: none;
+  	position: relative;
+
+}
+
+#menu ul li {
+  display: block;
+  position: relative;
+  float: left;
+}
+
+#titlebar {
+  font-weight:bold;
+  font-size: 18px;
+  font-family:Arial, Helvetica, sans-serif;
+  color: #ffffff;
+  position: absolute; top: 0; 
+}
+
+#titlebar a { 
+	color: #ffffff; 
+	text-decoration: none;
+	}
+
+.tbar {
+  display: block;
+  text-align: center;
+  width: 100px;
+  background: #f08103;
+  padding: 10px;
+}
+
+#menu li ul { display: none; }
+
+#menu ul li a {
+  display: block;
+  text-decoration: none;
+  color: #ffffff;
+/*  border-top: 1px solid #ffffff; */
+  padding: 5px 15px 5px 15px;
+  background: #0c6fcb;
+  margin-left: 1px;
+  white-space: nowrap;
+}
+
+.menu-dropdown {
+	background:#0c6fcb url('../images/down.gif') no-repeat scroll right center;
+}
+
+#menu ul li a:hover { background: #f08103 ; }
+
+#menu li:hover ul {
+  display: block;
+  position: absolute;
+  z-index: 5;
+}
+
+#menu ul a { text-decoration: none; }
+
+#menu li:hover li {
+  float: none;
+  font-size: 10px;
+}
+
+#menu li:hover a { background: #0c6fcb; }
+
+#menu li:hover li a:hover { background: #f08103; }
+
+.menu-bkgd {position: absolute; top: 0; width: 100%; background-color: #0c6fcb; height: 30px;
+ }
+
+.welcomebar {
+  font-size: 14px;
+  text-align:right;
+  vertical-align: middle;
+  font-family:Arial, Helvetica, sans-serif;
+  color: #ffffff; position: absolute; right: 1em;
+}
+
+/* Sign in button */
+
+a.signin_button {
+  position: absolute; top: 0; right: 1em;
+  display: block;
+  text-align: center;
+  margin-top: 1px;
+  width: 60px;
+  height: 28px;
+  font-size: 12px; 
+  color: #ffffff;
+  background: #f08103;
+  font-weight: bold;
+  z-index: 99;
+}
+
+.sign-in-txt { color: #FFFFFF; }
+.rpos { position: relative; line-height: 30px; }
+.sign-in-btn { position: absolute; top: 0; right: 1em; color: #FFFFFF; background-color: #006600; margin-top: 1px; height: 28px; font-weight: bold; }
+.menu-search { margin-left: 30%; position: absolute; top: 0; }
+.nav-menu { position: absolute; top: 0; right: 1em;  }

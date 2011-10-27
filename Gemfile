@@ -60,8 +60,8 @@ gem 'deep_cloneable'
 #add validation
 gem 'will_paginate', '~> 3.0'
 
-# tinymce editor to add rtf text editor to text area fields
-gem 'use_tinymce'
+#add tabs
+gem 'tabs_on_rails'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
