@@ -1,33 +1,24 @@
-<%= form_for @event, :html => { :multipart => true }, :validate => true do |f| %>
-  <%= f.error_messages %>
-  <p>
-    <%= f.label "Event Name:" %><br />
-    <%= f.text_field :event_name %>
-  </p>
-  <p>
-    <%= f.label "Event Type:" %><br />
-    <%= f.collection_select :event_type, EventType.all, :code, :description, :prompt => 'Select' %>
-  </p>
-  <p>
-    <%= f.label "Status:" %><br />
-    <%= f.text_field :status %>
-  </p>
+<%= form_for @event, :url => event_path(@event, :cid=>@channel), :html => { :multipart => true }, :validate => true do |f| %>
+  <%= render "shared/error_messages", :target => @event %>
+  <div id="newreg">
+    <p><span>Name: </span> <%= f.text_field :event_name, :size => 80 %></p>
+    <p><span>Type: </span> <%= f.collection_select :event_type, EventType.nonsessions, :code, :desc_title, :prompt => 'Select' %></p>
+    <p><span>Status: </span> <%= f.collection_select :status, StatusType.unhidden, :code, :description, :prompt => 'Select' %></p>
 
   <% if is_clone?(etype) %>
     <%= f.hidden_field :etype, :value => 'Clone' %>
   <% end %>
 
-  <%= render :partial => 'shared/form', :locals => {:f => f} %>
-  
-  <% if has_sessions?(@event.event_type) %>
-    <%= f.fields_for :event_tracks do |builder| %>  
-      <%= render :partial => 'track', :locals => {:builder => builder} %>  
-    <% end %> 
+  <%= render :partial => 'shared/form', :locals => {:f => f, :etype => 'Event'} %>
 
-    <%= f.fields_for :event_sites do |builder| %>  
-      <%= render :partial => 'site', :locals => {:builder => builder} %>  
-    <% end %> 
+  <% if has_sessions?(@event.event_type) %>
+    <%= render :partial => 'track_site', :locals => {:f => f} %>
+  <% else %>
+    <div id="track-site" style="display:none">
+      <%= render :partial => 'track_site', :locals => {:f => f} %>
+    </div>
   <% end %>  
 
-  <p><%= f.submit %></p>
+  <p><%= f.submit "Save" %></p>
+  </div>
 <% end %>

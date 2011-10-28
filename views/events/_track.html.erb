@@ -1,8 +1,4 @@
-<p>
-   <%= builder.label :track, "Track" %>
-   <%= builder.text_field :name, :rows => 8 %><br />
-   <%= builder.label "Description" %>
-   <%= builder.text_field :description, :rows => 8 %>
+<p><span>Track </span> <%= builder.text_field :name, :rows => 8 %> Description <%= builder.text_field :description, :rows => 8 %>
    <%= builder.check_box :_destroy %>
-   <%= builder.label :_destroy, "Remove Track" %>
+   <%= "Remove Track" %>
 </p>

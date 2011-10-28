@@ -1,5 +1,8 @@
-<% title "New Channel" %>
+<%= render :partial => 'shared/menu_head', :locals => { :menu_type => 'Channel' } %>
 
-<%= render 'form' %>
+<%= content_for :content do %>
+  <h2 class="grp-hdr">New Channel</h2>
+  <hr />
 
-<p><%= link_to "Back to List", channels_path %></p>
+  <%= render 'form' %>
+<% end %>

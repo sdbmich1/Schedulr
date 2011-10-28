@@ -1,4 +1,4 @@
-class Interest < KitsDevelopmentModel
+class Interest < ActiveRecord::Base
 
   belongs_to :category
 

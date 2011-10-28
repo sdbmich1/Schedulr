@@ -1,20 +1,22 @@
 class ChannelsController < ApplicationController
   before_filter :authenticate_user!
+  include SetAssn
 
   def index
-    @channels = Channel.all
+    @channels = Channel.get_list(params[:hpid])
   end
 
   def show
     @channel = Channel.find(params[:id])
+    @picture = @channel.pictures
+    @events = Event.find_events(params[:page], @channel.channelID)
   end
 
   def new
-    @channel = Channel.new
-    @picture = @channel.pictures.build
+    @channel = Channel.new(:HostProfileID=>@host_profile.ProfileID)
     @categories = Category.get_active_list
-    @interests = @categories.first.interests
-    @channel_interests = 5.times { @channel.channel_interests.build }
+    @picture = set_associations(@channel.pictures, 1)
+    @channel_interests = set_associations(@channel.channel_interests, 5)
   end
 
   def create
@@ -28,15 +30,13 @@ class ChannelsController < ApplicationController
 
   def edit
     @channel = Channel.find(params[:id])
-    @categories = Category.get_active_list
-    @interests = @categories.first.interests
-    @channel.pictures.blank? ? @picture = @channel.pictures.build : @picture = @channel.pictures
-    5.times { @channel_interests = @channel.channel_interests.build } 
-#    @channel_interests = set_associations(@channel.channel_interests)
+    @picture = set_associations(@channel.pictures, 1)
+    @channel_interests = set_associations(@channel.channel_interests, 5)
   end
 
   def update
     @channel = Channel.find(params[:id])
+    @host_profile = HostProfile.find_by_ProfileID(@channel.HostProfileID)
     if @channel.update_attributes(params[:channel])
       redirect_to @channel, :notice  => "Successfully updated channel."
     else
@@ -48,15 +48,6 @@ class ChannelsController < ApplicationController
     @channel = Channel.find(params[:id])
     @channel.destroy
     redirect_to channels_url, :notice => "Successfully destroyed channel."
-  end
-
-  def set_associations(assn)
-    if assn.blank?
-      5.times { assn.build }
-    else
-      (5 - assn.count).times { assn.build }
-    end
-    assn
   end
 
   def category_select

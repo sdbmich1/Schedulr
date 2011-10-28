@@ -1,11 +1,10 @@
-<% title "New Presenter" %>
+<%= render :partial => 'shared/menu_head', :locals => { :menu_type => 'Presenter' } %>
 
-<%= form_for @presenter, :url => event_presenters_path, :html => { :multipart => true }, :validate => true do |f| %>
-  <%= render :partial => 'form', :locals => { :f => f } %> 
-<% end %>
+<%= content_for :content do %>
+  <h2 class="grp-hdr">New Presenter</h2>
+  <hr />
 
-<% if @parent_event %>
-  <%= link_to "View All", event_presenters_url(@event, :presenter_id => @presenter, :parent_id => @parent_event) %>
-<% else %>
-  <p><%= link_to "Back", event_presenters_path %></p>
-<% end %>
+  <%= form_for @presenter, :url => event_presenters_path, :html => { :multipart => true }, :validate => true do |f| %>
+    <%= render :partial => 'form', :locals => { :f => f } %> 
+  <% end %>
+<% end %>  

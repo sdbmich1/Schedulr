@@ -1,5 +1,6 @@
   <p>
   <strong>Session(s):</strong>
+  <%= link_to "Add Session", new_event_session_relationship_url(@event), :id=>"link-btn", :class=>"round nav-right" %>
   <table>
   <tr>
     <th>Session Name</th>
@@ -28,6 +29,7 @@
     </tr>
    <% end %>
   </table>
-  <%= will_paginate @sessions %>
+  <div class="nav-right">
+    <%= will_paginate @sessions %>
+  </div>
   </p>
-  <%= link_to "Add Sessions", new_event_session_relationship_url(@event) %>

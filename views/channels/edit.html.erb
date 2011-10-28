@@ -1,8 +1,8 @@
-<% title "Edit Channel" %>
+<%= render :partial => 'shared/menu_head', :locals => { :menu_type => 'Channel' } %>
 
-<%= render 'form' %>
+<%= content_for :content do %>
+  <h2 class="grp-hdr">Edit Channel</h2>
+  <hr />
 
-<p>
-  <%= link_to "Show", @channel %> |
-  <%= link_to "View All", channels_path %>
-</p>
+  <%= render 'form' %>
+<% end %>

@@ -2,16 +2,16 @@ class HostProfile < ActiveRecord::Base
   set_table_name 'hostprofiles'
   set_primary_key 'ID'
 
-  attr_accessible :ProfileID, :HostChannelID, :ProfileType, :EntryType, :status, :hide, 
+  attr_accessible :ProfileID, :HostChannelID, :ProfileType, :EntryType, :status, :hide, :promoCode,
     :sortkey, :subscriptionsourceID, :subscriptionsourceURL, :Company, :Address1, :City, :State, :PostalCode, :HostName,
-    :StartMonth, :StartDay, :StartYear, :HostName, :EntityCategory
+    :StartMonth, :StartDay, :StartYear, :HostName, :EntityCategory, :EntityType, :pictures_attributes
 
   validates :Company, :presence => true, :length => { :maximum => 100 }
   validates :Address1, :presence => true
   validates :City, :presence => true
   validates :State, :presence => true
   validates :PostalCode, :presence => true
-  validates :ProfileType, :presence => true
+  validates :EntityType, :presence => true
 
   belongs_to :user, :foreign_key => "ProfileID"
 

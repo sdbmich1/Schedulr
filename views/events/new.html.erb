@@ -1,5 +1,8 @@
-<% title "New Event" %>
+<%= render :partial => 'shared/menu_head', :locals => { :menu_type => 'Event' } %>
 
-<%= render :partial => 'form', :locals => { :etype => 'Event' } %>
+<%= content_for :content do %>
+  <h2 class="grp-hdr">New Event</h2>
+  <hr />
 
-<p><%= link_to "Back to List", events_path %></p>
+  <%= render :partial => 'form', :locals => { :etype => 'Event' } %>
+<% end %>

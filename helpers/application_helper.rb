@@ -5,6 +5,11 @@ module ApplicationHelper
     args[0] ? @name = "koncierge.png" : @name = "Schedulr"
   end
 
+  def title
+    base_title = get_name_or_logo
+    @title ? base_title : @title
+  end
+
   def chk_offset(*tm)
     #tm[0] = tm[0].advance(:hours => ( tm[1]).to_i) unless tm[1].blank?
     tm[0]
@@ -20,11 +25,15 @@ module ApplicationHelper
   end
 
   def get_event_type(val)
-    EventType.find_by_code(val).description
+    EventType.find_by_code(val.downcase).try(:description)
+  end
+
+  def get_entity_type(val)
+    EntityType.find_by_code(val.downcase).try(:description)
   end
 
   def get_time_zone(val)
-    GmtTimezone.find_by_code(val).description
+    GmtTimezone.find_by_code(val).try(:description)
   end
 
   def link_to_remove_fields(name, f)

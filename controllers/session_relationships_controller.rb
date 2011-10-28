@@ -1,7 +1,12 @@
 class SessionRelationshipsController < ApplicationController
+  before_filter :authenticate_user!
+  include SetAssn
+  include ResetDate
+  
   def show
     @event = Event.find(params[:event_id])
     @session_event = Event.find(params[:id])
+    @channel = Channel.find_by_channelID(@event.try(:subscriptionsourceID))
     @presenters = @session_event.presenters.paginate(:page => params[:page], :per_page => 15)
     @picture = @session_event.pictures
   end
@@ -9,21 +14,23 @@ class SessionRelationshipsController < ApplicationController
   def edit
     @event = Event.find(params[:event_id])
     @session_event = Event.find(params[:id])
-    @session_event.pictures.blank? ? @picture = @session_event.pictures.build : @picture = @session_event.pictures
+    @channel = Channel.find_by_channelID(@event.try(:subscriptionsourceID))
+    @picture = set_associations(@session_event.pictures, 1)
   end
 
   def new
     @event = Event.find(params[:event_id])
     @session_event = Event.new(@event.attributes).reset_session_values
-    @picture = @event.pictures.build
+    @channel = Channel.find_by_channelID(@event.try(:subscriptionsourceID))
+    @picture = set_associations(@session_event.pictures, 1)
   end
 
   def create
     @event = Event.find(params[:event_id])
-    @session_event = Event.new(params[:event]) 
+    @session_event = Event.new(reset_dates(params[:event]))
     if @session_event.save
       @event.session_relationships.create(:session_id => @session_event.id)
-      redirect_to @event, :notice => "Successfully added session."
+      redirect_to event_url(@event), :notice => "Successfully added session."
     else
       render :action => 'new'
     end
@@ -32,7 +39,7 @@ class SessionRelationshipsController < ApplicationController
   def update
     @event = Event.find(params[:event_id])
     @session_event = Event.find(params[:id])
-    if @session_event.update_attributes(params[:event])
+    if @session_event.update_attributes(reset_dates(params[:event]))
       redirect_to event_session_relationship_url(@event, @session_event), :notice => "Successfully updated session."
     else
       render :action => 'edit'

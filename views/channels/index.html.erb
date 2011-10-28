@@ -1,41 +1,6 @@
-<% title "Channels" %>
+<div class="nav-right">
+  <p><%= link_to "Sign Out", destroy_user_session_path %></p>
+  <br />
+</div>
 
-<table>
-  <tr>
-    <th>Channelid</th>
-    <th>Hostprofileid</th>
-    <th>Channel Name</th>
-    <th>Channel Title</th>
-    <th>Channel Class</th>
-    <th>Channel Type</th>
-    <th>Cbody</th>
-    <th>Bbody</th>
-    <th>Status</th>
-    <th>Hide</th>
-    <th>Sortkey</th>
-    <th>Subscriptionsourceid</th>
-    <th>Subscriptionsourceurl</th>
-  </tr>
-  <% for channel in @channels %>
-    <tr>
-      <td><%= channel.channelID %></td>
-      <td><%= channel.hostprofileID %></td>
-      <td><%= channel.channel_name %></td>
-      <td><%= channel.channel_title %></td>
-      <td><%= channel.channel_class %></td>
-      <td><%= channel.channel_type %></td>
-      <td><%= channel.cbody %></td>
-      <td><%= channel.bbody %></td>
-      <td><%= channel.status %></td>
-      <td><%= channel.hide %></td>
-      <td><%= channel.sortkey %></td>
-      <td><%= channel.subscriptionsourceID %></td>
-      <td><%= channel.subscriptionsourceURL %></td>
-      <td><%= link_to "Show", channel %></td>
-      <td><%= link_to "Edit", edit_channel_path(channel) %></td>
-      <td><%= link_to "Destroy", channel, :confirm => 'Are you sure?', :method => :delete %></td>
-    </tr>
-  <% end %>
-</table>
-
-<p><%= link_to "New Channel", new_channel_path %></p>
+<%= render :partial => 'shared/channel_list' %>

@@ -1,28 +1,18 @@
-<% title "Organization" %>
+<%= render :partial => 'shared/menu_head', :locals => { :menu_type => 'Profile' } %>
 
-<p>
-  <% for pic in @host_profile.pictures %>
-    <%= image_tag pic.photo.url, :size=>'120x120' %>
+<%= content_for :content do %>
+  <h2 class="grp-hdr">Profile</h2>
+  <hr />
+  <%= link_to "Edit Profile", edit_user_host_profile_path(@host_profile), :id=>"link-btn", :class=>"round nav-right" %>
+
+  <%= render :partial => 'shared/show_photo', :locals => {:model => @host_profile, :file_name => "headshot1.jpg" } %>
+
+  <% if mobile_device? %>
+    <%= render :partial => 'mobile/show_host_profile', :locals => {:host_profile => @host_profile} %>
+  <% else %>
+    <%= render :partial => 'show_host_profile', :locals => {:host_profile => @host_profile} %>
   <% end %>
-</p>
-<p>
-  <strong>ChannelID:</strong>
-  <%= @host_profile.HostChannelID %>
-</p>
-<p>
-  <strong>Company:</strong>
-  <%= @host_profile.Company %>
-</p>
-<p>
-  <strong>Address:</strong>
-  <%= @host_profile.Address1 %><br />
-  <%= @host_profile.City %>, <%= @host_profile.State %> <%= @host_profile.PostalCode %>
-</p>
-<p>
-  <strong>Status:</strong>
-  <%= @host_profile.status %>
-</p>
 
-<p>
-  <%= link_to "Edit", edit_user_host_profile_path(@host_profile) %> |
-</p>
+  <div class="clear-all"></div>
+  <p><div id="ch-list"><%= render :partial => 'shared/channel_list' %></div></p>
+<% end %>  

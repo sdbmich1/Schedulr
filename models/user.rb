@@ -1,5 +1,5 @@
 class User < KitsDevelopmentModel
-  before_create :set_time_zone
+  before_create :set_flds
     
   # Include default devise modules. Others available are:
   # :token_authenticatable,  :lockable and :timeoutable
@@ -12,12 +12,12 @@ class User < KitsDevelopmentModel
 
   # Setup accessible (or protected) attributes for your model - :password_confirmation,
   attr_accessible :email, :password,  :remember_me, :username, :login, :accept_terms,
-  				  :first_name, :last_name, :birth_date, :gender, :location_id,
-  				  :host_profiles_attributes, :localGMToffset
+  				  :first_name, :last_name, :location_id,
+  				  :host_profiles_attributes, :localGMToffset, :role
   				  
   # name format validators
   uname_regex = /^[-\w\._@]+$/i
-  name_regex = 	/\A[a-z]/i
+  name_regex = 	/^[A-Z]'?['-., a-zA-Z]+$/i
 
   # validate added fields  				  
   validates :first_name,  :presence => true,
@@ -31,8 +31,6 @@ class User < KitsDevelopmentModel
           			:length => { :within => 6..30 },
           			:format => { :with => uname_regex }
   validates :location_id, :presence => true
-  validates :birth_date,  :presence => true  
-  validates :gender,  :presence => true
   
   # define channel relationships
   has_many :subscriptions
@@ -52,9 +50,12 @@ class User < KitsDevelopmentModel
     where(conditions).where(["username = :value OR email = :value", { :value => login }]).first
   end
   
-  def set_time_zone
+  def set_flds
     loc = Location.find(self.location_id)
     self.time_zone, self.localGMToffset = loc.time_zone, loc.localGMToffset if loc
+
+    #set role
+#    self.role = 'Admin'
   end
   
   def with_host_profile

@@ -1,7 +1,10 @@
 <p>
-   <%= builder.label :category_name, "Category" %>
-   <%= builder.collection_select :category_id, @categories, :id, :name, :input_html => {:rel => "/channels/category_select"}, :rows => 5  %>
-   <%= select_tag 'interest_id', options_for_select(@interests.collect{ |c|[c.name, c.id] }), :prompt => 'Select' %>
-
+   <span>Category: </span>
+   <%= builder.collection_select :category_id, Category.get_active_list, :id, :name, :prompt => 'Select' %>
+   <% if @interests %>
+     <%= builder.collection_select :interest_id, @interests, :id, :name, :prompt => 'Select' %>
+   <% else %>
+     <%= builder.collection_select :interest_id, Interest.get_active_list, :id, :name, :prompt => 'Select' %>
+   <% end %>
 </p>   
 

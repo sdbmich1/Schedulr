@@ -1,0 +1,27 @@
+
+<table>
+  <tr>
+    <th></th>
+    <th>Sponsor Name</th>
+    <th>Website</th>
+    <th>Sponsor Type</th>
+    <th>Logo Type</th>
+    <th>Status</th>
+  </tr>
+  <% for sponsor in @sponsors %>
+    <tr>
+      <td>
+        <% for pic in sponsor.pictures %>
+          <%= image_tag pic.photo.url, :size=>'48x48' %>
+	<% end %>
+      </td>
+
+      <td><%= sponsor.sponsor_name %></td>
+      <td><%= sponsor.sponsorURL %></td>
+      <td><%= sponsor.sponsor_type %></td>
+      <td><%= sponsor.logo_type %></td>
+      <td><%= sponsor.status.titleize %></td>
+    </tr>
+  <% end %>
+</table>
+

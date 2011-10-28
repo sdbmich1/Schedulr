@@ -1,7 +1,8 @@
+require "simple_time_select"
 module EventsHelper
 
   def has_sessions?(etype)
-    etype == 'conf' || etype == 'fest' || etype == 'mtg' ? true : false
+    (%w(conf conv fest conc trmt fr).detect { |x| x == etype.downcase})
   end
 
   def is_clone?(etype)

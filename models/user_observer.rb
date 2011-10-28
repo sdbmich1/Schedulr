@@ -6,15 +6,20 @@ class UserObserver < ActiveRecord::Observer
     # send welcome email
    # UserMailer.welcome_email(user).deliver
 
-    # define channel id based on timestamp
-    channelID = 'SC' + Time.now.to_i.to_s
-    
     #create host profile
     if user.host_profiles.size > 0
       hp = user.host_profiles.first
     else
       hp = user.host_profiles.build
     end 
+
+    # define channel id based on timestamp
+    channelID = 'SC' + Time.now.to_i.to_s
+
+    # find or create organization
+    org = Organization.find_or_create_by_OrgName(hp.Company,
+    		:OrgName =>hp.Company, :wschannelID => channelID, 
+		:status => 'active', :hide => 'no')
 
     hp.HostName = hp.Company
     hp.StartMonth = user.created_at.month.to_s
@@ -23,17 +28,25 @@ class UserObserver < ActiveRecord::Observer
     hp.EntityCategory = 'provider' 
     hp.status = 'active'
     hp.hide = 'no'
-    hp.HostChannelID = channelID
-    hp.subscriptionsourceID = channelID
+    hp.ProfileType = 'Provider'
+    hp.HostChannelID = org.wschannelID
+    hp.subscriptionsourceID = org.wschannelID
     
     #create channel
-    hp.channels.build(:channelID => channelID,
-        :subscriptionsourceID => channelID, 
-        :status => 'active', :hide => 'no',
-        :channel_name => hp.HostName,
-	      :channel_title => hp.HostName,
-	      :channel_class => 'basic',
-	      :channel_type => 'wshost')
+    channel = hp.channels.build(:channelID => org.wschannelID,
+        	:subscriptionsourceID => org.wschannelID, 
+        	:status => 'active', :hide => 'no',
+        	:channel_name => hp.HostName,
+	      	:channel_title => hp.HostName,
+	      	:mapstreet => hp.Address1,
+	      	:mapcity => hp.City,
+	      	:mapstate => hp.State,
+	      	:mapzip => hp.PostalCode,
+	      	:channel_class => 'basic',
+	      	:channel_type => 'wshost')
     hp.save
+
+    #set channel location
+    ChannelLocation.create(:channel_id=>hp.channels.first.id, :location_id=>user.location_id)
   end
 end

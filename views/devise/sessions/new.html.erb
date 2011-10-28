@@ -1,3 +1,4 @@
+<%= render :partial => 'shared/menu_head', :locals => { :menu_type => 'Sign In' } %>
 
 <% content_for :content do -%>
   <%= render :partial => "devise/shared/forgot" %>
@@ -10,13 +11,13 @@
 		<p><span>Password</span></p>
 		<p><%= f.password_field :password, :size => 40 %></p>
  			
-    		<% if devise_mapping.rememberable? -%>
-  				<p><span>Remember Me</span>  					  							
-  					<div class="sign-in-cbox">
-  						<%= f.check_box :remember_me %>
-  					</div></p>
-    		<% end -%>
-   		<%= f.submit 'Sign In' %> 
+      	    <% if devise_mapping.rememberable? -%>
+		<p><span>Remember Me</span>  					  							
+  		<div class="sign-in-cbox">
+  			<%= f.check_box :remember_me %>
+  		</div></p>
+            <% end -%>
+   	    <%= f.submit 'Sign In' %> 
     </div>
   <% end %>
 

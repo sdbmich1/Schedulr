@@ -1,60 +1,34 @@
-<% title "Channel" %>
+<%= render :partial => 'shared/menu_head', :locals => { :menu_type => 'Channel' } %>
 
-<p>
-  <strong>Channelid:</strong>
-  <%= @channel.channelID %>
-</p>
-<p>
-  <strong>Hostprofileid:</strong>
-  <%= @channel.hostprofileID %>
-</p>
-<p>
-  <strong>Channel Name:</strong>
-  <%= @channel.channel_name %>
-</p>
-<p>
-  <strong>Channel Title:</strong>
-  <%= @channel.channel_title %>
-</p>
-<p>
-  <strong>Channel Class:</strong>
-  <%= @channel.channel_class %>
-</p>
-<p>
-  <strong>Channel Type:</strong>
-  <%= @channel.channel_type %>
-</p>
-<p>
-  <strong>Cbody:</strong>
-  <%= @channel.cbody %>
-</p>
-<p>
-  <strong>Bbody:</strong>
-  <%= @channel.bbody %>
-</p>
-<p>
-  <strong>Status:</strong>
-  <%= @channel.status %>
-</p>
-<p>
-  <strong>Hide:</strong>
-  <%= @channel.hide %>
-</p>
-<p>
-  <strong>Sortkey:</strong>
-  <%= @channel.sortkey %>
-</p>
-<p>
-  <strong>Subscriptionsourceid:</strong>
-  <%= @channel.subscriptionsourceID %>
-</p>
-<p>
-  <strong>Subscriptionsourceurl:</strong>
-  <%= @channel.subscriptionsourceURL %>
-</p>
+<%= content_for :content do %>
+  <h2 class="grp-hdr">Channel</h2>
+  <hr />
 
-<p>
-  <%= link_to "Edit", edit_channel_path(@channel) %> |
-  <%= link_to "Destroy", @channel, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", channels_path %>
-</p>
+  <%= link_to "Edit Channel", edit_channel_path(@channel), :id=>"link-btn", :class=>"round nav-right" %>
+  <%= render :partial => 'shared/show_photo', :locals => {:model => @channel, :file_name => "schedule1.jpg" } %>
+
+  <% if mobile_device? %>
+    <%= render :partial => 'mobile/show_channel', :locals => {:channel => @channel} %>
+  <% else %>
+    <%= render :partial => 'show_channel', :locals => {:channel => @channel} %>
+  <% end %>
+
+  <div class="clear-all"></div>
+
+  <p>
+  <div class="span-6"><span class="prepend-4"><strong>Categories:</strong></span></div>
+
+  <% if mobile_device? %>
+    <div class="span-12 last">
+  <% else %>
+    <div class="span-19 last">
+  <% end %>
+  <ol>  
+    <% for int in @channel.channel_interests %>  
+      <li>Category: <%= get_category(int.category_id) %> / <%= get_interest(int.interest_id) %></li>  
+    <% end %>  
+  </ol>  
+  </div>
+  </p>
+  <p><div id="event-list"><%= render :partial => 'shared/event_list' %></div></p>
+<% end %>

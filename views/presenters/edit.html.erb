@@ -1,17 +1,10 @@
-<% title "Edit Presenter" %>
+<%= render :partial => 'shared/menu_head', :locals => { :menu_type => 'Presenter' } %>
 
-<%= form_for @presenter,  :url => event_presenter_path(@event, @presenter, :parent_id => @parent_event), :html => { :multipart => true }, :validate => true do |f| %>
-  <%= render :partial => 'form', :locals => { :f => f } %>
-<% end %>
+<%= content_for :content do %>
+  <h2 class="grp-hdr">Edit Presenter</h2>
+  <hr />
 
-<p>
-<% if @parent_event %>
-  <%= link_to "Back to Event", event_session_relationship_url(@parent_event, @event) %> |
-  <%= link_to "Show", event_presenter_url(@event, @presenter, :parent_id => @parent_event) %> |
-  <%= link_to "View All", event_presenters_url(@event, @presenter, :parent_id => @parent_event) %>
-<% else %>
-  <%= link_to "Back to Event", @event %> |
-  <%= link_to "Show", [@event, @presenter] %> |
-  <%= link_to "View All", event_presenters_url %>
+  <%= form_for @presenter,  :url => event_presenter_path(@event, @presenter, :parent_id => @parent_event), :html => { :multipart => true }, :validate => true do |f| %>
+    <%= render :partial => 'form', :locals => { :f => f } %>
+  <% end %>
 <% end %>
-</p>

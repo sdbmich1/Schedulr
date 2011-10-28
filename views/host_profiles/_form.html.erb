@@ -1,46 +1,12 @@
-<%= form_for @host_profile, :url => user_host_profile_url(@user, @host_profile), :validate=>true do |f| %>
-  <%= f.error_messages %>
-  <p>
-    <%= f.label :channelID %>
-    <%= @host_profile.HostChannelID %>
-  </p>
-  <p>
-    <%= f.label :Company %><br />
-    <%= f.text_field :Company %>
-  </p>
-  <p>
-    <%= f.label :Address %><br />
-    <%= f.text_field :Address1 %>
-  </p>
-  <p>
-    <%= f.label :City %><br />
-    <%= f.text_field :City %>
-  </p>
-  <p>
-    <%= f.label :State %><br />
-    <%= f.text_field :State %>
-  </p>
-  <p>
-    <%= f.label :PostalCode %><br />
-    <%= f.text_field :PostalCode %>
-  </p>
-  <p>
-    <%= f.label :ProfileType %><br />
-    <%= f.text_field :ProfileType %>
-  </p>
-  <p>
-    <%= f.label :EntityType %><br />
-    <%= f.text_field :EntityType %>
-  </p>
-  <p>
-    <%= f.label :status %>
-    <%= :status %>
-  </p>
-  <p>
-    <%= f.fields_for :pictures, @picture do |form| %>
-       <%= form.label :photo, "Photo" %>
-       <%= form.file_field :photo %>
-    <% end %>
-  </p>
-  <p><%= f.submit %></p>
+<%= form_for @host_profile, :url => user_host_profile_url(@user, @host_profile), :html => { :multipart => true }, :validate=>true do |f| %>
+  <%= render "shared/error_messages", :target => @host_profile %>
+  
+  <p><span>ID #:</span> <%= @host_profile.ProfileID %></p>
+
+  <div id="newreg">
+    <%= render :partial => 'shared/host_profiles', :locals => { :f => f } %>
+    <%= render :partial => 'shared/photo', :locals => { :f => f } %>
+
+    <p><%= f.submit "Save" %></p>
+  </div>
 <% end %>

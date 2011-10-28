@@ -1,28 +1,33 @@
 class PresentersController < ApplicationController
   before_filter :authenticate_user!
+  include SetAssn
 
   def index
     @event = Event.find(params[:event_id]) if params[:event_id]
     @parent_event = Event.find(params[:parent_id]) if params[:parent_id]
-    @presenters = Presenter.paginate(:page => params[:page], :per_page => 20)
+    @channel = Channel.find_by_channelID(@event.try(:subscriptionsourceID))
+    @presenters = Presenter.get_list(params[:page], params[:cid])
   end
 
   def show
     @event = Event.find(params[:event_id]) if params[:event_id]
     @parent_event = Event.find(params[:parent_id]) if params[:parent_id]
+    @channel = Channel.find_by_channelID(@event.try(:subscriptionsourceID))
     @presenter = Presenter.find(params[:id])
   end
 
   def new
+    @event = Event.find(params[:event_id]) if params[:event_id]
     @parent_event = Event.find(params[:parent_id]) if params[:parent_id]
+    @channel = Channel.find_by_channelID(@event.try(:subscriptionsourceID)) if @event
     @presenter = Presenter.new
-    @presenter.contact_details.build
-    @picture = @presenter.pictures.build
+    @picture = set_associations(@presenter.pictures, 1)
+    set_associations(@presenter.contact_details, 1)
   end
 
   def create
     @event = Event.find(params[:event_id]) if params[:event_id]
-#    @parent_event = Event.find(params[:parent_id]) if params[:parent_id]
+    @parent_event = Event.find(params[:parent_id]) if params[:parent_id]
     @presenter = Presenter.new(params[:presenter])
     if @presenter.save
       redirect_to event_presenter_url(@event, @presenter), :notice  => "Successfully created presenter."
@@ -35,8 +40,8 @@ class PresentersController < ApplicationController
     @event = Event.find(params[:event_id]) if params[:event_id]
     @parent_event = Event.find(params[:parent_id]) if params[:parent_id]
     @presenter = Presenter.find(params[:id])
-    @presenter.pictures.blank? ? @picture = @presenter.pictures.build : @picture = @presenter.pictures
-    @presenter.contact_details.build if @presenter.contact_details.blank?
+    @picture = set_associations(@presenter.pictures, 1)
+    set_associations(@presenter.contact_details, 1)
   end
 
   def update
@@ -44,7 +49,7 @@ class PresentersController < ApplicationController
     @parent_event = Event.find(params[:parent_id]) if params[:parent_id]
     @presenter = Presenter.find(params[:id])
     if @presenter.update_attributes(params[:presenter])
-      redirect_to event_presenter_url(@event, :presenter_id => @presenter, :parent_id => @parent_event), :notice  => "Successfully updated presenter."
+      redirect_to event_presenter_url(@event, @presenter, :parent_id => @parent_event), :notice  => "Successfully updated presenter."
     else
       render :action => 'edit'
     end
