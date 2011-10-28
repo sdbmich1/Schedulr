@@ -1,0 +1,28 @@
+<%= render :partial => 'shared/menu_head', :locals => { :menu_type => 'Presenter' } %>
+
+<%= content_for :content do %>
+  <h2 class="grp-hdr">Presenter</h2>
+  <hr />
+  <div class="nav-right">
+    <% if @parent_event %>
+      <%= link_to "Select", manage_presenters_url(:event_id => @event, :presenter_id => @presenter, :parent_id => @parent_event), :method => :post, :id=>"nav-btn", :class=>"round" %> 
+      <%= link_to "Edit", edit_event_presenter_url(@event, @presenter, :parent_id => @parent_event), :id=>"nav-btn", :class=>"round" %>
+      <%= link_to "Remove", event_presenter_url(@event, @presenter, :parent_id => @parent_event), :confirm => 'Are you sure?', :method => :delete, :id=>"nav-btn", :class=>"round" %>
+    <% else %>
+      <%= link_to "Select", manage_presenters_url(:event_id => @event, :presenter_id => @presenter), :method => :post, :id=>"link-btn", :class=>"round" %>
+      <%= link_to "Edit", edit_event_presenter_url(@event, @presenter), :id=>"link-btn", :class=>"round" %>
+      <%= link_to "Remove", event_presenter_url(@event, @presenter), :confirm => 'Are you sure?', :method => :delete, :id=>"link-btn", :class=>"round" %>
+    <% end %>
+  </div>
+
+  <%= render :partial => 'shared/show_photo', :locals => {:model => @presenter, :file_name => "headshot1.jpg" } %>
+
+  <% if mobile_device? %>
+    <%= render :partial => 'mobile/show_presenter' %>
+    <%= render :partial => 'mobile/presenter_details', :locals => {:presenter => @presenter } %>
+  <% else %>
+    <%= render :partial => 'shared/show_presenter' %>
+    <%= render :partial => 'presenter_details', :locals => {:presenter => @presenter } %>
+  <% end %>
+<% end %>
+<p><div class="clear-all"></div></p>

@@ -1,0 +1,34 @@
+<p><br />
+    <% for contact in presenter.contact_details %>
+	<div class="show-item">
+	  <% unless contact.work_phone.blank? %>
+  	    <div class="span-2 prepend-4">Work Phone:</div>
+  	    <div class="span-8 last"><%= contact.work_phone %></div>
+	  <% end %>
+	  <% unless contact.work_email.blank? %>
+  	    <div class="span-2 prepend-4">Work Email:</div>
+  	    <div class="span-8 last"><%= contact.work_email %></div>
+	  <% end %>
+	  <% unless contact.website.blank? %>
+  	    <div class="span-2 prepend-4">Website:</div>
+  	    <div class="span-8 last"><%= contact.website %></div>
+	  <% end %>
+	  <% unless contact.facebook_name.blank? %>
+  	    <div class="span-2 prepend-4">Facebook Name:</div>
+  	    <div class="span-8 last"><%= contact.facebook_name %></div>
+	  <% end %>
+	  <% unless contact.twitter_name.blank? %>
+  	    <div class="span-2 prepend-4">Twitter Name:</div>
+  	    <div class="span-8 last"><%= contact.twitter_name %></div>
+	  <% end %>
+	  <% unless contact.linkedin_name.blank? %>
+  	    <div class="span-2 prepend-4">LinkedIn Name:</div>
+  	    <div class="span-8 last"><%= contact.linkedin_name %></div>
+	  <% end %>
+	  <% unless contact.skype_name.blank? %>
+  	    <div class="span-2 prepend-4">Skype Name:</div>
+  	    <div class="span-8 last"><%= contact.skype_name %></div>
+	  <% end %>
+	</div>
+    <% end %>
+</p>
