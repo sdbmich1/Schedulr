@@ -1,8 +1,13 @@
+body {
+  background-color: #C2E1EF;
+  }
+
 #container {
   width: 50%;
   margin-top: 50px;
   min-height: 30px;
   margin-bottom: 10px;
+  border: solid 1px black; 
     }
 
 

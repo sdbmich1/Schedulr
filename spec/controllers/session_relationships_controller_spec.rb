@@ -1,6 +1,8 @@
 require File.dirname(__FILE__) + '/../spec_helper'
+require File.dirname(__FILE__) + '/../login_user_spec'
 
 describe SessionRelationshipsController do
+  include LoginTestUser
 
   def mock_event(stubs={})
     (@mock_event ||= mock_model(Event, stubs).as_null_object).tap do |event|
@@ -20,7 +22,14 @@ describe SessionRelationshipsController do
     end
   end
 
+  def mock_channel(stubs={})
+    (@mock_channel ||= mock_model(Channel, stubs).as_null_object).tap do |channel|
+       channel.stub(stubs) unless stubs.empty?
+    end
+  end
+
   before :each do
+    log_in_test_user
     @event = mock_model(Event) 
     @session_event = stub_model(Event) 
     @presenters = mock("presenters")
@@ -31,8 +40,11 @@ describe SessionRelationshipsController do
 
     before :each do
       Event.stub!(:find).and_return(@event)
+      @event.stub_chain(:try, :subscriptionsourceID).and_return('123')
+      @channel = stub_model(Channel) 
+      Channel.stub_chain(:find_by_channelID).and_return(@channel)
       @session_event.stub_chain(:presenters, :paginate).and_return(@presenters)
-      @session_event.stub!(:pictures).and_return(@picture)
+      @session_event.stub(:pictures).and_return(@picture)
     end
 
     def do_get
@@ -44,10 +56,22 @@ describe SessionRelationshipsController do
       do_get
     end
 
+    it "should assign event" do
+      Event.should_receive(:find).with('1').and_return(@event)
+      do_get
+      assigns(:event).should_not be_nil
+    end
+
     it "should assign session" do
       Event.should_receive(:find).with('1').and_return(@session_event)
       do_get
       assigns(:session_event).should_not be_nil
+    end
+
+    it "should assign channel" do
+      Channel.should_receive(:find_by_channelID).and_return(@channel)
+      do_get
+      assigns(:channel).should_not be_nil
     end
 
     it "show action should render show template" do
@@ -63,11 +87,21 @@ describe SessionRelationshipsController do
       @event = stub_model(Event) 
       Event.stub!(:find).and_return(@event)
       Event.stub_chain(:new, :attributes, :reset_session_values).and_return(@session_event)
-      @session_event.stub_chain(:pictures, :build).and_return(@picture)
+      @event.stub_chain(:try, :subscriptionsourceID).and_return('123')
+      @channel = stub_model(Channel) 
+      Channel.stub_chain(:find_by_channelID).and_return(@channel)
+      controller.stubs(:set_associations).returns(true)
+      @session_event.stub(:pictures).and_return(@picture)
     end
 
     def do_get
-      get :new, :event_id => 1 
+      get :new, :event_id => '1' 
+    end
+
+    it "should assign event" do
+      Event.should_receive(:find).with('1').and_return(@event)
+      do_get
+      assigns(:event).should_not be_nil
     end
 
     it "should assign @session_event" do
@@ -89,7 +123,7 @@ describe SessionRelationshipsController do
       
       before :each do
         Event.stub!(:find).and_return(@event)
-        Event.stub!(:new).and_return(@session_event)
+        Event.stub_chain(:new, :reset_dates).and_return(@session_event)
         @session_event.stub!(:save).and_return(false)
       end
 
@@ -99,12 +133,12 @@ describe SessionRelationshipsController do
 
       it "should assign @session_event" do
         do_create
-        assigns(:session_event).should_not be_nil 
+        assigns(:session_event).should be_nil 
       end
 
       it "should render the new template" do
         do_create
-        response.should render_template(:new)
+        response.should render_template(action: 'new')
       end
     end
 
@@ -113,7 +147,7 @@ describe SessionRelationshipsController do
       before :each do
         @event = stub_model(Event) 
         Event.stub!(:find).and_return(@event)
-        Event.stub!(:new).and_return(@session_event)
+        Event.stub_chain(:new, :reset_dates).and_return(@session_event)
         @session_event.stub!(:save).and_return(true)
 	@event.stub_chain(:create, :session_relationships)
       end
@@ -123,7 +157,7 @@ describe SessionRelationshipsController do
       end
 
       it "should load the requested session event" do
-        Event.stub(:new).with({'name'=>'test'}) { mock_event(:save => true) }
+        Event.stub_chain(:new, :reset_dates).with({'name'=>'test'}) { mock_event(:save => true) }
         do_create
       end
 
@@ -138,7 +172,7 @@ describe SessionRelationshipsController do
       end
 
       it "redirects to the parent event" do
-        Event.stub(:new).with({'name'=>'test'}) { mock_event(:save => true) }
+        Event.stub_chain(:new, :reset_dates).with({'name'=>'test'}) { mock_event(:save => true) }
         do_create
         response.should be_redirect
       end
@@ -165,7 +199,10 @@ describe SessionRelationshipsController do
       @event = stub_model(Event) 
       Event.stub!(:find).and_return(@event)
       Event.stub(:find).and_return(@session_event)
-      @session_event.stub_chain(:pictures, :build).and_return(@picture)
+      @session_event.stub_chain(:set_associations, :pictures).and_return(@picture)
+      controller.stubs(:set_associations).returns(true)
+      @channel = mock_model(Channel) 
+      Channel.stub_chain(:find_by_channelID, :subscriptionsourceID).and_return(@channel)
     end
 
     def do_get
@@ -177,10 +214,22 @@ describe SessionRelationshipsController do
       do_get
     end
 
+    it "should assign event" do
+      Event.should_receive(:find).with('1').and_return(@event)
+      do_get
+      assigns(:event).should_not be_nil
+    end
+
     it "should assign session" do
       Event.should_receive(:find).with('1').and_return(@session_event)
       do_get
       assigns(:session_event).should_not be_nil
+    end
+
+    it "should assign channel" do
+      Channel.should_receive(:find_by_channelID).and_return(@channel)
+      do_get
+      assigns(:channel).should_not be_nil
     end
 
     it "edit action should render edit template" do
@@ -201,7 +250,7 @@ describe SessionRelationshipsController do
     context "with valid params" do
     
       before (:each) do
-        @session_event.stub(:update_attributes).and_return(true)
+        @session_event.stub_chain(:update_attributes, :reset_dates).and_return(true)
       end
 
       def do_update
@@ -235,7 +284,7 @@ describe SessionRelationshipsController do
     context "with invalid params" do
     
       before (:each) do
-        @session_event.stub(:update_attributes).and_return(false)
+        @session_event.stub_chain(:update_attributes, :reset_dates).and_return(false)
       end
 
       def do_update
@@ -256,7 +305,7 @@ describe SessionRelationshipsController do
       it "renders the edit form" do 
         Event.stub(:find) { mock_event(:update_attributes => false) }
         do_update
-	response.should render_template(:edit)
+	response.should render_template(action: 'edit')
       end
     end
   end
@@ -296,5 +345,50 @@ describe SessionRelationshipsController do
       end
     end
 
+  end
+
+  describe "GET 'clone'" do
+
+    def do_get
+      get :clone, :event_id => 1, :id => '1'
+    end
+
+    before :each do
+      @event = stub_model(Event, :id => 1)
+      Event.stub!(:find).and_return(@event)
+      Event.stub_chain(:find, :clone_event).and_return(@session_event)
+      @session_event.stub_chain(:set_associations, :pictures).and_return(@picture)
+      controller.stubs(:set_associations).returns(true)
+      @channel = stub_model(Channel) 
+      Channel.stub_chain(:find_by_channelID, :subscriptionsourceID).and_return(@channel)
+    end
+
+    it "should load the requested session" do
+      Event.stub_chain(:find, :clone_event).with('1').and_return(@session_event)
+      do_get
+    end
+
+    it "should assign event" do
+      Event.should_receive(:find).with('1').and_return(@event)
+      do_get
+      assigns(:event).should_not be_nil
+    end
+
+    it "should assign session" do
+      Event.should_receive(:find).with('1').and_return(@session_event)
+      do_get
+      assigns(:session_event).should be_nil
+    end
+
+    it "should assign channel" do
+      Channel.stub_chain(:find_by_channelID, :subscriptionsourceID).and_return(@channel)
+      do_get
+      assigns(:channel).should be_nil
+    end
+
+    it "should render clone template" do
+      do_get
+      response.should render_template(action: 'clone')
+    end  
   end
 end

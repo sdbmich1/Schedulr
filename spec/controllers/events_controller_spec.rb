@@ -1,7 +1,8 @@
 require File.dirname(__FILE__) + '/../spec_helper'
+require File.dirname(__FILE__) + '/../login_user_spec'
 
 describe EventsController do
-#  render_views
+  include LoginTestUser
 
   def mock_event(stubs={})
     (@mock_event ||= mock_model(Event, stubs).as_null_object).tap do |event|
@@ -9,38 +10,39 @@ describe EventsController do
     end
   end
 
-  before :each do
-    @event = stub_model(Event, :id=>1, :event_title=>"test")
+  def mock_presenter(stubs={})
+    (@mock_presenter ||= mock_model(Presenter, stubs).as_null_object).tap do |presenter|
+       presenter.stub(stubs) unless stubs.empty?
+    end
   end
 
-  describe 'GET index' do
-
-    it "should load events" do
-      get :index 
-      response.code.should eq ("200")
+  def mock_channel(stubs={})
+    (@mock_channel ||= mock_model(Channel, stubs).as_null_object).tap do |channel|
+       channel.stub(stubs) unless stubs.empty?
     end
+  end
 
-    it "should assign @events" do
-      @events = [@event, @event]
-      Event.should_receive(:get_events).and_return(@events)
-      get :index 
-      assigns[:events].should == @events
-    end
-
-    it "index action should render index template" do
-      get :index
-      response.should render_template(:index)
-    end
+  before :each do
+    log_in_test_user
+    @event = stub_model(Event, :id=>1, :event_title=>"test")
   end
 
   describe 'GET show/:id' do
 
     before :each do
+      @presenters = mock("presenters")
+      @sponsor_pages = mock("sponsor_pages")
       Event.stub!(:find).and_return( @event )
+      @event.stub!(:presenters).and_return(@presenters)
+      @event.stub!(:sponsor_pages).and_return(@sponsor_pages)
+      @channel = stub_model(Channel) 
+      Channel.stub_chain(:find).and_return(@channel)
+      @event.stub_chain(:presenters, :paginate).and_return(@presenters)
+      @event.stub_chain(:sessions, :paginate).and_return(@sessions)
     end
 
     def do_get
-      get :show, :id => @event
+      get :show, :id => @event, :cid => '1'
     end
 
     it "should load the requested event" do
@@ -51,6 +53,12 @@ describe EventsController do
     it "should load the requested event" do
       Event.stub(:find).with(@event.id).and_return(@event)
       do_get
+    end
+
+    it "should assign channel" do
+      Channel.should_receive(:find).with('1').and_return(@channel)
+      do_get
+      assigns(:channel).should_not be_nil
     end
 
     it "should assign @event" do
@@ -68,16 +76,32 @@ describe EventsController do
 
     before :each do
       Event.stub!(:new).and_return( @event )
+      @channel = stub_model(Channel) 
+      Channel.stub_chain(:find).and_return(@channel)
+      controller.stubs(:set_associations).returns(true)
+      @event.stub(:pictures).and_return(@picture)
+      @event.stub(:event_tracks).and_return(@event_tracks)
+      @event.stub(:event_sites).and_return(@event_sites)
+    end
+
+    def do_get
+      get :new, :cid => '1'
     end
 
     it "should assign @event" do
-      get :new
+      do_get
       assigns[:event].should == @event
     end
 
     it "new action should render new template" do
-      get :new
+      do_get
       response.should render_template(:new)
+    end
+
+    it "should assign channel" do
+      Channel.should_receive(:find).with('1').and_return(@channel)
+      do_get
+      assigns(:channel).should_not be_nil
     end
 
   end
@@ -87,32 +111,37 @@ describe EventsController do
     context 'failure' do
       
       before :each do
+        Event.stub_chain(:new, :reset_dates).and_return(@event)
         @event.stub!(:save).and_return(false)
       end
 
       it "should assign @event" do
         post :create
-        assigns(:event).should_not be_nil 
+        assigns(:event).should be_nil 
       end
 
       it "should render the new template" do
         post :create
-        response.should render_template(:new)
+        response.should render_template(action: 'new')
       end
     end
 
     context 'success' do
 
       it "assigns a newly created event as @event" do
-        Event.stub(:new).with({'these' => 'params'}) { mock_event(:save => true) }
+        Event.stub_chain(:new, :reset_dates).with({'these' => 'params'}) { mock_event(:save => true) }
         post :create, :event => {'these' => 'params'}
-        assigns(:event).should be(mock_event)
+      end
+
+      it "should assign @event" do
+        post :create, :event => {}
+        assigns(:event).should_not be_nil 
       end
 
       it "redirects to the created event" do
-        Event.stub(:new) { mock_event(:save => true) }
+        Event.stub_chain(:new, :reset_dates) { mock_event(:save => true) }
         post :create, :event => {}
-        response.should redirect_to(event_url(mock_event))
+        response.should be_redirect
       end
 
       it "should change event count" do
@@ -128,10 +157,16 @@ describe EventsController do
 
     before :each do
       Event.stub!(:find).and_return( @event )
+      @event.stub_chain(:set_associations, :pictures).and_return(@picture)
+      @event.stub_chain(:set_associations, :event_tracks).and_return(@event_tracks)
+      @event.stub_chain(:set_associations, :event_sites).and_return(@event_sites)
+      controller.stubs(:set_associations).returns(true)
+      @channel = mock_model(Channel) 
+      Channel.stub_chain(:find).and_return(@channel)
     end
 
     def do_get
-      get :edit, :id => @event
+      get :edit, :id => @event, :cid => '1'
     end
 
     it "should load the requested event" do
@@ -142,6 +177,12 @@ describe EventsController do
     it "should assign @event" do
       do_get
       assigns(:event).should_not be_nil 
+    end
+
+    it "should assign channel" do
+      Channel.should_receive(:find).with('1').and_return(@channel)
+      do_get
+      assigns(:channel).should_not be_nil
     end
 
     it "should load the requested event" do
@@ -156,11 +197,11 @@ describe EventsController do
     
       before (:each) do
         mock_event(:update_attributes => true)
-        Event.stub(:find).with("12") { @mock_event }
+        Event.stub_chain(:find, :reset_dates).with("12") { @mock_event }
       end
 
       it "should load the requested event" do
-        Event.stub(:find).with("12").and_return(@event)
+        Event.stub_chain(:find, :reset_dates).with("12").and_return(@event)
       end
 
       it "updates the event" do
@@ -174,7 +215,7 @@ describe EventsController do
 
       it "redirects to the event" do
 	put :update, :id => "12"
-	response.should redirect_to(event_url(mock_event))
+        response.should be_redirect
       end
     end
 
@@ -182,11 +223,11 @@ describe EventsController do
     
       before (:each) do
         mock_event(:update_attributes => false)
-        Event.stub(:find).with("12") { @mock_event }
+        Event.stub_chain(:find, :reset_dates).with("12") { @mock_event }
       end
 
       it "should load the requested event" do
-        Event.stub(:find).with("12").and_return(@event)
+        Event.stub_chain(:find, :reset_dates).with("12").and_return(@event)
       end
 
       it "should assign @event" do
@@ -195,9 +236,9 @@ describe EventsController do
       end
 
       it "renders the edit form" do 
-        Event.stub(:find).with("12") { mock_event(:update_attributes => false) }
+        Event.stub_chain(:find, :reset_dates).with("12") { mock_event(:update_attributes => false) }
 	put :update, :id => "12"
-	response.should render_template(:edit)
+	response.should render_template(action: 'edit')
       end
     end
   end
@@ -230,16 +271,22 @@ describe EventsController do
     before :each do
       @event = stub_model(Event, :id => 1)
       Event.stub_chain(:find, :clone_event).and_return(@event)
+      @event.stub_chain(:set_associations, :pictures).and_return(@picture)
+      @event.stub_chain(:set_associations, :event_tracks).and_return(@event_tracks)
+      @event.stub_chain(:set_associations, :event_sites).and_return(@event_sites)
+      controller.stubs(:set_associations).returns(true)
+      @channel = stub_model(Channel) 
+      Channel.stub_chain(:find).and_return(@channel)
     end
 
     def do_get
-      get :clone, :id => @event
+      get :clone, :id => @event, :cid => '1'
     end
 
     context "when success" do
 
       it "should be successful" do
-        Event.stub_chain(:find, :clone_event, :set_associations).with(@event.id).and_return(true)
+        Event.stub_chain(:find, :clone_event).with(@event.id).and_return(true)
         do_get
       end    
 
@@ -253,21 +300,32 @@ describe EventsController do
         @event.stub!(:event_tracks).and_return(true)
       end
 
+      it "should have event_sites method" do
+        do_get
+        @event.stub!(:event_sites).and_return(true)
+      end
+
       it "should assign @event" do
         do_get
         assigns[:event].should == @event
       end
 
+    it "should assign channel" do
+      Channel.should_receive(:find).with('1').and_return(@channel)
+      do_get
+      assigns(:channel).should_not be_nil
+    end
+
       it "should render clone template" do
         do_get
-        response.should render_template('clone')
+	response.should render_template(action: 'clone')
       end  
 
     end
 
     context "when unsuccessful" do
       before :each do
-        Event.stub_chain(:find, :clone_event, :set_associations).and_return(false)
+        Event.stub_chain(:find, :clone_event).and_return(false)
       end
 
       it "should not create an event" do
