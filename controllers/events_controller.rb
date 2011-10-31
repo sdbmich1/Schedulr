@@ -4,7 +4,7 @@ class EventsController < ApplicationController
   include ResetDate
 
   def index
-    @events = Event.get_events params[:page]
+#    @events = Event.get_events params[:page]
   end
 
   def show

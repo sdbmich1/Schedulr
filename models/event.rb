@@ -1,12 +1,10 @@
 class Event < ActiveRecord::Base
-  extend SmartMoney
-
   set_primary_key :ID
 
-  attr_accessor :etype, :member_fee, :nonmember_fee
+  attr_accessor :etype
   attr_accessible :etype, :event_name, :event_type, :cbody, :bbody, :eventstartdate, :eventenddate, :eventstarttime, :eventendtime, :localGMToffset, :endGMToffset, :mapstreet, :mapcity, :mapstate, :mapzip, :mapplacename, :mapcountry, :location, :imagelink, :status, :hide, :event_title, :event_tracks_attributes, :pictures_attributes, :speakertopic, :session_type, :track, :event_sites_attributes, :host, :RSVPemail, :created_at, :rsvp, :eventid, :speaker, :updated_at,
-  :contentsourceID, :subscriptionsourceID, :event_presenters_attributes, :member_fee_cents, :nonmember_fee_cents, :currency,
-  :affiliate_fee, :prepaid_fee, :atdoor_fee, :group_fee, :student_fee, :senior_fee, :spouse_fee, :member_fee, :nonmember_fee
+  :contentsourceID, :subscriptionsourceID, :event_presenters_attributes, 
+  :AffiliateFee, :Other3Fee, :AtDoorFee, :GroupFee, :Other1Fee, :Other2Fee, :SpouseFee, :MemberFee, :NonMemberFee
 
   money_regex = /^\$?(?:\d+)(?:.\d{1,2}){0,1}$/
 
@@ -20,24 +18,24 @@ class Event < ActiveRecord::Base
   validates :bbody, :length => { :maximum => 255 }
   validates :location, :presence => true, :if => :is_session?, :unless => :is_break?
   validates :session_type, :presence => true, :if => :is_session?
-  validates :member_fee, :allow_blank => true,
-            :whole_cent => {:message => "must be a valid dollar amount between $1.00 and $10,000.00"}
-  validates :nonmember_fee, :allow_blank => true,
-            :whole_cent => {:message => "must be a valid dollar amount between $1.00 and $10,000.00"}
-  validates :affiliate_fee, :allow_blank => true,
-            :whole_cent => {:message => "must be a valid dollar amount between $1.00 and $10,000.00"}
-  validates :prepaid_fee, :allow_blank => true,
-            :whole_cent => {:message => "must be a valid dollar amount between $1.00 and $10,000.00"}
-  validates :atdoor_fee, :allow_blank => true,
-            :whole_cent => {:message => "must be a valid dollar amount between $1.00 and $10,000.00"}
-  validates :group_fee, :allow_blank => true,
-            :whole_cent => {:message => "must be a valid dollar amount between $1.00 and $10,000.00"}
-  validates :student_fee, :allow_blank => true,
-            :whole_cent => {:message => "must be a valid dollar amount between $1.00 and $10,000.00"}
-  validates :senior_fee, :allow_blank => true,
-            :whole_cent => {:message => "must be a valid dollar amount between $1.00 and $10,000.00"}
-  validates :spouse_fee, :allow_blank => true,
-            :whole_cent => {:message => "must be a valid dollar amount between $1.00 and $10,000.00"}
+  validates :MemberFee, :allow_blank => true,
+  	    :format => { :with => money_regex }
+  validates :NonMemberFee, :allow_blank => true,
+  	    :format => { :with => money_regex }
+  validates :AffiliateFee, :allow_blank => true,
+  	    :format => { :with => money_regex }
+  validates :AtDoorFee, :allow_blank => true,
+  	    :format => { :with => money_regex }
+  validates :GroupFee, :allow_blank => true,
+  	    :format => { :with => money_regex }
+  validates :Other1Fee, :allow_blank => true,
+  	    :format => { :with => money_regex }
+  validates :Other2Fee, :allow_blank => true,
+  	    :format => { :with => money_regex }
+  validates :Other3Fee, :allow_blank => true,
+  	    :format => { :with => money_regex }
+  validates :SpouseFee, :allow_blank => true,
+  	    :format => { :with => money_regex }
   
   before_save :set_flds
   after_save :reset_session_data, :unless => "etype.blank?"
@@ -59,16 +57,6 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :pictures, :allow_destroy => true
   accepts_nested_attributes_for :event_tracks, :reject_if => lambda { |a| a[:name].blank? }, :allow_destroy => true
   accepts_nested_attributes_for :event_sites, :reject_if => lambda { |a| a[:name].blank? }, :allow_destroy => true
-
-  smart_money :member_fee
-  smart_money :nonmember_fee
-  smart_money :affiliate_fee
-  smart_money :prepaid_fee
-  smart_money :atdoor_fee
-  smart_money :group_fee
-  smart_money :student_fee
-  smart_money :senior_fee
-  smart_money :spouse_fee
 
   scope :unhidden, where(:hide.downcase => 'no')
   default_scope :order => 'eventstartdate, eventstarttime ASC'
@@ -105,6 +93,7 @@ class Event < ActiveRecord::Base
     self.event_title = self.event_name if self.event_title.blank?
     self.status = 'pending' if self.status.blank?
     self.hide = 'no' if self.hide.blank?
+    self.eventid = self.event_type[0..1] + Time.now.to_i.to_s if self.status.blank?
   end
 
   def reset_session_values
