@@ -1,0 +1,10 @@
+
+    <p><span><strong>Tracks: </strong></span></p><br />
+    <%= f.fields_for :event_tracks do |builder| %>  
+      <%= render :partial => 'track', :locals => {:builder => builder} %>  
+    <% end %> 
+
+    <p><span><strong>Sites: </strong></span></p><br />
+    <%= f.fields_for :event_sites do |builder| %>  
+      <%= render :partial => 'site', :locals => {:builder => builder} %>  
+    <% end %> 

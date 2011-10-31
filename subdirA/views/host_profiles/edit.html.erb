@@ -1,0 +1,8 @@
+<%= render :partial => 'shared/menu_head', :locals => { :menu_type => 'Profile' } %>
+
+<%= content_for :content do %>
+  <h2 class="grp-hdr">Edit Profile</h2>
+  <hr />
+
+  <%= render 'form' %>
+<% end %>

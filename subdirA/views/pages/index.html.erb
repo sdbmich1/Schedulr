@@ -1,0 +1,9 @@
+<%= render :partial => 'shared/menu_head', :locals => { :menu_type => 'Home' } %>
+
+<%= content_for :content do %>
+  <% if mobile_device? %>
+    <%= render 'mobile/home_page' %>
+  <% else %>
+    <%= render 'home_page' %>
+  <% end %>
+<% end %>
