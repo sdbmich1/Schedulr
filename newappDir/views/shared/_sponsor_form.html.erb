@@ -1,0 +1,10 @@
+<p><strong>Sponsor:</strong></p>
+<p><span>Name: </span> <%= f.text_field :sponsor_name, :size => 50 %></p>
+<p><span>Sponsor Type: </span> <%= f.text_field :sponsor_type, :size => 50 %></p>
+<p><span>Sponsor URL: </span> <%= f.text_field :sponsorURL, :size => 50 %></p>
+<%= render :partial => 'shared/photo', :locals => { :f => f } %>
+
+<p><span>Logo Type: </span> <%= f.collection_select :logo_type, LogoType.active, :code, :description, :prompt => 'Select' %></p>
+<p><span>Status: </span> <%= f.collection_select :status, StatusType.all, :code, :description %></p>
+
+
