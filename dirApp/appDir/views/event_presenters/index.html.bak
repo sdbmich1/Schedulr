@@ -1,0 +1,17 @@
+<% title "Event Presenters" %>
+
+<table>
+  <tr>
+    <th>Event</th>
+    <th>Presenter</th>
+  </tr>
+  <% for event_presenter in @event_presenters %>
+    <tr>
+      <td><%= event_presenter.event_id %></td>
+      <td><%= event_presenter.presenter_id %></td>
+      <td><%= link_to "Show", event_presenter %></td>
+      <td><%= link_to "Destroy", event_presenter, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+

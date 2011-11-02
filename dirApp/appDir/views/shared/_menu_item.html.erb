@@ -1,0 +1,25 @@
+<ul>
+  <li><%= link_to "Home", [@user,@host_profile] %></li>
+  </li>
+  <% case menu_type %>
+  <% when "Event" %>
+    <li><%= link_to "Channel", @channel %></li>
+  <% when "Sponsor", "Session" %>
+    <li><%= link_to "Event", event_url(@event, :cid=>@channel) %></li>
+  <% when "Presenter" %>
+    <% if @parent_event %>
+      <li><%= link_to "Event", event_url(@event, :cid=>@channel) %></li>
+      <li><%= link_to "Session", event_session_relationship_url(@parent_event, @event) %></li>
+    <% else %>
+      <li><%= link_to "Event", event_url(@event, :cid=>@channel) %></li>
+    <% end %>
+  <% else %>
+  <% end %>
+  <li><a href="#">Dashboard</a></li>
+  <li><a href="">Account</a>
+    <ul>
+  	<li><a href="#">Manage Account</a></li>
+  	<li><%= link_to "Sign Out", destroy_user_session_path %></li>
+    </ul>
+  </li>
+</ul>

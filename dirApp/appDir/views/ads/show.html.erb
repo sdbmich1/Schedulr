@@ -1,0 +1,52 @@
+<% title "Ad" %>
+
+<p>
+  <strong>Ad Name:</strong>
+  <%= @ad.ad_name %>
+</p>
+<p>
+  <strong>Ad Type:</strong>
+  <%= @ad.ad_type %>
+</p>
+<p>
+  <strong>Startdate:</strong>
+  <%= @ad.startdate %>
+</p>
+<p>
+  <strong>Starttime:</strong>
+  <%= @ad.starttime %>
+</p>
+<p>
+  <strong>Enddate:</strong>
+  <%= @ad.enddate %>
+</p>
+<p>
+  <strong>Endtime:</strong>
+  <%= @ad.endtime %>
+</p>
+<p>
+  <strong>Contentsourceid:</strong>
+  <%= @ad.contentsourceID %>
+</p>
+<p>
+  <strong>Subscriptionsourceid:</strong>
+  <%= @ad.subscriptionsourceID %>
+</p>
+<p>
+  <strong>Status:</strong>
+  <%= @ad.status %>
+</p>
+<p>
+  <strong>Hide:</strong>
+  <%= @ad.hide %>
+</p>
+<p>
+  <strong>Sortkey:</strong>
+  <%= @ad.sortkey %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_ad_path(@ad) %> |
+  <%= link_to "Destroy", @ad, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", ads_path %>
+</p>

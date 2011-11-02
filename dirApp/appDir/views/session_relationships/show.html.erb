@@ -1,0 +1,15 @@
+<%= render :partial => 'shared/menu_head', :locals => { :menu_type => 'Session' } %>
+
+<%= content_for :content do %>
+  <h2 class="grp-hdr">Session</h2>
+  <hr />
+  <%= link_to "Edit Session", edit_event_session_relationship_path(@event, @session_event), :id=>"link-btn", :class=>"round nav-right" %>
+
+  <%= render :partial => 'shared/show_form', :locals => {:event => @session_event} %>
+  <div class="clear-all"></div>
+  <p>
+  <strong>Presenter(s):</strong>
+    <%= link_to "Add Presenter", event_presenters_url(@session_event, {:parent_id => @event}), :id=>"link-btn", :class=>"round nav-right" %>
+    <%= render :partial => 'shared/presenter_list', :locals => { :event => @session_event, :spkrlist => 'Yes', :parent => @event } %>
+  </p><br />
+<% end %>  

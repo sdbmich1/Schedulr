@@ -1,0 +1,17 @@
+<div id="newreg">
+  <%= render "shared/error_messages", :target => @presenter %>
+  <p><span>Name: </span> <%= f.text_field :name, :size => 50 %></p>
+  <p><span>Title: </span> <%= f.text_field :title, :size => 50 %></p>
+  <p><span>Company: </span> <%= f.text_field :org_name, :size => 50 %></p>
+  <p><span>Bio: </span> <%= f.text_area :bio  %></p>
+  <div class="fields">
+    <%= f.fields_for :contact_details do |form| %>
+      <%= render :partial => 'shared/contact_details', :locals => { :f => form } %>
+    <% end %>
+  </div>
+  <%= render :partial => 'shared/photo', :locals => { :f => f } %>
+
+  <%= f.hidden_field :subscriptionsourceID, :value => @host_profile.HostChannelID %>
+  <%= f.hidden_field :contentsourceID, :value => @host_profile.subscriptionsourceID %>
+  <p><%= f.submit "Save" %></p>
+</div>
