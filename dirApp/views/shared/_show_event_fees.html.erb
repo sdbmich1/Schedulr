@@ -2,30 +2,30 @@
 <p><div class="span-6"><span class="prepend-4"><strong>Prices:</strong></span></div></p>
 <div class="span-19 last">
 <% unless event.MemberFee.blank? %>	
-  <div class="span-2 prepend-4"><%= 'Member:' %></div><div class="span-19 last"><%= "$#{event.MemberFee}" %></div>
+  <div class="span-2"><%= 'Member:' %></div><div class="span-17 last"><%= "$#{event.MemberFee}" %></div>
 <% end %>
 <% unless event.NonMemberFee.blank? %>	
-  <div class="span-2 prepend-4"><%= 'General:' %></div><div class="span-19 last"><%= "$#{event.NonMemberFee}" %></div>
+  <div class="span-2"><%= 'General:' %></div><div class="span-17 last"><%= "$#{event.NonMemberFee}" %></div>
 <% end %>
 <% unless event.AffiliateFee.blank? %>	
-  <div class="span-2 prepend-4"><%= 'Affiliate:' %></div><div class="span-19 last"><%= "$#{event.AffiliateFee}" %></div>
+  <div class="span-2"><%= 'Affiliate:' %></div><div class="span-17 last"><%= "$#{event.AffiliateFee}" %></div>
 <% end %>
 <% unless event.Other1Fee.blank? %>	
-  <div class="span-2 prepend-4"><%= 'Student:' %></div><div class="span-19 last"><%= "$#{event.Other1Fee}" %></div>
+  <div class="span-2"><%= 'Student:' %></div><div class="span-17 last"><%= "$#{event.Other1Fee}" %></div>
 <% end %>
 <% unless event.Other2Fee.blank? %>	
-  <div class="span-2 prepend-4"><%= 'Senior:' %></div><div class="span-19 last"><%= "$#{event.Other2Fee}" %></div>
+  <div class="span-2"><%= 'Senior:' %></div><div class="span-17 last"><%= "$#{event.Other2Fee}" %></div>
 <% end %>
 <% unless event.SpouseFee.blank? %>	
-  <div class="span-2 prepend-4"><%= 'Spouse:' %></div><div class="span-19 last"><%= "$#{event.SpouseFee}" %></div>
+  <div class="span-2"><%= 'Spouse:' %></div><div class="span-17 last"><%= "$#{event.SpouseFee}" %></div>
 <% end %>
 <% unless event.GroupFee.blank? %>	
-  <div class="span-2 prepend-4"><%= 'Group:' %></div><div class="span-19 last"><%= "$#{event.GroupFee}" %></div>
+  <div class="span-2"><%= 'Group:' %></div><div class="span-17 last"><%= "$#{event.GroupFee}" %></div>
 <% end %>
 <% unless event.Other3Fee.blank? %>	
-  <div class="span-6 prepend-4"><%= 'Prepaid:' %></div><div class="span-19 last"><%= "$#{event.Other3Fee}" %></div>
+  <div class="span-2"><%= 'Prepaid:' %></div><div class="span-17 last"><%= "$#{event.Other3Fee}" %></div>
 <% end %>
 <% unless event.AtDoorFee.blank? %>	
-  <div class="span-6 prepend-4"><%= 'At Door:' %></div><div class="span-19 last"><%= "$#{event.AtDoorFee}" %></div>
+  <div class="span-2"><%= 'At Door:' %></div><div class="span-17 last"><%= "$#{event.AtDoorFee}" %></div>
 <% end %>
 </div>
