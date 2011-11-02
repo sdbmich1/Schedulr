@@ -52,7 +52,7 @@ class Event < ActiveRecord::Base
   has_many :event_tracks, :dependent => :destroy
 
   has_many :pictures, :as => :imageable, :dependent => :destroy
-  has_many :sponsor_pages, :dependent => :destroy, :foreign_key => :subscriptionsourceID, :primary_key => :subscriptionsourceID
+  has_many :sponsor_pages, :dependent => :destroy #, :foreign_key => :subscriptionsourceID, :primary_key => :subscriptionsourceID
 
   accepts_nested_attributes_for :pictures, :allow_destroy => true
   accepts_nested_attributes_for :event_tracks, :reject_if => lambda { |a| a[:name].blank? }, :allow_destroy => true

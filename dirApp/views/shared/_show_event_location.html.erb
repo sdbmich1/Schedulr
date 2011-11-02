@@ -6,9 +6,9 @@
   <div class="span-21 last">	<span class="<%= !event.mapplacename.blank? ? 'prepend-2' : 'none' %>"><%= event.mapstreet %></span></div>
 <% end %>
 <% if !event.mapcity.blank? %>	
-  <div class="span-25 last">		
+  <div class="span-21 last">		
   <% if event.try(:event_tracks).blank? %>
-    <span class="<%= event.mapplacename.blank? ? 'prepend-2' : 'prepend-6' %>"><%="#{event.mapcity}, #{event.mapstate} #{event.mapzip} " %></span>
+    <span class="<%= event.try(:speakertopic).blank? ? 'prepend-2' : 'prepend-6' %>"><%="#{event.mapcity}, #{event.mapstate} #{event.mapzip} " %></span>
   <% else %>
     <span class="prepend-2"><%="#{event.mapcity}, #{event.mapstate} #{event.mapzip} " %></span>
   <% end %>

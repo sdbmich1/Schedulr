@@ -1,10 +1,14 @@
-<h2 class="grp-hdr">Presenter List</h2>
-<hr />
+<%= render :partial => 'shared/menu_head', :locals => { :menu_type => 'Presenter' } %>
 
-<% unless @parent_event %>
-  <p><%= link_to "New Presenter", new_event_presenter_url, :id=>"link-btn", :class=>"round nav-right" %></p><br />
+<%= content_for :content do %>
+  <h2 class="grp-hdr">Presenter List</h2>
+  <hr />
+
+  <% unless @parent_event %>
+    <p><%= link_to "New Presenter", new_event_presenter_url, :id=>"link-btn", :class=>"round nav-right" %></p><br />
+  <% end %>
+
+  <p>
+  <div id="pres-list"><%= render :partial => 'shared/presenter_list', :locals => { :event => @event, :spkrlist => 'No', :parent => @parent_event } %></div>
+  </p>
 <% end %>
-
-<p>
-<div id="pres-list"><%= render :partial => 'shared/presenter_list', :locals => { :event => @event, :spkrlist => 'No', :parent => @parent_event } %></div>
-</p>

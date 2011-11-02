@@ -2,30 +2,30 @@
 <p><div class="span-6"><span class="prepend-4"><strong>Prices:</strong></span></div></p>
 <div class="span-12 last">
 <% unless event.MemberFee.blank? %>	
-  <div class="span-2"><%= 'Member:' %></div><div class="span-8"><%= "$#{event.MemberFee}" %></div>
+  <div class="span-2"><%= 'Member:' %></div><div class="span-8"><%= number_to_currency(event.MemberFee) %></div>
 <% end %>
 <% unless event.NonMemberFee.blank? %>	
-  <div class="span-2"><%= 'General:' %></div><div class="span-8"><%= "$#{event.NonMemberFee}" %></div>
+  <div class="span-2"><%= 'General:' %></div><div class="span-8"><%= number_to_currency(event.NonMemberFee) %></div>
 <% end %>
 <% unless event.AffiliateFee.blank? %>	
-  <div class="span-2"><%= 'Affiliate:' %></div><div class="span-8"><%= "$#{event.AffiliateFee}" %></div>
+  <div class="span-2"><%= 'Affiliate:' %></div><div class="span-8"><%= number_to_currency(event.AffiliateFee) %></div>
 <% end %>
 <% unless event.Other1Fee.blank? %>	
-  <div class="span-2"><%= 'Student:' %></div><div class="span-8"><%= "$#{event.Other1Fee}" %></div>
+  <div class="span-2"><%= 'Student:' %></div><div class="span-8"><%= number_to_currency(event.Other1Fee) %></div>
 <% end %>
 <% unless event.Other2Fee.blank? %>	
-  <div class="span-2"><%= 'Senior:' %></div><div class="span-8"><%= "$#{event.Other2Fee}" %></div>
+  <div class="span-2"><%= 'Senior:' %></div><div class="span-8"><%= number_to_currency(event.Other2Fee) %></div>
 <% end %>
 <% unless event.SpouseFee.blank? %>	
-  <div class="span-2"><%= 'Spouse:' %></div><div class="span-8"><%= "$#{event.SpouseFee}" %></div>
+  <div class="span-2"><%= 'Spouse:' %></div><div class="span-8"><%= number_to_currency(event.SpouseFee) %></div>
 <% end %>
 <% unless event.GroupFee.blank? %>	
-  <div class="span-2"><%= 'Group:' %></div><div class="span-8"><%= "$#{event.GroupFee}" %></div>
+  <div class="span-2"><%= 'Group:' %></div><div class="span-8"><%= number_to_currency(event.GroupFee) %></div>
 <% end %>
 <% unless event.Other3Fee.blank? %>	
-  <div class="span-2"><%= 'Prepaid:' %></div><div class="span-8"><%= "$#{event.Other3Fee}" %></div>
+  <div class="span-2"><%= 'Prepaid:' %></div><div class="span-8"><%= number_to_currency(event.Other3Fee) %></div>
 <% end %>
 <% unless event.AtDoorFee.blank? %>	
-  <div class="span-2"><%= 'At Door:' %></div><div class="span-8"><%= "$#{event.AtDoorFee}" %></div>
+  <div class="span-2"><%= 'At Door:' %></div><div class="span-8"><%= number_to_currency(event.AtDoorFee) %></div>
 <% end %>
 </div>

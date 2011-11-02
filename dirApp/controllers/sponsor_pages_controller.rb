@@ -3,6 +3,8 @@ class SponsorPagesController < ApplicationController
   include SetAssn
 
   def show
+    @channel = Channel.find(params[:cid]) if params[:cid]
+    @event = Event.find(params[:eid]) if params[:eid]
     @sponsor_page = SponsorPage.find(params[:id])
     @sponsors = @sponsor_page.sponsors
   end

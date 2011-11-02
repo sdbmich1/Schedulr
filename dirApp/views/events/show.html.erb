@@ -16,7 +16,7 @@
 
   <p><br />
     <strong>Sponsor(s):</strong>
-    <%= link_to "Add Sponsors", new_sponsor_page_url(:eid => @event), :id=>"link-btn", :class=>"round nav-right" %> 
+    <%= link_to "Add Sponsors", new_sponsor_page_url(:eid => @event, :cid=>@channel), :id=>"link-btn", :class=>"round nav-right" %> 
     <%= render :partial => 'shared/sponsor_page_list', :locals => {:model => @event} %><br />
   </p>
 

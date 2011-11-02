@@ -4,7 +4,9 @@
   <% case menu_type %>
   <% when "Event" %>
     <li><%= link_to "Channel", @channel %></li>
-  <% when "Sponsor", "Session" %>
+  <% when "Sponsor" %>
+    <li><%= link_to "Event", event_url(@event, :cid=>@channel) %></li>
+  <% when "Session" %>
     <li><%= link_to "Event", event_url(@event, :cid=>@channel) %></li>
   <% when "Presenter" %>
     <% if @parent_event %>

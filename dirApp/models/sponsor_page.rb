@@ -8,7 +8,7 @@ class SponsorPage < ActiveRecord::Base
   validates :name, :presence => true, :format => { :with => text_regex }
   validates :message, :presence => true, :format => { :with => text_regex }
 
-  belongs_to :event, :foreign_key => :subscriptionsourceID, :primary_key => :subscriptionsourceID
+  belongs_to :event #, :foreign_key => :subscriptionsourceID, :primary_key => :subscriptionsourceID
   has_many :sponsors, :as => :sponsorable, :dependent => :destroy
 
   accepts_nested_attributes_for :sponsors, :reject_if => lambda { |a| a[:sponsor_name].blank? }, :allow_destroy => true
