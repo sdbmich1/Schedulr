@@ -1,0 +1,20 @@
+<div id="menu">
+  <span class="menu-offset <%= main_menu == 'Home' ? 'none' : '' %>" id="titlebar"><%= link_to get_name_or_logo, root_url %></span> 
+
+  <% case main_menu %>		
+  <% when "Register" %>
+	<div class="span-24 last rpos">
+ 	  <span class="welcomebar"><%= "Welcome to #{get_name_or_logo} #{current_user.username}!" %></span> 
+	</div>
+  <% when "Home" %>
+	<div class="span-24 last rpos">
+   	  <%= link_to "Login", new_user_session_path, :class => "signin_button round" %>
+	</div>
+  <% when "Sign Up" %>
+        <div class="nav-right"><% main_menu %></div>
+  <% when "Sign In" %>
+        <div class="nav-right"><% main_menu %></div>
+  <% else %>
+	<div class="nav-menu"><%= render :partial => 'shared/menu_item', :locals => { :menu_type => main_menu } %></div>
+  <% end %>
+</div>

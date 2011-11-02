@@ -1,0 +1,35 @@
+<% title "Transactions" %>
+
+<table>
+  <tr>
+    <th>Code</th>
+    <th>Description</th>
+    <th>Amt</th>
+    <th>Currency</th>
+    <th>Transaction Date</th>
+    <th>Channelid</th>
+    <th>Hostprofileid</th>
+    <th>User</th>
+    <th>Status</th>
+    <th>Hide</th>
+  </tr>
+  <% for transaction in @transactions %>
+    <tr>
+      <td><%= transaction.code %></td>
+      <td><%= transaction.description %></td>
+      <td><%= transaction.amt %></td>
+      <td><%= transaction.currency %></td>
+      <td><%= transaction.transaction_date %></td>
+      <td><%= transaction.channelID %></td>
+      <td><%= transaction.HostProfileID %></td>
+      <td><%= transaction.user_id %></td>
+      <td><%= transaction.status %></td>
+      <td><%= transaction.hide %></td>
+      <td><%= link_to "Show", transaction %></td>
+      <td><%= link_to "Edit", edit_transaction_path(transaction) %></td>
+      <td><%= link_to "Destroy", transaction, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Transaction", new_transaction_path %></p>

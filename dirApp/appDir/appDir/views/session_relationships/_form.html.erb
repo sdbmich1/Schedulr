@@ -1,0 +1,16 @@
+<%= f.error_messages %>
+<div id="newreg">
+  <p><span>Name: </span> <%= f.text_field :event_name, :size => 60 %></p>
+  <p><span>Type: </span> <%= f.collection_select :session_type, SessionType.all, :code, :description, :prompt => 'Select' %></p>
+  <p><span>Status: </span> <%= f.collection_select :status, StatusType.unhidden, :code, :description, :prompt => 'Select' %></p>
+  <p><span>Track: </span> <%= f.collection_select :track, EventTrack.get_track(@event.id), :name, :name, :prompt => 'Select' %></p>
+  <%= render :partial => 'shared/form', :locals => {:f => f, :etype => 'Session'} %>
+
+  <% if is_clone?(etype) %>
+    <%= f.hidden_field :etype, :value => 'Clone' %>
+  <% end %>
+
+  <%= f.hidden_field :event_type, :value => 'es' %>
+  <%= f.hidden_field :etype, :value => 'Session' %>
+  <p><%= f.submit "Save" %></p>
+</div>

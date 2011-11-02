@@ -1,0 +1,8 @@
+<%= render :partial => 'shared/menu_head', :locals => { :menu_type => 'Sponsor' } %>
+
+<%= content_for :content do %>
+  <h2 class="grp-hdr">New Sponsor Page</h2>
+  <hr />
+
+  <%= render 'shared/sponsor_page_form' %>
+<% end %>
