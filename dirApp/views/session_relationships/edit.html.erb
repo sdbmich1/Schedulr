@@ -1,0 +1,10 @@
+<%= render :partial => 'shared/menu_head', :locals => { :menu_type => 'Session' } %>
+
+<%= content_for :content do %>
+  <h2 class="grp-hdr">Edit Session</h2>
+  <hr />
+
+  <%= form_for @session_event, :url => event_session_relationship_path(@event, @session_event), :html => {:multipart => true}, :validate => true do |f| %>
+   <%= render :partial => 'form', :locals => { :f => f, :etype => 'Session' } %><br />
+  <% end %>
+<% end %>  

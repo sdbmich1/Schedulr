@@ -1,0 +1,20 @@
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Message</th>
+    <th>Status</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <% for sponsor_page in @sponsor_pages %>
+    <tr>
+      <td><%= link_to sponsor_page.name, sponsor_page %></td>
+      <td><%= sponsor_page.message %></td>
+      <td><%= sponsor_page.status %></td>
+      <td><%= link_to "Edit", edit_sponsor_page_path(sponsor_page) %></td>
+      <td><%= link_to "Remove", sponsor_page, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+

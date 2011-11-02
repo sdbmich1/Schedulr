@@ -1,0 +1,29 @@
+<% title "Organizations" %>
+
+<table>
+  <tr>
+    <th>Orgname</th>
+    <th>Status</th>
+    <th>Hide</th>
+    <th>Sortkey</th>
+    <th>Channelid</th>
+    <th>Subscriptionsourceid</th>
+    <th>Subscriptionsourceurl</th>
+  </tr>
+  <% for organization in @organizations %>
+    <tr>
+      <td><%= organization.orgname %></td>
+      <td><%= organization.status %></td>
+      <td><%= organization.hide %></td>
+      <td><%= organization.sortkey %></td>
+      <td><%= organization.channelID %></td>
+      <td><%= organization.subscriptionsourceID %></td>
+      <td><%= organization.subscriptionsourceURL %></td>
+      <td><%= link_to "Show", organization %></td>
+      <td><%= link_to "Edit", edit_organization_path(organization) %></td>
+      <td><%= link_to "Destroy", organization, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Organization", new_organization_path %></p>
