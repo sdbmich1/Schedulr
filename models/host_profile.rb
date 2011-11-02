@@ -6,7 +6,7 @@ class HostProfile < ActiveRecord::Base
     :sortkey, :subscriptionsourceID, :subscriptionsourceURL, :Company, :Address1, :City, :State, :PostalCode, :HostName,
     :StartMonth, :StartDay, :StartYear, :HostName, :EntityCategory, :EntityType, :pictures_attributes
 
-  validates :Company, :presence => true, :length => { :maximum => 100 }
+  validates :Company, :uniqueness =>true, :presence => true, :length => { :maximum => 255 }
   validates :Address1, :presence => true
   validates :City, :presence => true
   validates :State, :presence => true

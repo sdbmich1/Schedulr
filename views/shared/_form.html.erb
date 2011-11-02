@@ -26,15 +26,15 @@
     <p><span>Overview: </span> <%= f.text_field :bbody, :size => 80 %></p>
     <p><span>Description: </span> <%= f.text_area :cbody  %></p>
     <p><span>Member Fee: </span> <%= f.text_field :MemberFee, :size => 10 %></p>
-    <p><span>General: </span> <%= f.text_field :NonMemberFee, :size => 10 %></p>
-    <p><span>Affiliates: </span> <%= f.text_field :AffiliateFee, :size => 10 %></p>
+    <p><span>General Fee: </span> <%= f.text_field :NonMemberFee, :size => 10 %></p>
+    <p><span>Affiliate Fee: </span> <%= f.text_field :AffiliateFee, :size => 10 %></p>
     <p><span>At Door Fee: </span> <%= f.text_field :AtDoorFee, :size => 10 %></p>
     <p><span>Prepaid Fee: </span> <%= f.text_field :Other3Fee, :size => 10 %></p>
     <p><span>Student Fee: </span> <%= f.text_field :Other1Fee, :size => 10 %></p>
     <p><span>Senior Fee: </span> <%= f.text_field :Other2Fee, :size => 10 %></p>
     <p><span>Spouse Fee: </span> <%= f.text_field :SpouseFee, :size => 10 %></p>
     <p><span>Group Fee: </span> <%= f.text_field :GroupFee, :size => 10 %></p>
-    <p><span>RSVP?: </span> <%= f.check_box :rsvp, :class=>'check_bx', "yes", "no" %></p>
+    <p><span>RSVP?: </span> <%= f.check_box :rsvp, {:class=>'check_bx'}, "yes", "no" %></p>
     
     <%= render :partial => 'shared/photo', :locals => { :f => f } %>
 

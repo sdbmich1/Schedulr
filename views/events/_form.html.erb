@@ -1,4 +1,4 @@
-<%= form_for @event, :url => event_path(@event, :cid=>@channel), :html => { :multipart => true }, :validate => true do |f| %>
+<%= form_for @event, :url => events_path(@event, :cid=>@channel), :html => { :multipart => true }, :validate => true do |f| %>
   <%= render "shared/error_messages", :target => @event %>
   <div id="newreg">
     <p><span>Name: </span> <%= f.text_field :event_name, :size => 80 %></p>

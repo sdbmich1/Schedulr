@@ -9,4 +9,4 @@
   <div class="span-2"><span><%= "Status:" %></span></div>
   <div class="span-19 last"><span class="append-2"><%= host_profile.status.titleize %></span></div>
   <div class="span-2"><span><%= "Entity Type:" %></span></div>
-  <div class="span-19 last"><span class="append-2"><%= host_profile.EntityType %></span></div>
+  <div class="span-19 last"><span class="append-2"><%= get_entity_type(host_profile.EntityType) %></span></div>
