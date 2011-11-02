@@ -1,0 +1,15 @@
+<% title "Event Presenter" %>
+
+<p>
+  <strong>Event:</strong>
+  <%= @event_presenter.event_id %>
+</p>
+<p>
+  <strong>Presenter:</strong>
+  <%= @event_presenter.presenter_id %>
+</p>
+
+<p>
+  <%= link_to "Destroy", @event_presenter, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", event_presenters_path %>
+</p>

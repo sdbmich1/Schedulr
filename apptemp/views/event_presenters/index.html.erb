@@ -1,0 +1,21 @@
+<% title "Event Presenters" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Title</th>
+    <th>Company/Org</th>
+  </tr>
+  <% for presenter in @event_presenters %>
+    <tr>
+      <td><%= presenter.name %></td>
+      <td><%= presenter.title %></td>
+      <td><%= presenter.org_name %></td>
+      <td><%= link_to "Show", presenter_path(presenter) %></td>
+      <td><%= link_to "Edit", edit_presenter_path(presenter) %></td>
+      <td><%= link_to "Destroy", presenter, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "Find Presenters", presenters_path(:event_id => @event.id) %></p> 

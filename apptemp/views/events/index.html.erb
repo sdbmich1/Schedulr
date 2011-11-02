@@ -1,0 +1,36 @@
+<% title "Events" %>
+
+<div class="nav-right">
+  <%= link_to "Sign Out", destroy_user_session_path %>
+  <br />
+</div>
+<table>
+  <tr>
+    <th>Event Name</th>
+    <th>Overview</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+    <th>Start</th>
+    <th>End</th>
+    <th>Status</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <% for event in @events %>
+    <tr>
+      <td><%= link_to event.event_name, event %></td>
+      <td><%= truncate(event.bbody, :length => 40, :omission => "...") %></td>
+      <td><%= get_nice_date(event.eventstartdate,'List') %></td>
+      <td><%= get_nice_date(event.eventenddate,'List') %></td>
+      <td><%= get_nice_time(chk_offset(event.eventstarttime, event.localGMToffset)) %>
+      <td><%= get_nice_time(chk_offset(event.eventendtime, event.endGMToffset)) %></td>
+      <td><%= event.status.titleize %></td>
+      <td><%= link_to "Edit", edit_event_path(event) %></td>
+      <td><%= link_to "Clone", clone_event_path(event), :confirm => 'Clone this event?' %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Event", new_event_path %></p>
+
+<%= will_paginate @events %>
