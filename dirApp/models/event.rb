@@ -126,6 +126,8 @@ class Event < ActiveRecord::Base
   def clone_event
     new_event = self.clone
 
+    new_event.eventstartdate = Date.today if new_event.eventstartdate < Date.today
+    new_event.eventenddate = Date.today if new_event.eventenddate < Date.today
     new_event.status = 'pending'
     new_event.save
 
@@ -141,15 +143,22 @@ class Event < ActiveRecord::Base
 
     new_event.sponsor_pages << self.sponsor_pages.collect { |sponsor_page| sponsor_page.clone } 
     self.pictures.each do |p|
-      new_event.pictures.create(:photo => p.photo)
+      new_event.pictures.build(:photo => p.photo)
+      new_event.save
     end
 
     self.sessions.each do |s|
+      s.eventstartdate = Date.today if s.eventstartdate < Date.today
+      s.eventenddate = Date.today if s.eventenddate < Date.today
+
       session_event = Event.create(s.attributes)
       session_event.event_presenters << s.event_presenters.collect { |event_presenter| event_presenter.clone } 
-      new_event.session_relationships.create(:session_id => session_event)
+      new_event.sessions << session_event
+#      new_event.session_relationships.build(:session_id => session_event.id)
+      new_event.save
       s.pictures.each do |p|
-        session_event.pictures.create(:photo => p.photo)
+        session_event.pictures.build(:photo => p.photo)
+	session_event.save
       end
     end
 

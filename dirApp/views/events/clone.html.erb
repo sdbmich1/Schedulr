@@ -1,5 +1,10 @@
-<h2 class="grp-hdr">Clone Event</h2>
-<hr />
+<%= render :partial => 'shared/menu_head', :locals => { :menu_type => 'Event' } %>
 
-<%= render :partial => 'form', :locals => { :etype => 'Clone' } %>
+<%= content_for :content do %>
+  <h2 class="grp-hdr">Clone Event</h2>
+  <hr />
 
+  <%= form_for @event, :url => event_path(@event, :cid=>@channel), :html => { :multipart => true }, :validate => true do |f| %>
+    <%= render :partial => 'form', :locals => { :f => f, :etype => 'Clone' } %>
+  <% end %>
+<% end %>
