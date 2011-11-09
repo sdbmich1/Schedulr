@@ -28,8 +28,12 @@ $(function (){
     });
 });
 
+$(document).ready(function(){
+    $("#mform label").inFieldLabels();
+  });
+
 $(function () {
-  $('#pres-list .pagination a, #event-list .pagination a, #session-list .pagination a').live('click', function () {
+  $('#sub-list .pagination a, #pres-list .pagination a, #event-list .pagination a, #session-list .pagination a').live('click', function () {
          $.getScript(this.href);
 	 return false;
    });
@@ -89,3 +93,11 @@ function remove_fields(link) {
   $(link).previous("input[type=hidden]").value = "1";  
   $(link).up(".fields").hide();  
 }  
+
+// shows/hides the subscription list on clicking link
+$(function (){
+  $("#slist").live('click',function() {
+  $(this).text($(this).text() == 'Show' ? $('#sub-list').show('fast') : $('#sub-list').hide('fast') );
+  $(this).text($(this).text() == 'Show' ? 'Hide' : 'Show');
+  });
+});
