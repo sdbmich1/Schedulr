@@ -5,7 +5,7 @@
   <hr />
   <%= link_to "Edit Profile", edit_user_host_profile_path(@host_profile), :id=>"link-btn", :class=>"round nav-right" %>
 
-  <%= render :partial => 'shared/show_photo', :locals => {:model => @host_profile, :file_name => "headshot1.jpg" } %>
+  <%= render :partial => 'shared/show_photo', :locals => {:model => @host_profile, :file_name => "headshot1.jpg", :psize => '120x120' } %>
 
   <% if mobile_device? %>
     <%= render :partial => 'mobile/show_host_profile', :locals => {:host_profile => @host_profile} %>

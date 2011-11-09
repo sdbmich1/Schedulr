@@ -5,7 +5,7 @@
   <hr />
 
   <%= link_to "Edit Channel", edit_channel_path(@channel), :id=>"link-btn", :class=>"round nav-right" %>
-  <%= render :partial => 'shared/show_photo', :locals => {:model => @channel, :file_name => "schedule1.jpg" } %>
+  <%= render :partial => 'shared/show_photo', :locals => {:model => @channel, :file_name => "schedule1.jpg", :psize => '120x120' } %>
 
   <% if mobile_device? %>
     <%= render :partial => 'mobile/show_channel', :locals => {:channel => @channel} %>
@@ -30,5 +30,18 @@
   </ol>  
   </div>
   </p>
+
+  <div class="clear-all"></div>
+  <div class="span-6"><span class="prepend-4">Subscribers:</span></div>
+
+  <% if mobile_device? %>
+    <div class="span-12 last">
+  <% else %>
+    <div class="span-19 last">
+  <% end %>
+  <%= @subscriptions.count %> <%= link_to "Show", "#", :id=>"slist" %>
+  </div>
+  <p><div id="sub-list" style="display:none"><%= render :partial => 'shared/subscription_list' %></div></p>
+  <div class="clear-all"></div>
   <p><div id="event-list"><%= render :partial => 'shared/event_list' %></div></p>
 <% end %>

@@ -4,11 +4,16 @@ class HostProfile < ActiveRecord::Base
 
   attr_accessible :ProfileID, :HostChannelID, :ProfileType, :EntryType, :status, :hide, :promoCode,
     :sortkey, :subscriptionsourceID, :subscriptionsourceURL, :Company, :Address1, :City, :State, :PostalCode, :HostName,
-    :StartMonth, :StartDay, :StartYear, :HostName, :EntityCategory, :EntityType, :pictures_attributes
+    :StartMonth, :StartDay, :StartYear, :HostName, :EntityCategory, :EntityType, :pictures_attributes, :Address2,
+    :LastName, :FirstName, :Title
 
-  validates :Company, :uniqueness =>true, :presence => true, :length => { :maximum => 255 }
+  text_regex = /^[-\w\,. _\/&@]+$/i
+  name_regex =  /^[A-Z]'?['-., a-zA-Z]+$/i
+
+  validates :Company, :uniqueness =>true, :presence => true, :length => { :maximum => 100 },
+            :format => { :with => text_regex }  
   validates :Address1, :presence => true
-  validates :City, :presence => true
+  validates :City, :presence => true, :format => { :with => name_regex }  
   validates :State, :presence => true
   validates :PostalCode, :presence => true
   validates :EntityType, :presence => true

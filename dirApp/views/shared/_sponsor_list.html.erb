@@ -11,9 +11,9 @@
   <% for sponsor in @sponsors %>
     <tr>
       <td>
-        <% for pic in sponsor.pictures %>
-          <%= image_tag pic.photo.url, :size=>'48x48' %>
-	<% end %>
+        <div class="pic-size">
+          <%= render :partial => 'shared/show_photo', :locals => {:model => sponsor, :file_name => "schedule1.jpg", :psize => '48x48' } %>
+	</div>
       </td>
 
       <td><%= sponsor.sponsor_name %></td>

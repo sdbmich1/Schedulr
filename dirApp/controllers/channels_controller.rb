@@ -10,6 +10,7 @@ class ChannelsController < ApplicationController
     @channel = Channel.find(params[:id])
     @picture = @channel.pictures
     @events = Event.find_events(params[:page], @channel.channelID)
+    @subscriptions = @channel.subscriptions.paginate(:page => params[:page], :per_page => 15)
   end
 
   def new

@@ -10,10 +10,15 @@
   <% if event.try(:event_tracks).blank? %>
     <span class="<%= event.try(:speakertopic).blank? ? 'prepend-2' : 'prepend-6' %>"><%="#{event.mapcity}, #{event.mapstate} #{event.mapzip} " %></span>
   <% else %>
-    <span class="prepend-2"><%="#{event.mapcity}, #{event.mapstate} #{event.mapzip} " %></span>
+    <span class="prepend-6"><%="#{event.mapcity}, #{event.mapstate} #{event.mapzip} " %></span>
   <% end %>
   </div>
 <% end %>
+<% if !event.bbody.blank? %>	
+  <div class="<%= event.speaker.blank? ? 'span-6' : 'span-2' %>">
+  <span class="<%= event.speaker.blank? ? 'prepend-4' : 'prepend-6' %>"><%= 'Summary:' %></span></div>	
+  <div class="span-19 last"><%= event.bbody.html_safe %></div><br />
+<% end %>
 <% if !event.cbody.blank? %>	
   <div class="<%= event.speaker.blank? ? 'span-6' : 'span-2' %>">
   <span class="<%= event.speaker.blank? ? 'prepend-4' : 'prepend-6' %>"><%= 'Details:' %></span></div>	

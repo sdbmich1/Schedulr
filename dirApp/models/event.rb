@@ -3,10 +3,11 @@ class Event < ActiveRecord::Base
 
   attr_accessor :etype
   attr_accessible :etype, :event_name, :event_type, :cbody, :bbody, :eventstartdate, :eventenddate, :eventstarttime, :eventendtime, :localGMToffset, :endGMToffset, :mapstreet, :mapcity, :mapstate, :mapzip, :mapplacename, :mapcountry, :location, :imagelink, :status, :hide, :event_title, :event_tracks_attributes, :pictures_attributes, :speakertopic, :session_type, :track, :event_sites_attributes, :host, :RSVPemail, :created_at, :rsvp, :eventid, :speaker, :updated_at,
-  :contentsourceID, :subscriptionsourceID, :event_presenters_attributes, 
-  :AffiliateFee, :Other3Fee, :AtDoorFee, :GroupFee, :Other1Fee, :Other2Fee, :SpouseFee, :MemberFee, :NonMemberFee
+  :contentsourceID, :subscriptionsourceID, :event_presenters_attributes, :contentsourceURL, :subscriptionsourceURL, 
+  :AffiliateFee, :Other3Fee, :AtDoorFee, :GroupFee, :Other1Fee, :Other2Fee, :SpouseFee, :MemberFee, :NonMemberFee, :Other4Fee, :Other5Fee, :Other6Fee
 
   money_regex = /^\$?(?:\d+)(?:.\d{1,2}){0,1}$/
+  url_regex = /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}(:[0-9]{1,5})?(\/.*)?$/ix
 
   validates :event_name, :presence => true, :length => { :maximum => 100 }
   validates :event_type, :presence => true
@@ -15,27 +16,21 @@ class Event < ActiveRecord::Base
   validates :eventstarttime, :presence => true
   validates :eventendtime, :presence => true, :allow_blank => false
   validates_time :eventendtime, :after => :eventstarttime, :if => :same_day?
-  validates :bbody, :length => { :maximum => 255 }
+  validates :bbody, :allow_blank => true, :length => { :maximum => 255 }
   validates :location, :presence => true, :if => :is_session?, :unless => :is_break?
   validates :session_type, :presence => true, :if => :is_session?
-  validates :MemberFee, :allow_blank => true,
-  	    :format => { :with => money_regex }
-  validates :NonMemberFee, :allow_blank => true,
-  	    :format => { :with => money_regex }
-  validates :AffiliateFee, :allow_blank => true,
-  	    :format => { :with => money_regex }
-  validates :AtDoorFee, :allow_blank => true,
-  	    :format => { :with => money_regex }
-  validates :GroupFee, :allow_blank => true,
-  	    :format => { :with => money_regex }
-  validates :Other1Fee, :allow_blank => true,
-  	    :format => { :with => money_regex }
-  validates :Other2Fee, :allow_blank => true,
-  	    :format => { :with => money_regex }
-  validates :Other3Fee, :allow_blank => true,
-  	    :format => { :with => money_regex }
-  validates :SpouseFee, :allow_blank => true,
-  	    :format => { :with => money_regex }
+  validates :MemberFee, :allow_blank => true, :format => { :with => money_regex }
+  validates :NonMemberFee, :allow_blank => true, :format => { :with => money_regex }
+  validates :AffiliateFee, :allow_blank => true, :format => { :with => money_regex }
+  validates :AtDoorFee, :allow_blank => true, :format => { :with => money_regex }
+  validates :GroupFee, :allow_blank => true, :format => { :with => money_regex }
+  validates :Other1Fee, :allow_blank => true, :format => { :with => money_regex }
+  validates :Other2Fee, :allow_blank => true, :format => { :with => money_regex }
+  validates :Other3Fee, :allow_blank => true, :format => { :with => money_regex }
+  validates :Other4Fee, :allow_blank => true, :format => { :with => money_regex }
+  validates :Other5Fee, :allow_blank => true, :format => { :with => money_regex }
+  validates :Other6Fee, :allow_blank => true, :format => { :with => money_regex }
+  validates :SpouseFee, :allow_blank => true, :format => { :with => money_regex }
   
   before_save :set_flds
   after_save :reset_session_data, :unless => "etype.blank?"
@@ -93,7 +88,7 @@ class Event < ActiveRecord::Base
     self.event_title = self.event_name if self.event_title.blank?
     self.status = 'pending' if self.status.blank?
     self.hide = 'no' if self.hide.blank?
-    self.eventid = self.event_type[0..1] + Time.now.to_i.to_s if self.status.blank?
+    self.eventid = self.event_type[0..1] + Time.now.to_i.to_s if self.eventid.blank?
   end
 
   def reset_session_values

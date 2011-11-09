@@ -1,5 +1,7 @@
 <div class="clear-all"></div>
-<p><div class="span-6"><span class="prepend-4"><strong>Prices:</strong></span></div></p>
+<% if any_prices?(event) %>
+  <p><div class="span-6"><span class="prepend-4"><strong>Prices:</strong></span></div></p>
+<% end %>
 <div class="span-19 last">
 <% unless event.MemberFee.blank? %>	
   <div class="span-2"><%= 'Member:' %></div><div class="span-17 last"><%= number_to_currency(event.MemberFee) %></div>
@@ -24,6 +26,9 @@
 <% end %>
 <% unless event.Other3Fee.blank? %>	
   <div class="span-2"><%= 'Prepaid:' %></div><div class="span-17 last"><%= number_to_currency(event.Other3Fee) %></div>
+<% end %>
+<% unless event.Other4Fee.blank? %>	
+  <div class="span-2"><%= 'Disabled:' %></div><div class="span-17 last"><%= number_to_currency(event.Other4Fee) %></div>
 <% end %>
 <% unless event.AtDoorFee.blank? %>	
   <div class="span-2"><%= 'At Door:' %></div><div class="span-17 last"><%= number_to_currency(event.AtDoorFee) %></div>

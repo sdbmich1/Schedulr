@@ -33,16 +33,20 @@ class User < KitsDevelopmentModel
   validates :location_id, :presence => true
   
   # define channel relationships
-  has_many :subscriptions
-  has_many :channels, :through => :subscriptions, 
-  				:conditions => { :status => 'active'}
+  has_many :subscriptions,
+           :finder_sql => proc { "SELECT u.* FROM `kits_development`.users u " +
+		                 "INNER JOIN `kitsknndb`.subscriptions s ON s.user_id=u.id " +
+			         "WHERE s.channelID=#{id}" }
+
+#  has_many :channels, :through => :subscriptions, 
+#  				:conditions => { :status => 'active'}
   
   has_many :host_profiles, :foreign_key => :ProfileID
   accepts_nested_attributes_for :host_profiles, :reject_if => :all_blank 
 
   has_many :channels, :through => :host_profiles
   has_many :events, :through => :channels
-   
+
   # Overrides the devise method find_for_authentication
   # Allow users to Sign In using their username or email address
   def self.find_for_authentication(conditions)

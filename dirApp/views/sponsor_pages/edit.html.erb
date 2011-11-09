@@ -4,5 +4,7 @@
   <h2 class="grp-hdr">Edit Sponsor Page</h2>
   <hr />
 
-  <%= render 'shared/sponsor_page_form' %>
+  <%= form_for @sponsor_page, :url => sponsor_page_path(@sponsor_page, :eid=>@event, :cid=>@channel), :html => { :multipart => true }, :validate => true do |f| %>
+    <%= render :partial => 'shared/sponsor_page_form', :locals => { :f => f } %>
+  <% end %>
 <% end %>

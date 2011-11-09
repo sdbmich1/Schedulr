@@ -4,7 +4,7 @@
   <h2 class="grp-hdr">New Presenter</h2>
   <hr />
 
-  <%= form_for @presenter, :url => event_presenters_path, :html => { :multipart => true }, :validate => true do |f| %>
+  <%= form_for @presenter, :url => event_presenters_path(@event, :cid=>@channel), :html => { :multipart => true }, :validate => true do |f| %>
     <%= render :partial => 'form', :locals => { :f => f } %> 
   <% end %>
 <% end %>  

@@ -14,6 +14,11 @@
   <% end %>
   </div>
 <% end %>
+<% if !event.bbody.blank? %>	
+  <div class="<%= event.speaker.blank? ? 'span-6' : 'span-2' %>">
+  <span class="<%= event.speaker.blank? ? 'prepend-4' : 'prepend-6' %>"><%= 'Summary:' %></span></div>	
+  <div class="span-12 last"><%= event.bbody.html_safe %></div><br />
+<% end %>
 <% if !event.cbody.blank? %>	
   <div class="<%= event.speaker.blank? ? 'span-6' : 'span-2' %>">
   <span class="<%= event.speaker.blank? ? 'prepend-4' : 'prepend-6' %>"><%= 'Details:' %></span></div>	
@@ -22,6 +27,12 @@
   <% else %>
     <div class="span-10 last"><%= event.cbody.html_safe %></div><br />
   <% end %>
+<% end %>
+<% unless event.sourceURL.blank? %>	
+    <div class="span-2"><%= 'Website:' %></div><div class="span-12 last"><%= event.sourceURL %></div>
+<% end %>
+<% unless event.sourcePhone.blank? %>	
+    <div class="span-2"><%= 'Phone:' %></div><div class="span-12 last"><%= event.sourcePhone %></div>
 <% end %>
 </p>
 

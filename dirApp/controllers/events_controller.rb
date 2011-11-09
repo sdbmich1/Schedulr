@@ -25,8 +25,9 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(reset_dates(params[:event]))
+    @channel = Channel.find(params[:cid]) if params[:cid]
     if @event.save
-      redirect_to @event, :notice => "Successfully created event."
+      redirect_to event_url(@event, :cid=>@channel), :notice => "Successfully created event."
     else
       render :action => 'new'
     end
@@ -42,8 +43,9 @@ class EventsController < ApplicationController
 
   def update
     @event = Event.find(params[:id])
+    @channel = Channel.find(params[:cid]) if params[:cid]
     if @event.update_attributes(reset_dates(params[:event]))
-      redirect_to @event, :notice  => "Successfully updated event."
+      redirect_to event_url(@event, :cid=>@channel), :notice  => "Successfully updated event."
     else
       render :action => 'edit'
     end
@@ -51,8 +53,9 @@ class EventsController < ApplicationController
 
   def destroy
     @event = Event.find(params[:id])
+    @channel = Channel.find(params[:cid]) if params[:cid]
     @event.destroy
-    redirect_to events_url, :notice => "Successfully destroyed event."
+    redirect_to @channel, :notice => "Successfully destroyed event."
   end
 
   def clone

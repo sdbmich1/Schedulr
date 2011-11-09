@@ -3,10 +3,10 @@
 <%= content_for :content do %>
   <h2 class="grp-hdr">Sponsor Page</h2>
   <hr />
-  <%= link_to "Edit Page", edit_sponsor_page_path(@sponsor_page), :id=>"link-btn", :class=>"round nav-right" %>
+  <%= link_to "Edit Page", edit_sponsor_page_path(@sponsor_page, :eid=>@event, :cid=>@channel), :id=>"link-btn", :class=>"round nav-right" %>
 
   <div class="span-4">
-    <%= image_tag "schedule1.jpg", :alt => "none", :size => "120x120" %>     
+    <%= render :partial => 'shared/show_photo', :locals => {:model => @sponsor_page, :file_name => "schedule1.jpg", :psize => '120x120' } %>
   </div>
 
   <% if mobile_device? %>

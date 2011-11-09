@@ -8,7 +8,7 @@
     <% unless user_signed_in? %>
       <%= stylesheet_link_tag "user" %>
     <% end %>
-    <%= javascript_include_tag :defaults, 'jquery-1.6.2.min', 'jquery-ui-1.8.11.custom.min', 'rails.validations', :cache => true %>
+    <%= javascript_include_tag :defaults, 'jquery-1.6.2.min', 'jquery-ui-1.8.11.custom.min', 'rails.validations', 'jquery.infieldlabel.min', :cache => true %>
     <%= csrf_meta_tag %>
     <%= yield(:head) %>
   </head>

@@ -1,9 +1,9 @@
 
 <div class="span-4">
   <% for pic in model.pictures %>
-      <%= image_tag chk_image(pic.photo.url), :size => '120x120' %>
+      <%= image_tag chk_image(pic.photo.url), :size => psize %>
   <% end %>
   <% if model.try(:pictures).blank? %>
-    <%= image_tag file_name, :alt => "none", :size => "120x120" %>
+    <%= image_tag file_name, :alt => "none", :size => psize %>
   <% end %>
 </div>

@@ -19,6 +19,7 @@
     <th>Status</th>
     <th></th>
     <th></th>
+    <th></th>
   </tr>
   <% for event in @events %>
     <tr>
@@ -31,6 +32,7 @@
       <td><%= event.status.titleize %></td>
       <td><%= link_to "Edit", edit_event_path(event, :cid=>@channel) %></td>
       <td><%= link_to "Clone", clone_event_path(event, :cid=>@channel), :confirm => 'Clone this event?' %></td>
+      <td><%= link_to "Remove", event_url(@event, :cid=>@channel), :confirm => 'Remove this event?',  :method => :delete %></td>
     </tr>
   <% end %>
 </table>

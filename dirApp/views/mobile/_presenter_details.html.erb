@@ -2,15 +2,15 @@
     <% for contact in presenter.contact_details %>
 	<div class="show-item">
 	  <% unless contact.work_phone.blank? %>
-  	    <div class="span-2 prepend-4">Work Phone:</div>
+  	    <div class="span-2 <%= presenter.bio.length > 200 ? 'prepend-4' : 'none' %>">Work Phone:</div>
   	    <div class="span-8 last"><%= contact.work_phone %></div>
 	  <% end %>
 	  <% unless contact.work_email.blank? %>
-  	    <div class="span-2 prepend-4">Work Email:</div>
+  	    <div class="span-2 <%= presenter.bio.length > 200 ? 'prepend-4' : 'none' %>">Work Email:</div>
   	    <div class="span-8 last"><%= contact.work_email %></div>
 	  <% end %>
 	  <% unless contact.website.blank? %>
-  	    <div class="span-2 prepend-4">Website:</div>
+  	    <div class="span-2 <%= presenter.bio.length < 200 && contact.work_email.blank? ? 'none' : 'prepend-4' %>">Website:</div>
   	    <div class="span-8 last"><%= contact.website %></div>
 	  <% end %>
 	  <% unless contact.facebook_name.blank? %>

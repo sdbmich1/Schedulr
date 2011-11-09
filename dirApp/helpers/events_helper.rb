@@ -2,7 +2,7 @@ require "simple_time_select"
 module EventsHelper
 
   def has_sessions?(etype)
-    etype.blank? ? false : (%w(conf conv fest conc trmt fr).detect { |x| x == etype.downcase})
+    etype.blank? ? false : (%w(cnf conv fest sem crs trmt fr).detect { |x| x == etype.downcase})
   end
 
   def is_clone?(etype)
@@ -20,5 +20,13 @@ module EventsHelper
     else
       @date_s = "#{start_dt.strftime("%D")} - #{end_dt.strftime("%D")}" 
     end     
+  end
+
+  def any_prices?(event)
+    %w(AffiliateFee GroupFee MemberFee NonMemberFee AtDoorFee SpouseFee Other1Fee
+       Other2Fee Other3Fee Other4Fee Other5Fee Other6Fee).each {
+       |method| return true unless event.send(method).blank?
+	       }
+    false
   end
 end

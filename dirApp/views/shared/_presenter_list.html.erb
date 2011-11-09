@@ -12,15 +12,15 @@
   <% for presenter in @presenters %>
     <tr>
       <td>
-        <% for pic in presenter.pictures %>
-          <%= image_tag pic.photo.url, :size=>'48x48' %>
-	<% end %>
+        <div class="pic-size">
+          <%= render :partial => 'shared/show_photo', :locals => {:model => presenter, :file_name => "headshot1.jpg", :psize => '48x48' } %>
+	</div>
       </td>
 
       <% if has_sessions?(event.event_type) %>
-        <td><%= link_to presenter.name, event_presenter_url(event, presenter) %></td>
+        <td><%= link_to presenter.name, event_presenter_url(event, presenter, :cid=>@channel) %></td>
       <% else %>
-        <td><%= link_to presenter.name, event_presenter_url(event, presenter, :parent_id => parent) %></td>
+        <td><%= link_to presenter.name, event_presenter_url(event, presenter, :parent_id => parent, :cid=>@channel) %></td>
       <% end %>
 
       <td><%= presenter.title %></td>
@@ -28,23 +28,23 @@
       <td><%= truncate(presenter.bio, :length=>80, :omission=>"...") %></td>
 
       <% if spkrlist == 'No' %>
-        <td><%= link_to "Select", manage_presenters_url(:event_id => event, :presenter_id => presenter, :parent_id => parent), :method => :post %></td>
+        <td><%= link_to "Select", manage_presenters_url(:event_id => event, :presenter_id => presenter, :parent_id => parent, :cid=>@channel), :method => :post %></td>
       <% end %>
 
       <% if has_sessions?(event.event_type) %>
-        <td><%= link_to "Edit", edit_event_presenter_url(event, presenter) %></td>
+        <td><%= link_to "Edit", edit_event_presenter_url(event, presenter, :cid=>@channel) %></td>
       <% else %>
-        <td><%= link_to "Edit", edit_event_presenter_url(event, presenter, :parent_id => parent) %></td>
+        <td><%= link_to "Edit", edit_event_presenter_url(event, presenter, :parent_id => parent, :cid=>@channel) %></td>
       <% end %>
 
       <% if spkrlist == 'No' %>
         <% if has_sessions?(event.event_type) %>
-          <td><%= link_to "Remove", event_presenter_url(event, presenter), :confirm => 'Are you sure?', :method => :delete %></td>
+          <td><%= link_to "Remove", event_presenter_url(event, presenter, :cid=>@channel), :confirm => 'Are you sure?', :method => :delete %></td>
 	<% else %>
 	  <td></td>
 	<% end %>
       <% else %>
-        <td><%= link_to "Remove", manage_presenter_url(event, :presenter_id => presenter), :confirm => 'Are you sure?', :method => :delete %></td>
+        <td><%= link_to "Remove", manage_presenter_url(event, :presenter_id => presenter, :cid=>@channel), :confirm => 'Are you sure?', :method => :delete %></td>
       <% end %>
     </tr>
   <% end %>

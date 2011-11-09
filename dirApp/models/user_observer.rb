@@ -22,6 +22,9 @@ class UserObserver < ActiveRecord::Observer
 		:status => 'active', :hide => 'no')
 
     hp.HostName = hp.Company
+    hp.LastName = user.last_name
+    hp.FirstName = user.first_name
+    hp.EMAIL = user.email
     hp.StartMonth = user.created_at.month.to_s
     hp.StartDay = user.created_at.day.to_s
     hp.StartYear = user.created_at.year.to_s
@@ -43,7 +46,7 @@ class UserObserver < ActiveRecord::Observer
 	      	:mapstate => hp.State,
 	      	:mapzip => hp.PostalCode,
 	      	:channel_class => 'basic',
-	      	:channel_type => 'wshost')
+	      	:channel_type => 'public')
     hp.save
 
     #set channel location

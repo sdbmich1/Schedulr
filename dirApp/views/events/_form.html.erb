@@ -1,7 +1,7 @@
   <%= render "shared/error_messages", :target => @event %>
   <div id="newreg">
+    <p><span>Event Type: </span> <%= f.collection_select :event_type, EventType.nonsessions, :code, :desc_title, :prompt => 'Select' %></p>
     <p><span>Name: </span> <%= f.text_field :event_name, :size => 80 %></p>
-    <p><span>Type: </span> <%= f.collection_select :event_type, EventType.nonsessions, :code, :desc_title, :prompt => 'Select' %></p>
     <p><span>Status: </span> <%= f.collection_select :status, StatusType.unhidden, :code, :description, :prompt => 'Select' %></p>
 
   <% if is_clone?(etype) %>

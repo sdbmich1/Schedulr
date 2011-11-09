@@ -5,7 +5,7 @@
   <hr />
 
   <% unless @parent_event %>
-    <p><%= link_to "New Presenter", new_event_presenter_url, :id=>"link-btn", :class=>"round nav-right" %></p><br />
+    <p><%= link_to "New Presenter", new_event_presenter_url(:cid=>@channel), :id=>"link-btn", :class=>"round nav-right" %></p><br />
   <% end %>
 
   <p>

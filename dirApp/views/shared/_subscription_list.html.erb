@@ -1,0 +1,33 @@
+<div class="clear-all"></div>
+<% if mobile_device? %>
+  <div class="prepend-2 span-14 last">
+<% else %>
+  <div class="prepend-6 span-25 last">
+<% end %>
+<table>
+  <tr>
+    <th></th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Start Date</th>
+  </tr>
+  <% @subscriptions.each do |sub| %>
+    <% unless sub.try(:user).blank? %>
+    <tr>
+      <td>
+        <% for pic in sub.user.host_profiles[0].pictures %>
+          <%= image_tag pic.photo.url, :size=>'48x48' %>
+	<% end %>
+      </td>
+
+      <td><%= "#{sub.user.first_name} #{sub.user.last_name}" %></td>
+      <td><%= sub.user.email %></td>
+      <td><%= sub.created_at %></td>
+    </tr>
+    <% end %>
+  <% end %>
+</table>
+</div>
+<div class="nav-right">
+  <%= will_paginate @subscriptions %><br />
+</div>

@@ -21,8 +21,8 @@ class Channel < ActiveRecord::Base
   has_many :locations, :through => :channel_locations
   accepts_nested_attributes_for :channel_locations, :allow_destroy => true
 
-  has_many :subscriptions, :foreign_key => :channelID, :primary_key => :channelID, :dependent => :destroy
-  has_many :users, :through => :subscriptions
+  has_many :subscriptions, :foreign_key => :channelID, :primary_key => :channelID, :dependent => :destroy, :conditions => "status = 'active'"
+  has_many :users, :through => :subscriptions, :source => :user
 
   has_many :pictures, :as => :imageable, :dependent => :destroy
   accepts_nested_attributes_for :pictures, :allow_destroy => true
