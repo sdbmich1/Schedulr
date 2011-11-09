@@ -16,6 +16,7 @@ class Event < ActiveRecord::Base
   validates :eventstarttime, :presence => true
   validates :eventendtime, :presence => true, :allow_blank => false
   validates_time :eventendtime, :after => :eventstarttime, :if => :same_day?
+  validates :speakertopic, :allow_blank => true, :length => { :maximum => 100 }
   validates :bbody, :allow_blank => true, :length => { :maximum => 255 }
   validates :location, :presence => true, :if => :is_session?, :unless => :is_break?
   validates :session_type, :presence => true, :if => :is_session?
