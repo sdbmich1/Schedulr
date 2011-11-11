@@ -3,6 +3,8 @@ body {
 	  background-color: #FFF;	
 }
 
+.container { width: 75% }
+
 input[type='submit'] {  
     font-weight: bold;
     background: #0c6fcb;
@@ -99,6 +101,7 @@ a.cb_label {
 	margin:7px 5px 0px 0px;
 }
 
+.reg-title {margin-left:50px; }
 
 .sign-in-label {
  	margin-left: 105px;

@@ -33,7 +33,7 @@ $(document).ready(function(){
   });
 
 $(function () {
-  $('#sub-list .pagination a, #pres-list .pagination a, #event-list .pagination a, #session-list .pagination a').live('click', function () {
+   $("#session-list .pagination a, #sub-list .pagination a,#pres-list .pagination a,#event-list .pagination a,#rsvp-list .pagination a,#ch-list .pagination a").live('click', function () {
          $.getScript(this.href);
 	 return false;
    });
@@ -94,10 +94,10 @@ function remove_fields(link) {
   $(link).up(".fields").hide();  
 }  
 
-// shows/hides the subscription list on clicking link
+// shows/hides the rsvp/subscription list on clicking link
 $(function (){
-  $("#slist").live('click',function() {
-  $(this).text($(this).text() == 'Show' ? $('#sub-list').show('fast') : $('#sub-list').hide('fast') );
-  $(this).text($(this).text() == 'Show' ? 'Hide' : 'Show');
+  $("#slist, #rlist").live('click',function() {
+  $(this).text($(this).text() == 'Show List' ? $('#sub-list, #rsvp-list').show('fast') : $('#sub-list, #rsvp-list').hide('fast') );
+  $(this).text($(this).text() == 'Show List' ? 'Hide List' : 'Show List');
   });
 });
