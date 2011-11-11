@@ -18,5 +18,11 @@
       </div>
     <% end %>  
 
-    <p><%= f.submit "Save" %></p>
+    <p><%= f.submit "Save" %>
+      <% unless @event.id.blank? %>
+        <%= link_to "Cancel", event_url(@event, :cid=>@channel) %>
+      <% else %>
+        <%= link_to "Cancel", @channel %>
+      <% end %>
+    </p>
   </div>

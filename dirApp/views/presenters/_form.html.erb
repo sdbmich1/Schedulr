@@ -13,5 +13,7 @@
 
   <%= f.hidden_field :subscriptionsourceID, :value => @host_profile.HostChannelID %>
   <%= f.hidden_field :contentsourceID, :value => @host_profile.subscriptionsourceID %>
-  <p><%= f.submit "Save" %></p>
+  <p><%= f.submit "Save" %>
+     <%= link_to "Cancel", event_url(@event, :cid=>@channel) %>
+  </p>   
 </div>

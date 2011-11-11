@@ -8,8 +8,8 @@ class Presenter < ActiveRecord::Base
   text_regex = /^[-\w\,. _\/&@]+$/i
 
   validates :name, :presence => true, :uniqueness => { :scope => [:org_name, :title] }, :format => { :with => name_regex }
-  validates :org_name, :format => { :with => text_regex }
-  validates :title, :format => { :with => text_regex }
+  validates :org_name, :allow_blank => true, :format => { :with => text_regex }
+  validates :title, :allow_blank => true, :format => { :with => text_regex }
   validates :bio, :presence => true
 
   has_many :event_presenters, :dependent => :destroy

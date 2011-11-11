@@ -46,6 +46,7 @@ class Event < ActiveRecord::Base
 
   has_many :event_sites, :dependent => :destroy
   has_many :event_tracks, :dependent => :destroy
+  has_many :rsvps, :dependent => :destroy, :primary_key=>:eventid, :foreign_key => :EventID
 
   has_many :pictures, :as => :imageable, :dependent => :destroy
   has_many :sponsor_pages, :dependent => :destroy #, :foreign_key => :subscriptionsourceID, :primary_key => :subscriptionsourceID

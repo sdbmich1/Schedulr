@@ -10,20 +10,30 @@
 
     <%= f.fields_for :channel_locations do |form| %>  
  	  <p><span>Nearest City:</span><%= form.collection_select :location_id, Location.all, :id, :city, :prompt => 'Select' %></p>
-      
     <% end %> 
     
     <p><span>Summary: </span> <%= f.text_field :bbody, :size => 80 %></p>
     <p><span>Description: </span> <%= f.text_area :cbody  %></p>
 
     <%= render :partial => 'shared/photo', :locals => { :f => f } %>
-    <p><span><strong>Categories & Topics </strong></span></p><br />
-    <div class="clear-all"></div>
+  </div>
+  <div class="reg-title">
+  <p><span><strong>Categories & Topics </strong><br />
+    Choose categories and topics to help Koncierge users find your organization.</span></p>
+  </div>
+
+  <div class="clear-all"></div>
+  <div id="newreg">
   <p>
     <%= f.fields_for :channel_interests do |builder| %>  
       <%= render :partial => 'channel_interest', :locals => {:builder => builder} %>  
     <% end %> 
   </p>
-  <p><%= f.submit "Save" %></p>
+  <p><%= f.submit "Save" %> 
+      <% unless @channel.id.blank? %>
+        <%= link_to "Cancel", @channel %>
+      <% else %>
+        <%= link_to "Cancel", @host_profile %>
+      <% end %></p>
   </div>
 <% end %>

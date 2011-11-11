@@ -9,11 +9,11 @@
   </tr>
   <% for sponsor_page in @sponsor_pages %>
     <tr>
-      <td><%= link_to sponsor_page.name, sponsor_page %></td>
+      <td><%= link_to sponsor_page.name, sponsor_page_path(sponsor_page, :eid=>@event, :cid=>@channel) %></td>
       <td><%= sponsor_page.message %></td>
       <td><%= sponsor_page.status %></td>
       <td><%= link_to "Edit", edit_sponsor_page_path(sponsor_page, :eid=>@event, :cid=>@channel) %></td>
-      <td><%= link_to "Remove", sponsor_page_path(sponsor_page, :eid=>@event), :confirm => 'Are you sure?', :method => :delete %></td>
+      <td><%= link_to "Remove", sponsor_page_path(sponsor_page, :eid=>@event, :cid=>@channel), :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>
 </table>

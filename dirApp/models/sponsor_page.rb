@@ -1,7 +1,7 @@
 class SponsorPage < ActiveRecord::Base
   before_create :set_flds
 
-  attr_accessible :name, :message, :subscriptionsourceID, :contentsourceID, :status, :hide, :sponsorable_type, :sponsorable_id, :sponsors_attributes, :event_id
+  attr_accessible :name, :message, :subscriptionsourceID, :contentsourceID, :status, :hide, :sponsorable_type, :sponsorable_id, :sponsors_attributes, :event_id, :pictures_attributes
 
   text_regex = /^[-\w\,. _\/&@]+$/i
 
@@ -10,7 +10,9 @@ class SponsorPage < ActiveRecord::Base
 
   belongs_to :event #, :foreign_key => :subscriptionsourceID, :primary_key => :subscriptionsourceID
   has_many :sponsors, :as => :sponsorable, :dependent => :destroy
+  has_many :pictures, :as => :imageable, :dependent => :destroy
 
+  accepts_nested_attributes_for :pictures, :allow_destroy => true
   accepts_nested_attributes_for :sponsors, :reject_if => lambda { |a| a[:sponsor_name].blank? }, :allow_destroy => true
 
   default_scope :order => 'name ASC'

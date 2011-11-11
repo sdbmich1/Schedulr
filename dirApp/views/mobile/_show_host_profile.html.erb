@@ -1,11 +1,14 @@
-  <div class="span-2"><span><%= "ID#:" %></span></div>
-  <div class="span-10 last"><span class="append-2"><%= host_profile.HostChannelID %></span></div>
-  <div class="span-2"><span class="lbl-top"><%= "Company:" %></span></div>
-  <div class="span-12 last"><span class="append-2"><%= host_profile.Company %></span></div>
+  <div class="span-2"><span class="lbl-top"><%= "Name:" %></span></div>
+  <div class="span-10 last"><span class="append-2"><%= host_profile.Company %></span></div>
   <div class="span-2"><span><%= "Address:" %></span></div>
   <div class="span-12 last"><span class="append-2"><%= host_profile.Address1 %></span></div>
+  <% unless host_profile.Address2.blank? %>
+    <div class="span-14 last"><span class="prepend-2 append-2"><%= host_profile.Address2 %></span></div>
+  <% end %>
   <div class="span-14 last"><span class="prepend-2 append-2"><%= "#{host_profile.City}, #{host_profile.State} #{host_profile.PostalCode}" %></span></div>
-  <div class="span-14 last"><span class="prepend-2 append-2"><%= host_profile.Country %></span></div>
+  <% unless host_profile.Country.blank? %>
+    <div class="span-14 last"><span class="prepend-2 append-2"><%= host_profile.Country %></span></div>
+  <% end %>
   <div class="span-2"><span><%= "Status:" %></span></div>
   <div class="span-12 last"><span class="append-2"><%= host_profile.status.titleize %></span></div>
   <div class="span-2"><span><%= "Entity Type:" %></span></div>

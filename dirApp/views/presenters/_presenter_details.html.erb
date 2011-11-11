@@ -10,7 +10,7 @@
   	    <div class="span-18 last"><%= contact.work_email %></div>
 	  <% end %>
 	  <% unless contact.website.blank? %>
-  	    <div class="span-2 <%= presenter.bio.length < 200 && contact.work_email.blank? ? 'none' : 'prepend-4' %>">Website:</div>
+  	    <div class="span-2 <%= presenter.bio.length < 200 || (contact.work_email.blank? && contact.work_phone.blank?) ? 'none' : 'prepend-4' %>">Website:</div>
   	    <div class="span-18 last"><%= contact.website %></div>
 	  <% end %>
 	  <% unless contact.facebook_name.blank? %>

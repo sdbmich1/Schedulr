@@ -1,5 +1,5 @@
 <ul>
-  <li><%= link_to "Home", [@user,@host_profile] %></li>
+  <li><%= link_to "Profile", [@user,@host_profile] %></li>
   </li>
   <% case menu_type %>
   <% when "Event" %>
@@ -14,7 +14,7 @@
     <li><%= link_to "Channel", @channel %></li>
     <% if @parent_event %>
       <li><%= link_to "Event", event_url(@parent_event, :cid=>@channel) %></li>
-      <li><%= link_to "Session", event_session_relationship_url(@parent_event, @event) %></li>
+      <li><%= link_to "Session", event_session_relationship_url(@parent_event, @event, :cid=>@channel) %></li>
     <% else %>
       <li><%= link_to "Event", event_url(@event, :cid=>@channel) %></li>
     <% end %>

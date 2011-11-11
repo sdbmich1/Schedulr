@@ -13,6 +13,7 @@ class EventsController < ApplicationController
     @sponsor_pages = @event.sponsor_pages
     @presenters = @event.presenters.paginate(:page => params[:page], :per_page => 15)
     @sessions = @event.sessions.paginate(:page => params[:page], :per_page => 15)
+    @rsvps = @event.rsvps.paginate(:page => params[:page], :per_page => 15)
   end
 
   def new

@@ -10,6 +10,10 @@
   <div class="span-2"><span><%= "Host:" %></span></div>	
   <div class="span-12 last"><span class="append-2"><%= event.host %></span></div>
 <% end %>
+<% if rsvp?(event) %>^M
+  <div class="span-2"><span><%= "RSVP:" %></span></div>^M
+    <div class="span-12 last"><%= event.rsvp.titleize %></div> ^M
+<% end %>
 <% if !event.RSVPemail.blank? %>	
   <div class="span-2"><span><%= "RSVP Email:" %></span></div>	
   <div class="span-12 last"><%= event.RSVPemail %></div> 

@@ -12,5 +12,7 @@
 
   <%= f.hidden_field :event_type, :value => 'es' %>
   <%= f.hidden_field :etype, :value => 'Session' %>
-  <p><%= f.submit "Save" %></p>
+  <p><%= f.submit "Save" %>
+     <%= link_to "Cancel", event_url(@event, :cid=>@channel) %>
+  </p>
 </div>

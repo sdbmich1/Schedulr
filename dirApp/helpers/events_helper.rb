@@ -22,6 +22,14 @@ module EventsHelper
     end     
   end
 
+  def rsvp_count(rsvp, rtype)
+    rsvp.select {|r| r.status == rtype }.inject(0) {|x,y| x+1 }
+  end
+
+  def rsvp?(event)
+    event.rsvp.blank? ? false : event.rsvp == 'Yes' ? true : false
+  end
+
   def any_prices?(event)
     %w(AffiliateFee GroupFee MemberFee NonMemberFee AtDoorFee SpouseFee Other1Fee
        Other2Fee Other3Fee Other4Fee Other5Fee Other6Fee).each {

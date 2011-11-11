@@ -1,7 +1,14 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :load_data, :except => :destroy
+  before_filter :set_cache_buster
   helper_method :mobile_device?
+
+  def set_cache_buster
+    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+  end
 
   def load_data
     if user_signed_in?
@@ -16,9 +23,9 @@ class ApplicationController < ActionController::Base
 
   protected
 
- #   def rescue_with_handler(exception)
- #     redirect_to '/500.html'
- #   end
+    def rescue_with_handler(exception)
+      redirect_to '/500.html'
+    end
 
     def method_missing(id, *args)
       redirect_to '/404.html'

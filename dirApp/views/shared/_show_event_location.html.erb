@@ -1,5 +1,5 @@
 <p>
-<div class="<%= !event.host.blank? && !event.speakertopic.blank? ? 'span-6' : 'span-2' %>">"><%= 'Where:' %></div><div class="span-19 last"><%= event.mapplacename %></div>
+<div class="<%= !event.host.blank? && !event.speakertopic.blank? ? 'span-6' : 'span-2' %>"><%= 'Where:' %></div><div class="span-19 last"><%= event.mapplacename %></div>
 <% if event.try(:event_tracks).blank? %>
   <div class="span-21 last">	<span class="<%= !event.mapplacename.blank? ? 'prepend-2' : 'none' %>"><%= event.mapstreet %></span></div>
 <% else %>
@@ -8,7 +8,7 @@
 <% if !event.mapcity.blank? %>	
   <div class="span-21 last">		
   <% if event.try(:event_tracks).blank? %>
-    <span class="<%= event.try(:speakertopic).blank? ? 'prepend-2' : 'prepend-6' %>"><%="#{event.mapcity}, #{event.mapstate} #{event.mapzip} " %></span>
+    <span class="<%= event.try(:speakertopic).blank? && event.rsvp.blank? ? 'prepend-2' : 'prepend-6' %>"><%="#{event.mapcity}, #{event.mapstate} #{event.mapzip} " %></span>
   <% else %>
     <span class="prepend-6"><%="#{event.mapcity}, #{event.mapstate} #{event.mapzip} " %></span>
   <% end %>

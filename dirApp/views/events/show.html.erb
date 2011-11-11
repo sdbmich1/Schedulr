@@ -7,6 +7,21 @@
 
   <%= render :partial => 'shared/show_form', :locals => {:event => @event} %><br />
 
+  <% unless @rsvps.blank? %>
+    <div class="clear-all"></div>
+    <div class="span-6"><span class="prepend-4"><strong>RSVPs:</strong></span></div>
+
+    <% if mobile_device? %>
+      <div class="span-12 last">
+    <% else %>
+      <div class="span-19 last">
+    <% end %>
+
+    <%= @rsvps.count %>  (Yes: <%= rsvp_count(@rsvps,'Attending') %> Maybe: <%= rsvp_count(@rsvps,'Might Attend') %> No: <%= rsvp_count(@rsvps,'Not Attending') %>)  <%= link_to "Show List", "#", :id=>"rlist", :remote=>true %>
+    </div>
+    <p><div id="rsvp-list" style="display:none"><%= render :partial => 'shared/rsvp_list' %></div></p>
+  <% end %>
+
   <div class="clear-all"></div>
   <% if mobile_device? %>
     <%= render :partial => 'mobile/show_event_session', :locals => {:event => @event} %><br />

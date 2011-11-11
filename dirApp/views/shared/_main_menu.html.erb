@@ -1,5 +1,10 @@
 <div id="menu">
-  <span class="menu-offset <%= main_menu == 'Home' ? 'none' : '' %>" id="titlebar"><%= link_to get_name_or_logo, root_url %></span> 
+  <span class="menu-offset <%= main_menu == 'Home' ? 'none' : '' %>" id="titlebar">
+  <% unless user_signed_in? %>
+    <%= link_to get_name_or_logo, root_url %>
+  <% else %>
+    <%= link_to get_name_or_logo, [@user,@host_profile] %>
+  <% end %></span> 
 
   <% case main_menu %>		
   <% when "Register" %>
@@ -7,7 +12,7 @@
  	  <span class="welcomebar"><%= "Welcome to #{get_name_or_logo} #{current_user.username}!" %></span> 
 	</div>
   <% when "Home" %>
-	<div class="span-24 last rpos">
+	<div class="rpos">
    	  <%= link_to "Login", new_user_session_path, :class => "signin_button round" %>
 	</div>
   <% when "Sign Up" %>

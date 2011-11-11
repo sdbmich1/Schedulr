@@ -4,7 +4,7 @@ class User < KitsDevelopmentModel
   # Include default devise modules. Others available are:
   # :token_authenticatable,  :lockable and :timeoutable
   devise :database_authenticatable, :registerable,  #:confirmable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable, :timeoutable
 
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'

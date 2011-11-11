@@ -2,7 +2,7 @@ module ApplicationHelper
 
   # returns logo or name
   def get_name_or_logo(*args)
-    args[0] ? @name = "koncierge.png" : @name = "Schedulr"
+    args[0] ? @name = "koncierge.png" : @name = "Kontributor"
   end
 
   def title

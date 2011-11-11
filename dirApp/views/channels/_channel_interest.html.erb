@@ -1,4 +1,3 @@
-<p>
    <span>Category: </span>
    <%= builder.collection_select :category_id, Category.get_active_list, :id, :name, :prompt => 'Select' %>
    <% if @interests %>
@@ -6,5 +5,4 @@
    <% else %>
      <%= builder.collection_select :interest_id, Interest.get_active_list, :id, :name, :prompt => 'Select' %>
    <% end %>
-</p>   
-
+<br />

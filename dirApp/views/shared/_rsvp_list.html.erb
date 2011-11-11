@@ -1,0 +1,30 @@
+<div class="clear-all"></div>
+<% if mobile_device? %>
+  <div class="prepend-2 span-14 last">
+<% else %>
+  <div class="prepend-6 span-25 last">
+<% end %>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Status</th>
+    <th>Guests</th>
+    <th>RSVP Date</th>
+    <th>Comment</th>
+  </tr>
+  <% @rsvps.each do |rsvp| %>
+    <tr>
+      <td><%= rsvp.fullname %></td>
+      <td><%= rsvp.status %></td>
+      <td><%= rsvp.guests %></td>
+      <td><%= rsvp.email %></td>
+      <td><%= rsvp.responsedate %></td>
+      <td><%= rsvp.comment %></td>
+    </tr>
+  <% end %>
+</table>
+</div>
+<div class="nav-right">
+  <%= will_paginate @rsvps %><br />
+</div>

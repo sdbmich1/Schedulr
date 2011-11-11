@@ -11,5 +11,7 @@
     <%= f.hidden_field :event_id, :value => @event.id %>
     <%= f.hidden_field :subscriptionsourceID, :value => @event.subscriptionsourceID %>
     <%= f.hidden_field :contentsourceID, :value => @event.contentsourceID %>
-    <p><%= f.submit "Save" %></p>
+    <p><%= f.submit "Save" %>
+        <%= link_to "Cancel", event_url(@event, :cid=>@channel) %>
+    </p>
   </div>

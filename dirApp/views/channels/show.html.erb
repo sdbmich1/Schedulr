@@ -39,7 +39,7 @@
   <% else %>
     <div class="span-19 last">
   <% end %>
-  <%= @subscriptions.count %> <%= link_to "Show", "#", :id=>"slist" %>
+  <%= @subscriptions.count %> <%= link_to "Show List", "#", :id=>"slist", :remote=>true %>
   </div>
   <p><div id="sub-list" style="display:none"><%= render :partial => 'shared/subscription_list' %></div></p>
   <div class="clear-all"></div>
