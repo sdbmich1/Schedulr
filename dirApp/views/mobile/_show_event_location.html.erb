@@ -1,7 +1,7 @@
 <p>
 <div class="span-2"><%= 'Where:' %></div><div class="span-12 last"><%= event.mapplacename %></div>
 <% if event.try(:event_tracks).blank? %>
-  <div class="span-12 last">	<span class="<%= !event.mapplacename.blank? ? 'prepend-2' : 'none' %>"><%= event.mapstreet %></span></div>
+  <div class="span-12 last">	<span class="<%= !event.mapplacename.blank? ? 'prepend-6' : 'none' %>"><%= event.mapstreet %></span></div>
 <% else %>
   <div class="span-12 last">	<span class="<%= !event.mapplacename.blank? ? 'prepend-6' : 'none' %>"><%= event.mapstreet %></span></div>
 <% end %>
