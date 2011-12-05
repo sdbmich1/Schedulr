@@ -1,0 +1,12 @@
+    <% [['MemberFee', 'Member Price:'], ['NonMemberFee', 'General Price:'], ['AffiliateFee', 'Affiliate Price:'], 
+      ['SpouseFee', 'Spouse Price:'], ['AtDoorFee', 'At Door Price:'], ['GroupFee', 'Group Price:']].each do |fld| %>
+  		<p><span><%= "#{fld[1]}" %></span>
+		<%= f.text_field fld[0], :size => 10, :value => number_with_precision(f.object.send(fld[0]), :precision=>2) %></p>
+    <% end %>
+  
+    <% (1..6).each do |i| %>
+      <p><span><%= 'Custom' + 'Price' + i.to_s %></span>
+      <%= f.text_field 'Other' + i.to_s + 'Fee', :size => 10, :value => number_with_precision(f.object.send('Other' + i.to_s + 'Fee'), :precision=>2) %>
+      <%= 'Custom Price' + i.to_s + ' Label' %>
+      <%= f.text_field 'Other' + i.to_s + 'Title', :size => 25 %></p>
+    <% end %>

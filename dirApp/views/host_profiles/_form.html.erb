@@ -5,6 +5,6 @@
     <%= render :partial => 'shared/host_profiles', :locals => { :f => f } %>
     <%= render :partial => 'shared/photo', :locals => { :f => f } %>
 
-    <p><%= f.submit "Save" %><%= link_to "Cancel", @host_profile %></p>
+    <p><%= f.submit "Save" %><%= link_to 'Back', :back %></p>
   </div>
 <% end %>

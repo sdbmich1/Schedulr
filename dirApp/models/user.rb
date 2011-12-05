@@ -45,7 +45,7 @@ class User < KitsDevelopmentModel
   accepts_nested_attributes_for :host_profiles, :reject_if => :all_blank 
 
   has_many :channels, :through => :host_profiles
-  has_many :events, :through => :channels
+  has_many :channel_events, :through => :channels
 
   # Overrides the devise method find_for_authentication
   # Allow users to Sign In using their username or email address

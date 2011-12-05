@@ -11,7 +11,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def after_sign_up_path_for(resource)
     channel = resource.channels.first
-    flash[:notice] = "Welcome to KiTS! To finish the sign up process, add your description, logo, and select the categories and topics you want people to find your organization with Koncierge."
+    flash[:notice] = "Welcome to KiTS! To finish the sign up process, add your description, logo, and select the categories and topics you want people to find your organization and events with Koncierge."
     edit_channel_url(channel) || session[:return_to]
   end
 

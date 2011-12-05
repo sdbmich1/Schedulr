@@ -19,7 +19,7 @@
   </div>
   <div class="reg-title">
   <p><span><strong>Categories & Topics </strong><br />
-    Choose categories and topics to help Koncierge users find your organization.</span></p>
+    Choose categories and topics to help Koncierge users find your organization and events.</span></p>
   </div>
 
   <div class="clear-all"></div>
@@ -30,10 +30,6 @@
     <% end %> 
   </p>
   <p><%= f.submit "Save" %> 
-      <% unless @channel.id.blank? %>
-        <%= link_to "Cancel", @channel %>
-      <% else %>
-        <%= link_to "Cancel", @host_profile %>
-      <% end %></p>
+     <%= link_to 'Back', :back %></p>
   </div>
 <% end %>

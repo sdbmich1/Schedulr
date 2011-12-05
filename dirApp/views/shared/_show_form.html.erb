@@ -1,7 +1,2 @@
 <%= render :partial => 'shared/show_photo', :locals => {:model => event, :file_name => "schedule1.jpg", :psize => '120x120' } %>
-
-<% if mobile_device? %>
-  <%= render :partial => 'mobile/show_event', :locals => {:event => event} %>
-<% else %>
-  <%= render :partial => 'shared/show_event', :locals => {:event => event} %>
-<% end %>
+<%= render :partial => 'shared/show_event', :locals => {:event=>event, :shead=>get_shead, :sbody=>get_sbody, :lbody=>get_lbody} %>

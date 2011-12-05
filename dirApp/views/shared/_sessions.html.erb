@@ -30,6 +30,6 @@
    <% end %>
   </table>
   <div class="nav-right">
-    <%= will_paginate @sessions %>
+    <%= will_paginate @sessions, :param_name => 'session_page' %>
   </div>
   </p>

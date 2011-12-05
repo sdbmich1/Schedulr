@@ -7,10 +7,10 @@ class ChannelsController < ApplicationController
   end
 
   def show
-    @channel = Channel.find(params[:id])
+    @channel = Channel.find_channel(params[:id])
     @picture = @channel.pictures
     @events = Event.find_events(params[:page], @channel.channelID)
-    @subscriptions = @channel.subscriptions.paginate(:page => params[:page], :per_page => 15)
+    @subscriptions = @channel.subscriptions.paginate(:page => params[:sub_page], :per_page => 7)
   end
 
   def new

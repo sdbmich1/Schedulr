@@ -1,36 +1,19 @@
 <div class="clear-all"></div>
 <% if any_prices?(event) %>
-  <p><div class="span-6"><span class="prepend-4"><strong>Prices:</strong></span></div></p>
+  <p><div class="span-6"><span class="prepend-4">Prices:</span></div></p>
+  <div class="<%= sbody %> last">
+  <% [['MemberFee', 'Member:'], ['NonMemberFee', 'General:'], ['AffiliateFee', 'Affiliate:'],
+      ['SpouseFee', 'Spouse:'], ['AtDoorFee', 'At Door:'], ['GroupFee', 'Group:']].each do |fld| %>
+  	<% if price_exists?(event, fld[0] ) %>	
+  		<div class="span-2"><%= "#{fld[1]}" %></div>
+		<div class="<%= mbody %> last"><%= number_to_currency(event.send(fld[0])) %></div>
+  	<% end %>
+  <% end %>
+  <% (1..6).each do |i| %>
+    <% if price_exists?(event, 'Other' + i.to_s + 'Fee' ) %>	
+  	<div class="span-4"><%= event.send('Other' + i.to_s + 'Title') + ':' %></div>
+	<div class="<%= get_cbody %> last"><%= number_to_currency(event.send('Other' + i.to_s + 'Fee')) %></div>
+    <% end %>
+  <% end %>
+  </div>
 <% end %>
-<div class="span-19 last">
-<% unless event.MemberFee.blank? %>	
-  <div class="span-2"><%= 'Member:' %></div><div class="span-17 last"><%= number_to_currency(event.MemberFee) %></div>
-<% end %>
-<% unless event.NonMemberFee.blank? %>	
-  <div class="span-2"><%= 'General:' %></div><div class="span-17 last"><%= number_to_currency(event.NonMemberFee) %></div>
-<% end %>
-<% unless event.AffiliateFee.blank? %>	
-  <div class="span-2"><%= 'Affiliate:' %></div><div class="span-17 last"><%= number_to_currency(event.AffiliateFee) %></div>
-<% end %>
-<% unless event.Other1Fee.blank? %>	
-  <div class="span-2"><%= 'Student:' %></div><div class="span-17 last"><%= number_to_currency(event.Other1Fee) %></div>
-<% end %>
-<% unless event.Other2Fee.blank? %>	
-  <div class="span-2"><%= 'Senior:' %></div><div class="span-17 last"><%= number_to_currency(event.Other2Fee) %></div>
-<% end %>
-<% unless event.SpouseFee.blank? %>	
-  <div class="span-2"><%= 'Spouse:' %></div><div class="span-17 last"><%= number_to_currency(event.SpouseFee) %></div>
-<% end %>
-<% unless event.GroupFee.blank? %>	
-  <div class="span-2"><%= 'Group:' %></div><div class="span-17 last"><%= number_to_currency(event.GroupFee) %></div>
-<% end %>
-<% unless event.Other3Fee.blank? %>	
-  <div class="span-2"><%= 'Prepaid:' %></div><div class="span-17 last"><%= number_to_currency(event.Other3Fee) %></div>
-<% end %>
-<% unless event.Other4Fee.blank? %>	
-  <div class="span-2"><%= 'Disabled:' %></div><div class="span-17 last"><%= number_to_currency(event.Other4Fee) %></div>
-<% end %>
-<% unless event.AtDoorFee.blank? %>	
-  <div class="span-2"><%= 'At Door:' %></div><div class="span-17 last"><%= number_to_currency(event.AtDoorFee) %></div>
-<% end %>
-</div>

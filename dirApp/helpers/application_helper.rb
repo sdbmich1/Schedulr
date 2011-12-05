@@ -49,11 +49,43 @@ module ApplicationHelper
   end 
 
   def get_nice_date(*args) 
-    args[0].blank? ? '' : args[1].blank? ? args[0].strftime("%D") : args[0].strftime('%m-%d-%Y') 
+    args[0].blank? ? '' : args[1].blank? ? args[0].strftime("%D") : args[0].strftime('%m/%d/%Y') 
   end
 
   def get_nice_time(val)	  
-    val.blank? ? '' : val.strftime('%l:%M %p')
+    val.blank? ? '' : val.strftime('%l:%M%p')
+  end
+
+  def get_shead(val='span-10')
+    mobile_device? ? val : 'span-17'
+  end
+
+  def get_mbody
+    mobile_device? ? 'span-10' : 'span-16'
+  end
+
+  def get_cbody
+    mobile_device? ? 'span-8' : 'span-14'
+  end
+
+  def get_pbody
+    mobile_device? ? 'prepend-2' : 'prepend-6'
+  end
+
+  def get_sbody
+    mobile_device? ? 'span-12' : 'span-18'
+  end
+
+  def get_lbody
+    mobile_device? ? 'span-14' : 'span-21'
+  end
+
+  def get_layout
+    mobile_device? ? "prepend-2 span-14 last" : "prepend-6 span-25 last"
+  end
+  
+  def get_class(*fld)
+    fld[0] == 'work_email' || fld[0] == 'work_phone' ? fld[1] > 200 ? 'prepend-4' : 'none' : 'none'
   end
 
   def resource_name

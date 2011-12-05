@@ -1,0 +1,17 @@
+<div class="modal-title"><span>Subscriber Schedule Availability</span></div>
+<table>
+  <tr>
+    <th>Start Date</th>
+    <% avail[avail.keys.first].keys.each do |hr| %>
+      <th><%= "#{set_start(hr)} - #{set_end(hr+1)}" %></th>
+    <% end %>
+  </tr>
+  <% avail.keys.each do |dte| %>
+    <tr>
+      <td><%= get_nice_date(dte) %></td>
+      <% avail[dte].keys.each do |tm| %>
+        <td><%= "#{number_with_precision(100 - avail[dte][tm], :precision=>2)}%" %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

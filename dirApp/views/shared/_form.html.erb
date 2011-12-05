@@ -1,16 +1,21 @@
-    <p><span>Start Date: </span> <%= f.date_select :eventstartdate, :start_year => Date.today.year,
-                                    :end_year => Date.today.year+2, 
-                                    :order => [:month, :day, :year]  %></p>
-    <p><span>Start Time: </span> <%= f.time_select :eventstarttime,{ :default => Time.now.change(:hour => 12), :simple_time_select => true, :minute_interval => 		5, :time_separator => "" }, :value => chk_offset(@event.eventstarttime, @event.localGMToffset) %></p>
-    <p><span>Start Time Zone: </span> <%= f.collection_select :localGMToffset, GmtTimezone.all, :code, :description, {:selected => @user.localGMToffset} %></p>
-    <p><span>End Date: </span> <%= f.date_select :eventenddate, :start_year => Date.today.year,     
-                                        :end_year => Date.today.year+3,
-				        :order => [:month, :day, :year] %></p>
-    <p><span>End Time: </span> <%= f.time_select :eventendtime, { :default => Time.now.change(:hour => 12), :simple_time_select => true, :minute_interval => 5, 		:time_separator => "" }, :value => chk_offset(@event.eventendtime, @event.endGMToffset) %></p>
-    <p><span>End Time Zone: </span> <%= f.collection_select :endGMToffset, GmtTimezone.all, :code, :description, {:selected => @user.localGMToffset} %></p>
-    <p><span>Status: </span> <%= f.collection_select :status, StatusType.unhidden, :code, :description, :prompt => 'Select' %></p>
-    <p><span>Place: </span> <div id="mform"><p><label for="event_mapplacename">Enter place name (e.g. Empire State Bldg)</label>
-   	 <%= f.text_field :mapplacename, :size => 60 %></p></div></p>
+  <p><span>Start Date: </span><%= f.text_field :eventstartdate, :value => get_nice_date(@event.eventstartdate, 'Edit'), :size => 10, :id => "start-date" %></p>
+  <p><span>Start Time: </span> <%= f.time_select :eventstarttime,{ :default => Time.now.change(:hour => 12), :simple_time_select => true, :minute_interval =>	5, :time_separator => "" }, :value => chk_offset(@event.eventstarttime, @event.localGMToffset) %>
+
+  <% unless @channel.subscriptions.blank? %>
+    <%= link_to "Check Availability", "#modal", :id => "chk-avail" %></p>
+    <div id="curr-cid" data-cid="<%= @channel.id %>"></div>
+    <div style="display:none"><div id='modal'>
+	<div id="avail"><%= render :partial => 'shared/show_availability', :locals=>{:avail=>check_avail(@channel.subscriptions, f.object.eventstartdate)} %></div>
+    </div></div>
+  <% end %>
+
+  <p><span>Start Time Zone: </span> <%= f.collection_select :localGMToffset, GmtTimezone.all, :code, :description, {:selected => @user.localGMToffset} %></p>
+  <p><span>End Date: </span><%= f.text_field :eventenddate, :value => get_nice_date(@event.eventenddate, 'Edit'), :size => 10, :id => "end-date" %></p>
+  <p><span>End Time: </span> <%= f.time_select :eventendtime, { :default => Time.now.change(:hour => 12), :simple_time_select => true, :minute_interval => 5,	:time_separator => "" }, :value => chk_offset(@event.eventendtime, @event.endGMToffset) %></p>
+  <p><span>End Time Zone: </span> <%= f.collection_select :endGMToffset, GmtTimezone.all, :code, :description, {:selected => @user.localGMToffset} %></p>
+  <p><span>Status: </span> <%= f.collection_select :status, StatusType.unhidden, :code, :description, :prompt => 'Select' %></p>
+  <p><span>Place: </span> <div id="mform"><p><label for="event_mapplacename">Enter place name (e.g. Empire State Bldg)</label>
+    <%= f.text_field :mapplacename, :size => 60 %></p></div></p>
 
     <% if etype == 'Session' %>
       <p><span>Location: </span> <%= f.collection_select :location, EventSite.get_list(@event.id), :name, :name, :include_blank => true %></p>
@@ -27,18 +32,11 @@
     <p><span>Host: </span> <%= f.text_field :host, :size => 80 %></p>
     <p><span>Topic: </span> <div id="mform"><p><label for="event_speakertopic">Enter topic (e.g. Global Warming)</label>
       <%= f.text_field :speakertopic, :size => 100 %></p></div></p>
-    <p><span>Summary: </span> <%= f.text_field :bbody, :size => 100 %></p>
+    <p><span>Summary: </span><div id="mform"><p><label for="event_bbody">Enter brief summary (e.g. Fundraiser for Global Warming Research )</label> 
+    <%= f.text_field :bbody, :size => 100 %></p></div></p>
     <p><span>Description: </span> <%= f.text_area :cbody  %></p>
-    <p><span>Member Fee: </span> <%= f.text_field :MemberFee, :size => 10 %></p>
-    <p><span>General Fee: </span> <%= f.text_field :NonMemberFee, :size => 10 %></p>
-    <p><span>Affiliate Fee: </span> <%= f.text_field :AffiliateFee, :size => 10 %></p>
-    <p><span>At Door Fee: </span> <%= f.text_field :AtDoorFee, :size => 10 %></p>
-    <p><span>Prepaid Fee: </span> <%= f.text_field :Other3Fee, :size => 10 %></p>
-    <p><span>Student Fee: </span> <%= f.text_field :Other1Fee, :size => 10 %></p>
-    <p><span>Senior Fee: </span> <%= f.text_field :Other2Fee, :size => 10 %></p>
-    <p><span>Disabled Fee: </span> <%= f.text_field :Other4Fee, :size => 10 %></p>
-    <p><span>Spouse Fee: </span> <%= f.text_field :SpouseFee, :size => 10 %></p>
-    <p><span>Group Fee: </span> <%= f.text_field :GroupFee, :size => 10 %></p>
+    
+    <%= render :partial => 'shared/event_prices', :locals => { :f => f } %>
     <p><span>RSVP?: </span> <%= f.check_box :rsvp, {:class=>'check_bx'}, "yes", "no" %></p>
     
     <%= render :partial => 'shared/photo', :locals => { :f => f } %>

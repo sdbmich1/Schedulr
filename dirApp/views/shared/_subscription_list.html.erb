@@ -1,33 +1,32 @@
 <div class="clear-all"></div>
-<% if mobile_device? %>
-  <div class="prepend-2 span-14 last">
-<% else %>
-  <div class="prepend-6 span-25 last">
-<% end %>
+<center><h3 class="grp-hdr">Subscriber List</h3></center>
 <table>
   <tr>
     <th></th>
     <th>Name</th>
     <th>Email</th>
+    <th>Age</th>
+    <th>Location</th>
     <th>Start Date</th>
   </tr>
   <% @subscriptions.each do |sub| %>
     <% unless sub.try(:user).blank? %>
     <tr>
       <td>
-        <% for pic in sub.user.host_profiles[0].pictures %>
-          <%= image_tag pic.photo.url, :size=>'48x48' %>
-	<% end %>
+        <div class="pic-size">
+	  <%= render :partial => 'shared/show_photo', :locals => {:model => sub.user.host_profiles[0], :file_name => "headshot1.jpg", :psize => '48x48' } %>
+	</div>
       </td>
 
       <td><%= "#{sub.user.first_name} #{sub.user.last_name}" %></td>
       <td><%= sub.user.email %></td>
-      <td><%= sub.created_at %></td>
+      <td><%= get_age(sub.user) %></td>
+      <td><%= get_location(sub.user) %></td>
+      <td><%= get_nice_date(sub.created_at, 'List') %></td>
     </tr>
     <% end %>
   <% end %>
 </table>
-</div>
 <div class="nav-right">
-  <%= will_paginate @subscriptions %><br />
+  <%= will_paginate @subscriptions, :param_name => 'sub_page' %><br />
 </div>

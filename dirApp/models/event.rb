@@ -1,10 +1,11 @@
 class Event < ActiveRecord::Base
+#  set_table_name 'eventstsd'
   set_primary_key :ID
 
   attr_accessor :etype
   attr_accessible :etype, :event_name, :event_type, :cbody, :bbody, :eventstartdate, :eventenddate, :eventstarttime, :eventendtime, :localGMToffset, :endGMToffset, :mapstreet, :mapcity, :mapstate, :mapzip, :mapplacename, :mapcountry, :location, :imagelink, :status, :hide, :event_title, :event_tracks_attributes, :pictures_attributes, :speakertopic, :session_type, :track, :event_sites_attributes, :host, :RSVPemail, :created_at, :rsvp, :eventid, :speaker, :updated_at,
   :contentsourceID, :subscriptionsourceID, :event_presenters_attributes, :contentsourceURL, :subscriptionsourceURL, 
-  :AffiliateFee, :Other3Fee, :AtDoorFee, :GroupFee, :Other1Fee, :Other2Fee, :SpouseFee, :MemberFee, :NonMemberFee, :Other4Fee, :Other5Fee, :Other6Fee
+  :AffiliateFee, :Other3Fee, :AtDoorFee, :GroupFee, :Other1Fee, :Other2Fee, :SpouseFee, :MemberFee, :NonMemberFee, :Other4Fee, :Other5Fee, :Other6Fee,:Other3Title, :Other1Title, :Other2Title, :Other4Title, :Other5Title, :Other6Title
 
   money_regex = /^\$?(?:\d+)(?:.\d{1,2}){0,1}$/
   url_regex = /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}(:[0-9]{1,5})?(\/.*)?$/ix
@@ -32,6 +33,12 @@ class Event < ActiveRecord::Base
   validates :Other5Fee, :allow_blank => true, :format => { :with => money_regex }
   validates :Other6Fee, :allow_blank => true, :format => { :with => money_regex }
   validates :SpouseFee, :allow_blank => true, :format => { :with => money_regex }
+  validates :Other1Title, :presence => true, :unless => Proc.new { |a| a.Other1Fee.blank? }
+  validates :Other2Title, :presence => true, :unless => Proc.new { |a| a.Other2Fee.blank? }
+  validates :Other3Title, :presence => true, :unless => Proc.new { |a| a.Other3Fee.blank? }
+  validates :Other4Title, :presence => true, :unless => Proc.new { |a| a.Other4Fee.blank? }
+  validates :Other5Title, :presence => true, :unless => Proc.new { |a| a.Other5Fee.blank? }
+  validates :Other6Title, :presence => true, :unless => Proc.new { |a| a.Other6Fee.blank? }
   
   before_save :set_flds
   after_save :reset_session_data, :unless => "etype.blank?"
@@ -68,6 +75,10 @@ class Event < ActiveRecord::Base
 
   def self.find_events(page, ssid)
     unscoped.where("event_type != 'es' AND subscriptionsourceID = ?", ssid).paginate(:page => page).order('eventstartdate, eventstarttime DESC')
+  end
+
+  def self.new_event
+    ev = Event.new(:eventstartdate=>Date.today, :eventenddate=>Date.today)
   end
 
   def is_session?

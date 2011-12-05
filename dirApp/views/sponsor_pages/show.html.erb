@@ -9,11 +9,7 @@
     <%= render :partial => 'shared/show_photo', :locals => {:model => @sponsor_page, :file_name => "schedule1.jpg", :psize => '120x120' } %>
   </div>
 
-  <% if mobile_device? %>
-    <%= render :partial => 'mobile/show_sponsor_page', :locals => {:sponsor_page => @sponsor_page} %>
-  <% else %>
-    <%= render :partial => 'show_sponsor_page', :locals => {:sponsor_page => @sponsor_page} %>
-  <% end %>
+  <%= render :partial => 'show_sponsor_page', :locals => {:sponsor_page => @sponsor_page, :sbody => get_sbody} %>
 
   <div class="clear-all"></div>
   <%= render :partial => 'shared/sponsor_list', :locals => {:model => @sponsor_page} %><br />

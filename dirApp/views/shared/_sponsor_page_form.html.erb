@@ -1,8 +1,8 @@
   <%= render "shared/error_messages", :target => @sponsor_page %>
   <div id="newreg">
-    <p><span>Name: </span> <%= f.text_field :name, :size => 50 %></p>
-    <p><span>Message: </span> <%= f.text_field :message, :size => 50 %></p>
-    <p><span>Status: </span><%= f.collection_select :status, StatusType.unhidden, :code, :description %></p>
+    <p><span>Name*: </span> <%= f.text_field :name, :size => 50 %></p>
+    <p><span>Message*: </span> <%= f.text_field :message, :size => 50 %></p>
+    <p><span>Status*: </span><%= f.collection_select :status, StatusType.unhidden, :code, :description %></p>
     
     <%= f.fields_for :sponsors do |builder| %>
       <%= render :partial => 'shared/sponsor_form', :locals => {:f => builder} %>
@@ -12,6 +12,6 @@
     <%= f.hidden_field :subscriptionsourceID, :value => @event.subscriptionsourceID %>
     <%= f.hidden_field :contentsourceID, :value => @event.contentsourceID %>
     <p><%= f.submit "Save" %>
-        <%= link_to "Cancel", event_url(@event, :cid=>@channel) %>
+        <%= link_to 'Back', :back %>
     </p>
   </div>

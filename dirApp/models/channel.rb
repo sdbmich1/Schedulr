@@ -37,4 +37,8 @@ class Channel < ActiveRecord::Base
   def self.get_list(hpid)
     get_active_list.where(:HostProfileID => hpid)
   end
+
+  def self.find_channel(cid)
+    includes(:subscriptions => [{:user=>[{:host_profiles=>[:scheduled_events, :private_events]}]}]).find(cid)
+  end
 end

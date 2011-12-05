@@ -26,6 +26,12 @@ class HostProfile < ActiveRecord::Base
   has_many :subscriptions, :through => :channels, 
            :conditions => { :status => 'active'}
 
+  has_many :scheduled_events, :primary_key => :subscriptionsourceID, :foreign_key => :contentsourceID,
+  	   :conditions => "eventenddate >= curdate()"
+
+  has_many :private_events, :primary_key => :subscriptionsourceID, :foreign_key => :contentsourceID,
+  	   :conditions => "eventenddate >= curdate()"
+
   has_many :pictures, :as => :imageable, :dependent => :destroy
   accepts_nested_attributes_for :pictures, :allow_destroy => true
 end

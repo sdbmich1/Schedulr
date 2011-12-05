@@ -1,8 +1,10 @@
 require "simple_time_select"
 module EventsHelper
 
+  include Avail
+
   def has_sessions?(etype)
-    etype.blank? ? false : (%w(cnf conv fest sem crs trmt fr).detect { |x| x == etype.downcase})
+    etype.blank? ? false : (%w(cnf conv fest sem crs trmt).detect { |x| x == etype.downcase})
   end
 
   def is_clone?(etype)
@@ -27,14 +29,27 @@ module EventsHelper
   end
 
   def rsvp?(event)
-    event.rsvp.blank? ? false : event.rsvp == 'Yes' ? true : false
+    event.rsvp.blank? ? false : event.rsvp.downcase == 'yes' ? true : false
   end
 
   def any_prices?(event)
     %w(AffiliateFee GroupFee MemberFee NonMemberFee AtDoorFee SpouseFee Other1Fee
        Other2Fee Other3Fee Other4Fee Other5Fee Other6Fee).each {
-       |method| return true unless event.send(method).blank?
+       |method| return true if price_exists?(event,method)
 	       }
     false
   end
+
+  def price_exists?(event, method)
+    event.send(method).blank? ? false : event.send(method) > 0 ? true : false
+  end
+
+  def set_start(stime)
+    stime <= 12 ? stime : stime - 12
+  end
+
+  def set_end(stime)
+    stime < 12 ? stime.to_s + 'AM' : stime == 12 ? stime.to_s + 'PM' : (stime - 12).to_s + 'PM'
+  end
+
 end

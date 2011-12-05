@@ -7,22 +7,13 @@
   <%= link_to "Edit Channel", edit_channel_path(@channel), :id=>"link-btn", :class=>"round nav-right" %>
   <%= render :partial => 'shared/show_photo', :locals => {:model => @channel, :file_name => "schedule1.jpg", :psize => '120x120' } %>
 
-  <% if mobile_device? %>
-    <%= render :partial => 'mobile/show_channel', :locals => {:channel => @channel} %>
-  <% else %>
-    <%= render :partial => 'show_channel', :locals => {:channel => @channel} %>
-  <% end %>
-
+  <%= render :partial => 'show_channel', :locals => {:channel => @channel, :shead => get_shead, :sbody => get_sbody} %>
   <div class="clear-all"></div>
 
   <p>
-  <div class="span-6"><span class="prepend-4"><strong>Categories:</strong></span></div>
+  <div class="span-6"><span class="prepend-4">Categories:</span></div>
 
-  <% if mobile_device? %>
-    <div class="span-12 last">
-  <% else %>
-    <div class="span-19 last">
-  <% end %>
+  <div class="<%= get_sbody %> last">
   <ol>  
     <% for int in @channel.channel_interests %>  
       <li>Category: <%= get_category(int.category_id) %> / <%= get_interest(int.interest_id) %></li>  
@@ -33,15 +24,17 @@
 
   <div class="clear-all"></div>
   <div class="span-6"><span class="prepend-4">Subscribers:</span></div>
-
-  <% if mobile_device? %>
-    <div class="span-12 last">
-  <% else %>
-    <div class="span-19 last">
-  <% end %>
-  <%= @subscriptions.count %> <%= link_to "Show List", "#", :id=>"slist", :remote=>true %>
+  <div class="<%= get_sbody %> last">
+    <%= @subscriptions.count %>
+    <% unless @subscriptions.blank? %>
+      <%= link_to "Show Subscribers", "#modal", :id => "modalGroup" %></p>
+      <div class="clear-all"></div>
+      <div style="display:none"><div id='modal'>
+        <div id="sub-list"><%= render :partial => 'shared/subscription_list' %></div>
+      </div></div>
+    <% end %>
   </div>
-  <p><div id="sub-list" style="display:none"><%= render :partial => 'shared/subscription_list' %></div></p>
+
   <div class="clear-all"></div>
-  <p><div id="event-list"><%= render :partial => 'shared/event_list' %></div></p>
+  <div id="event-list"><%= render :partial => 'shared/event_list' %></div>
 <% end %>

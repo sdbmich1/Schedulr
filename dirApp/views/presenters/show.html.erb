@@ -1,5 +1,4 @@
 <%= render :partial => 'shared/menu_head', :locals => { :menu_type => 'Presenter' } %>
-
 <%= content_for :content do %>
   <h2 class="grp-hdr">Presenter</h2>
   <hr />
@@ -16,13 +15,7 @@
   </div>
 
   <%= render :partial => 'shared/show_photo', :locals => {:model => @presenter, :file_name => "headshot1.jpg", :psize => '120x120' } %>
-
-  <% if mobile_device? %>
-    <%= render :partial => 'mobile/show_presenter' %>
-    <%= render :partial => 'mobile/presenter_details', :locals => {:presenter => @presenter } %>
-  <% else %>
-    <%= render :partial => 'shared/show_presenter' %>
-    <%= render :partial => 'presenter_details', :locals => {:presenter => @presenter } %>
-  <% end %>
-<% end %>
+  <%= render :partial => 'shared/show_presenter', :locals => { :sbody => get_sbody } %>
+  <%= render :partial => 'presenter_details', :locals => {:presenter => @presenter, :sbody => get_sbody } %>
+<% end %>  
 <p><div class="clear-all"></div></p>

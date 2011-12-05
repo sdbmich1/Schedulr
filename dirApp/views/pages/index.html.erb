@@ -5,9 +5,5 @@
 <% end %>
 
 <%= content_for :content do %>
-  <% if mobile_device? %>
-    <%= render 'mobile/home_page' %>
-  <% else %>
-    <%= render 'home_page' %>
-  <% end %>
+  <%= render :partial => 'home_page', :locals => { :shead => 'span-7', :sbody => get_sbody } %>
 <% end %>
