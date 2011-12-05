@@ -19,7 +19,9 @@ Schedulr::Application.routes.draw do
       get 'clone', :on => :member
     end
 
-    get 'clone', :on => :member
+    member do 
+      get 'clone'
+    end
   end
 
   # specify routes for devise user after sign-in
@@ -28,6 +30,7 @@ Schedulr::Application.routes.draw do
   end
 
   match '/channels/category_select/:id' => "channels#category_select"
+  match '/schedule', :to =>  "events#schedule"
 
   # map to common photo storage location
   match '/system/photos/:id/:style/:basename.:extension', :to => 'pictures#asset'

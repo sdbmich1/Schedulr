@@ -101,3 +101,56 @@ $(function (){
   $(this).text($(this).text() == 'Show List' ? 'Hide List' : 'Show List');
   });
 });
+
+$(function (){ 
+
+  // add date picker code and synch start & end dates
+  var dateFormat = "mm/dd/yy";
+	
+	$('#start-date').datepicker({ 
+ 	  minDate:'-0d',
+      dateFormat:dateFormat,
+      onSelect: function (dateText, inst) { 
+          var nyd = $.datepicker.parseDate(dateFormat,dateText);
+          $('#end-date').datepicker("option", 'minDate', nyd ).val($(this).val());
+      }, 
+      onClose: function () { $(this).focus() } 
+  	 }).change(function () {  
+  	 	$('#end-date').val($(this).val())
+     }); 
+  
+    $('#end-date').datepicker({ 
+      onClose: function () { $(this).focus(); }, 
+      dateFormat:dateFormat,
+      onSelect: function(dateText, inst){ }                       
+    }); 
+    	
+});
+
+$(function (){ 
+
+  /* Apply fancybox to multiple items */
+  $("a#modalGroup").fancybox({
+    	'width'		:   '560',
+    	'height'	:	'340',
+	'transitionIn'	:	'elastic',
+	'transitionOut'	:	'elastic',
+	'speedIn'	:	600, 
+	'speedOut'	:	600, 
+	'titleShow'	:       false,
+	'overlayShow'	:	true
+  });	
+	
+  $('.show_event').bind('ajax:success', function() {
+	$("#modalGroup").trigger('click');
+  });
+});
+
+// shows schedule availability based on selected start date
+$(function (){
+  $("#chk-avail").live('click',function() {
+    var cid = $('#curr-cid').attr("data-cid");
+    var startdate = $('#start-date').val();
+    $.getScript('/schedule.js?start_dt=' + startdate + "&cid=" + cid);
+  }).fancybox();
+});

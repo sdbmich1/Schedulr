@@ -29,11 +29,19 @@ h2 { margin-bottom: 0 }
 .grp-hdr { color: #0c6fcb; font-weight:bold; }	
 
 .mtop { margin-top: 10px }
+.disabled { color: #CCCCCC }
+.modal-title {font-size:14px;
+	color: #0c6fcb;
+	text-align: center;
+	font-weight:bold;
+	margin-bottom: 10px;
+	}
 
 /* Nav Links */
 #link-btn { background: #0c6fcb; font-size:0.75em;
    font-weight:bold; display:block; text-align: center;
    padding: 5px; color: #ffffff; margin-right: auto; margin-left: 0;
+   margin-bottom: 0px;
    }
 
 #nav-btn { background: #cccccc; font-size:0.75em;
@@ -61,4 +69,36 @@ a:hover {
 #mform p { position:relative; margin-bottom: 0}
 #mform label  { position:absolute; top:7px; left:112px; font-weight: normal; color:#CCCCCC}
 
+/* pagination styling */
+.pagination {
+    padding: 3px;
+    margin: 3px;
+  }
 
+.pagination a {
+    padding: 2px 5px 2px 5px;
+    margin: 2px;
+    border: 1px solid #aaaadd;
+    text-decoration: none;
+    color: #000099;
+  }
+.pagination a:hover, .pagination a:active {
+    border: 1px solid #000099;
+    color: #000;
+  }
+
+.pagination span.current {
+    padding: 2px 5px 2px 5px;
+    margin: 2px;
+    border: 1px solid #000099;
+    font-weight: bold;
+    background-color: #000099;
+    color: #FFF;
+  }
+
+.pagination span.disabled {
+    padding: 2px 5px 2px 5px;
+    margin: 2px;
+    border: 1px solid #eee;
+    color: #ddd;
+  }
