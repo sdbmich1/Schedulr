@@ -27,7 +27,7 @@ module Avail
         slist.each do |s|
 
           #check each user's scheduled & private events for availability
-	  unless s.user.profile.blank?
+	  unless s.user.blank?
             avail[dt][tm] += 1 if time_taken?(s.user.profile.scheduled_events, new_dt)
             avail[dt][tm] += 1 if time_taken?(s.user.profile.private_events, new_dt)
 	  end
