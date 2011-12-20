@@ -5,13 +5,13 @@
   <% [['MemberFee', 'Member:'], ['NonMemberFee', 'General:'], ['AffiliateFee', 'Affiliate:'],
       ['SpouseFee', 'Spouse:'], ['AtDoorFee', 'At Door:'], ['GroupFee', 'Group:']].each do |fld| %>
   	<% if price_exists?(event, fld[0] ) %>	
-  		<div class="span-2"><%= "#{fld[1]}" %></div>
+  		<div class="span-4"><%= "#{fld[1]}" %></div>
 		<div class="<%= mbody %> last"><%= number_to_currency(event.send(fld[0])) %></div>
   	<% end %>
   <% end %>
   <% (1..6).each do |i| %>
     <% if price_exists?(event, 'Other' + i.to_s + 'Fee' ) %>	
-  	<div class="span-4"><%= event.send('Other' + i.to_s + 'Title') + ':' %></div>
+  	<div class="span-4"><%= event.send('Other' + i.to_s + 'Title') %>:</div>
 	<div class="<%= get_cbody %> last"><%= number_to_currency(event.send('Other' + i.to_s + 'Fee')) %></div>
     <% end %>
   <% end %>

@@ -2,10 +2,6 @@ class EventsController < ApplicationController
   before_filter :authenticate_user!
   include SetAssn, ResetDate, Avail
 
-  def index
-#    @events = Event.get_events params[:page]
-  end
-
   def show
     @event = Event.find(params[:id])
     @channel = Channel.find(params[:cid]) if params[:cid]
@@ -70,6 +66,5 @@ class EventsController < ApplicationController
   def schedule
     @channel = Channel.find_channel(params[:cid]) if params[:cid]
     @start_dt = parse_date(params[:start_dt])
-#    @avail = check_avail(@channel.subscriptions, @start_dt)
   end
 end

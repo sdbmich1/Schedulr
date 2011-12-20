@@ -3,7 +3,7 @@
   <% if event.event_type == 'es' %>
     <div class="<%= shead %> last"><strong><%= event.event_name %> </strong></div>
   <% else %>
-    <div class="<%= sbody %> last"><strong><%= event.event_name %> </strong></div>
+    <div class="<%= get_mbody %> last"><strong><%= event.event_name %> </strong></div>
   <% end %>
   <div class="span-2">Event Type:</div>
   <div class="<%= sbody %>"><%= get_event_type(event.event_type) %></div>

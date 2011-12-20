@@ -34,4 +34,9 @@ class HostProfile < ActiveRecord::Base
 
   has_many :pictures, :as => :imageable, :dependent => :destroy
   accepts_nested_attributes_for :pictures, :allow_destroy => true
+
+  def self.get_user(ssid)
+    hp = HostProfile.includes(:user).find_by_subscriptionsourceID(ssid)
+    hp.user
+  end
 end

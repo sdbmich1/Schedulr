@@ -2,6 +2,6 @@
 	['org_name', 'Organization:'], ['bio', 'Bio:']].each do |fld| %>
    	<% unless @presenter.send(fld[0]).blank? %>	
   	  <div class="span-2"><%= fld[1] %></div>
- 	  <div class="<%= sbody %>"><%= @presenter.send(fld[0]) %></div>
+ 	  <div class="<%= sbody + ' last' %>"><%= @presenter.send(fld[0]) %></div>
  	<% end %>
     <% end %>

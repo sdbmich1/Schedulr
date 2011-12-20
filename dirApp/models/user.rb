@@ -66,4 +66,24 @@ class User < KitsDevelopmentModel
     self.host_profiles.build if self.host_profiles.empty?
     self
   end
+
+  def profile
+    self.host_profiles[0]
+  end
+
+  def ssid
+    profile.subscriptionsourceID
+  end
+  
+  def pictures
+    profile.pictures
+  end
+
+  def name
+    first_name + ' ' + last_name
+  end
+
+  def self.get_user(sid)
+    HostProfile.get_user(sid)  
+  end
 end

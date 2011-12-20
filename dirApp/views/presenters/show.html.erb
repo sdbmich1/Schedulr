@@ -15,7 +15,8 @@
   </div>
 
   <%= render :partial => 'shared/show_photo', :locals => {:model => @presenter, :file_name => "headshot1.jpg", :psize => '120x120' } %>
-  <%= render :partial => 'shared/show_presenter', :locals => { :sbody => get_sbody } %>
+  <%= render :partial => 'shared/show_presenter', :locals => { :sbody => get_mbody } %>
+<div class="clear-right"></div>
   <%= render :partial => 'presenter_details', :locals => {:presenter => @presenter, :sbody => get_sbody } %>
 <% end %>  
-<p><div class="clear-all"></div></p>
+<div class="clear-all"></div>

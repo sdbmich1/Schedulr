@@ -57,7 +57,7 @@ module ApplicationHelper
   end
 
   def get_shead(val='span-10')
-    mobile_device? ? val : 'span-17'
+    mobile_device? ? val : 'span-16'
   end
 
   def get_mbody
@@ -77,11 +77,11 @@ module ApplicationHelper
   end
 
   def get_lbody
-    mobile_device? ? 'span-14' : 'span-21'
+    mobile_device? ? 'span-14' : 'span-20'
   end
 
   def get_layout
-    mobile_device? ? "prepend-2 span-14 last" : "prepend-6 span-25 last"
+    mobile_device? ? "prepend-2 span-14 last" : "prepend-6 span-24 last"
   end
   
   def get_class(*fld)
