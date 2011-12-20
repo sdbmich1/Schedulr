@@ -3,7 +3,7 @@ body {
 	  background-color: #FFF;	
 }
 
-.container { width: 75% }
+.container { width: 960px; }
 
 input[type='submit'] {  
     font-weight: bold;

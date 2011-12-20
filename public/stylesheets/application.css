@@ -19,7 +19,7 @@ a {
 }
 
 #container {
-  width: 75%;
+  width: 960px;
   min-height: 480px;
   margin: 0 auto;
   background-color: #FFF;

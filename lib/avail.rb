@@ -27,8 +27,10 @@ module Avail
         slist.each do |s|
 
           #check each user's scheduled & private events for availability
-          avail[dt][tm] += 1 if time_taken?(s.user.host_profiles[0].scheduled_events, new_dt)
-          avail[dt][tm] += 1 if time_taken?(s.user.host_profiles[0].private_events, new_dt)
+	  unless s.user.profile.blank?
+            avail[dt][tm] += 1 if time_taken?(s.user.profile.scheduled_events, new_dt)
+            avail[dt][tm] += 1 if time_taken?(s.user.profile.private_events, new_dt)
+	  end
         end	    
 
 	# calculate percent availability
