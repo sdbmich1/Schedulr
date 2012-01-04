@@ -1,0 +1,11 @@
+<%= render :partial => 'shared/menu_head', :locals => { :menu_type => 'Profile' } %>
+
+<%= content_for :content do %>
+  <h2 class="grp-hdr">Manage Users</h2>
+  <hr />
+  <p><br />
+  <strong>User List:</strong>
+  <%= link_to "Add User", user_path(@user), :id=>"link-btn", :class=>"round nav-right" %>
+  <%= render :partial => 'shared/manage_users', :locals => {:model => @users } %>
+  </p>  
+<% end %>

@@ -134,6 +134,7 @@ class Event < ActiveRecord::Base
   def clone_event
     new_event = self.clone
 
+    # set dates if event is in past
     new_event.eventstartdate = Date.today if new_event.eventstartdate < Date.today
     new_event.eventenddate = Date.today if new_event.eventenddate < Date.today
     new_event.status = 'pending'
@@ -144,17 +145,24 @@ class Event < ActiveRecord::Base
       Event.find(sr.event_id).session_relationships.create(:session_id => new_event.id) if sr
     end
 
+    # clone event data
     new_event.event_tracks << self.event_tracks.collect { |event_track| event_track.clone } 
     new_event.event_sites << self.event_sites.collect { |event_site| event_site.clone } 
-    new_event.event_presenters << self.event_presenters.collect { |event_presenter| event_presenter.clone } 
-   # new_event.sessions << self.sessions.collect { |session| session.clone } 
-
-    new_event.sponsor_pages << self.sponsor_pages.collect { |sponsor_page| sponsor_page.clone } 
+    new_event.event_presenters << self.event_presenters.uniq.collect { |event_presenter| event_presenter.clone } 
     self.pictures.each do |p|
       new_event.pictures.build(:photo => p.photo)
       new_event.save
     end
 
+    # clone sponsor data
+    self.sponsor_pages.each do |pg|
+      sp_page = SponsorPage.create(pg.attributes)
+      sp_page.sponsors << pg.sponsors.collect { |sponsor| sponsor.clone }
+      new_event.sponsor_pages << sp_page
+      new_event.save
+    end
+
+    # clone session data
     self.sessions.each do |s|
       s.eventstartdate = Date.today if s.eventstartdate < Date.today
       s.eventenddate = Date.today if s.eventenddate < Date.today
@@ -162,8 +170,8 @@ class Event < ActiveRecord::Base
       session_event = Event.create(s.attributes)
       session_event.event_presenters << s.event_presenters.collect { |event_presenter| event_presenter.clone } 
       new_event.sessions << session_event
-#      new_event.session_relationships.build(:session_id => session_event.id)
       new_event.save
+
       s.pictures.each do |p|
         session_event.pictures.build(:photo => p.photo)
 	session_event.save

@@ -4,7 +4,7 @@ class UserObserver < ActiveRecord::Observer
   def after_create(user)
     
     # send welcome email
-   # UserMailer.welcome_email(user).deliver
+    UserMailer.welcome_email(user).deliver
 
     #create host profile
     if user.host_profiles.size > 0
@@ -21,19 +21,10 @@ class UserObserver < ActiveRecord::Observer
     		:OrgName =>hp.Company, :wschannelID => channelID, 
 		:status => 'active', :hide => 'no')
 
-    hp.HostName = hp.Company
-    hp.LastName = user.last_name
-    hp.FirstName = user.first_name
-    hp.EMAIL = user.email
-    hp.StartMonth = user.created_at.month.to_s
-    hp.StartDay = user.created_at.day.to_s
-    hp.StartYear = user.created_at.year.to_s
-    hp.EntityCategory = 'provider' 
-    hp.status = 'active'
-    hp.hide = 'no'
-    hp.ProfileType = 'Provider'
-    hp.HostChannelID = org.wschannelID
-    hp.subscriptionsourceID = org.wschannelID
+    hp.HostName, hp.LastName, hp.FirstName, hp.EMAIL = hp.Company, user.last_name, user.first_name, user.email
+    hp.StartMonth, hp.StartDay, hp.StartYear = user.created_at.month.to_s, user.created_at.day.to_s, user.created_at.year.to_s
+    hp.EntityCategory, hp.status, hp.hide, hp.ProfileType = 'provider', 'active', 'no', 'Provider'
+    hp.HostChannelID = hp.subscriptionsourceID = org.wschannelID
     
     #create channel
     channel = hp.channels.build(:channelID => org.wschannelID,

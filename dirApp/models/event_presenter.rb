@@ -1,14 +1,19 @@
 class EventPresenter < ActiveRecord::Base
-  attr_accessible :event_id, :presenter_id
+  attr_accessible :event_id, :presenter_id, :eventid
 
   after_create :add_presenter_to_event
 #  before_destroy :remove_presenter_from_event
 
-  belongs_to :event
+  belongs_to :event, :foreign_key => :eventid
   belongs_to :presenter
 
   validates :event_id, :presence => true
   validates :presenter_id, :presence => true, :uniqueness => { :scope => :event_id }
+
+  # get presented by ids
+  def self.find_presenter(eid, pid)
+    find_by_event_id_and_presenter_id(eid, pid)
+  end
 
   # add presenter to event list if added via a session
   def add_presenter_to_event

@@ -52,14 +52,8 @@ class ChannelsController < ApplicationController
   end
 
   def category_select
-    if params[:id]
-      @interests = Category.find(params[:id]).interests
-    else
-      @interests = []
-    end
-
+    params[:id] ? @interests = Category.find(params[:id]).interests : @interests = []
     render :json => @interests
-    #render :partial => "interests", :locals => { :interests => @interests }
   end
 
 end

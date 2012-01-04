@@ -1,6 +1,7 @@
 <div class="clear-all"></div>
+<div class="prepend-4">
 <% if any_prices?(event) %>
-  <p><div class="span-6"><span class="prepend-4">Prices:</span></div></p>
+  <p><div class="span-2">Prices:</div></p>
   <div class="<%= sbody %> last">
   <% [['MemberFee', 'Member:'], ['NonMemberFee', 'General:'], ['AffiliateFee', 'Affiliate:'],
       ['SpouseFee', 'Spouse:'], ['AtDoorFee', 'At Door:'], ['GroupFee', 'Group:']].each do |fld| %>
@@ -17,3 +18,4 @@
   <% end %>
   </div>
 <% end %>
+</div>

@@ -18,7 +18,10 @@ class HostProfile < ActiveRecord::Base
   validates :PostalCode, :presence => true
   validates :EntityType, :presence => true
 
-  belongs_to :user, :foreign_key => "ProfileID"
+  # belongs_to :user, :foreign_key => "ProfileID"
+
+  has_many :users, :primary_key => "ProfileID", :foreign_key => :id
+  has_many :host_profile_users, :primary_key => :subscriptionsourceID, :foreign_key => :subscriptionsourceID
 
   has_many :channels, :foreign_key => :HostProfileID
   has_many :events, :through => :channels
@@ -38,5 +41,13 @@ class HostProfile < ActiveRecord::Base
   def self.get_user(ssid)
     hp = HostProfile.includes(:user).find_by_subscriptionsourceID(ssid)
     hp.user
+  end
+
+  def ssid
+    subscriptionsourceID
+  end
+
+  def self.find_profile(ssid)
+    includes(:host_profile_users).find_by_subscriptionsourceID ssid
   end
 end

@@ -3,7 +3,7 @@
   <% unless user_signed_in? %>
     <%= link_to get_name_or_logo, root_url %>
   <% else %>
-    <%= link_to get_name_or_logo, [@user,@host_profile] %>
+    <%= link_to get_name_or_logo, [@user, @host_profile] %>
   <% end %></span> 
 
   <% case main_menu %>		

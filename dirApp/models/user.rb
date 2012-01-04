@@ -41,6 +41,9 @@ class User < KitsDevelopmentModel
 #  has_many :channels, :through => :subscriptions, 
 #  				:conditions => { :status => 'active'}
   
+  has_many :host_profile_users
+#  has_many :host_profiles, :through => :host_profile_users, :foreign_key => :ProfileID, :primary_key => :user_id
+
   has_many :host_profiles, :foreign_key => :ProfileID
   accepts_nested_attributes_for :host_profiles, :reject_if => :all_blank 
 

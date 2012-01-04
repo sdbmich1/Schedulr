@@ -1,0 +1,24 @@
+<table>  
+  <tr>
+    <th></th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Access Type</th>
+    <th></th>
+  </tr>
+  <% model.each do |hp| %>
+    <% unless hp.blank? %>
+    <tr>
+      <td>
+        <div class="pic-size">
+		<%= render :partial => 'shared/show_photo', :locals => {:model => hp.user.profile, :file_name => "headshot1.jpg", :psize => '48x48' } %>
+	</div>
+      </td>
+      <td><%= hp.user.name %></td>
+      <td><%= hp.user.email %></td>
+      <td><%= hp.access_type %></td>
+      <td><%= link_to "Remove", manage_users_url(:id=>@host_profile, :ssid=>hp.user.ssid), :method=>:delete, :remote=>true %></td>
+    </tr>
+    <% end %>
+  <% end %>
+</table>  

@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :load_vars, :only => [:new, :edit, :clone]
   include SetAssn, ResetDate, Avail
 
   def show
@@ -12,12 +13,8 @@ class EventsController < ApplicationController
   end
 
   def new
-    @event = Event.new_event
     @channel = Channel.find_channel(params[:cid]) if params[:cid]
-    @picture = set_associations(@event.pictures, 1)
     @avail = Date.today
-    set_associations(@event.event_tracks, 8) if @event
-    set_associations(@event.event_sites, 8) if @event
   end
 
   def create
@@ -31,11 +28,7 @@ class EventsController < ApplicationController
   end
 
   def edit
-    @event = Event.find(params[:id])
     @channel = Channel.find_channel(params[:cid]) if params[:cid]
-    @picture = set_associations(@event.pictures, 1)
-    set_associations(@event.event_tracks, 8) if @event
-    set_associations(@event.event_sites, 8) if @event
   end
 
   def update
@@ -56,15 +49,19 @@ class EventsController < ApplicationController
   end
 
   def clone
-    @event = Event.find(params[:id]).clone_event
-    @channel = Channel.find(params[:cid]) if params[:cid]
-    @picture = set_associations(@event.pictures, 1)
-    set_associations(@event.event_tracks, 8) if @event
-    set_associations(@event.event_sites, 8) if @event
+#    @event = Event.find(params[:id]).clone_event
+    @channel = Channel.find_channel(params[:cid]) if params[:cid]
   end
 
   def schedule
     @channel = Channel.find_channel(params[:cid]) if params[:cid]
     @start_dt = parse_date(params[:start_dt])
+  end
+
+  def load_vars
+    action_name == 'new' ? @event = Event.new_event : action_name == 'clone' ? @event = Event.find(params[:id]).clone_event : @event = Event.find(params[:id])
+    @picture = set_associations(@event.pictures, 1)
+    set_associations(@event.event_tracks, 8) if @event
+    set_associations(@event.event_sites, 8) if @event
   end
 end

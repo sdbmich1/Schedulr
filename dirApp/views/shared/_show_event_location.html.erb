@@ -1,27 +1,23 @@
 <p>
   <div class="span-2"><%= 'Where:' %></div><div class="<%= sbody %> last"><%= event.mapplacename %></div>
-  <div class="<%= lbody %> last">	
-    <% if rsvp?(event) && !event.host.blank? %>
-      <span class="<%= !event.mapplacename.blank? ? 'prepend-6' : 'none' %>"><%= event.mapstreet %></span><br />
-      <% if !event.mapcity.blank? %>	
-        <span class='prepend-6'><%="#{event.mapcity}, #{event.mapstate} #{event.mapzip} " %></span>
-      <% end %>
-    <% else %>
-      <span class="<%= !event.mapplacename.blank? ? 'prepend-2' : 'none' %>"><%= event.mapstreet %></span><br />
-      <% if !event.mapcity.blank? %>	
-        <span class='prepend-2'><%="#{event.mapcity}, #{event.mapstate} #{event.mapzip} " %></span>
-      <% end %>
-     <% end %>
-  </div>
+
+<div class="prepend-4">
+  <div class="<%= sbody %> last">
+    <span class="<%= !event.mapplacename.blank? ? 'prepend-2' : 'none' %>"><%= event.mapstreet %></span>
+  </div>
+<% if !event.mapcity.blank? %>	
+  <div class="<%= lbody %> last">
+    <span class='prepend-2'><%="#{event.mapcity}, #{event.mapstate} #{event.mapzip} " %></span>
+  </div><br />
+<% end %>
 <% if !event.bbody.blank? %>	
-  <div class="<%= event.speaker.blank? ? 'span-6' : 'span-2' %>">
-  <span class="<%= event.speaker.blank? ? 'prepend-4' : 'prepend-6' %>"><%= 'Summary:' %></span></div>	
+  <div class="span-2"><%= 'Summary:' %></div>	
   <div class="<%= sbody %> last"><%= event.bbody.html_safe %></div><br />
 <% end %>
 <% if !event.cbody.blank? %>	
-  <div class="<%= event.speaker.blank? ? 'span-6' : 'span-2' %>">
-  <span class="<%= event.speaker.blank? ? 'prepend-4' : 'prepend-6' %>"><%= 'Details:' %></span></div>	
+  <div class="span-2"><%= 'Details:' %></span></div>	
   <div class="<%= sbody %> last"><%= event.cbody.html_safe %></div><br />
 <% end %>
+</div>
 </p>
 
