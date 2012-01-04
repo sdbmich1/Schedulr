@@ -27,7 +27,7 @@ class SessionRelationshipsController < ApplicationController
 
   def create
     @event = Event.find(params[:event_id])
-    @channel = Channel.find(params[:cid]) if params[:cid]
+    @channel = Channel.find_channel(params[:cid]) if params[:cid]
     @session_event = Event.new(reset_dates(params[:event]))
     if @session_event.save
       @event.session_relationships.create(:session_id => @session_event.id)
