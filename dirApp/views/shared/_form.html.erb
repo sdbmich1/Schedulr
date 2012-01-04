@@ -13,7 +13,6 @@
   <p><span>End Date: </span><%= f.text_field :eventenddate, :value => get_nice_date(@event.eventenddate, 'Edit'), :size => 10, :id => "end-date" %></p>
   <p><span>End Time: </span> <%= f.time_select :eventendtime, { :default => Time.now.change(:hour => 12), :simple_time_select => true, :minute_interval => 5,	:time_separator => "" }, :value => chk_offset(@event.eventendtime, @event.endGMToffset) %></p>
   <p><span>End Time Zone: </span> <%= f.collection_select :endGMToffset, GmtTimezone.all, :code, :description, {:selected => @user.localGMToffset} %></p>
-  <p><span>Status: </span> <%= f.collection_select :status, StatusType.unhidden, :code, :description, :prompt => 'Select' %></p>
   <p><span>Place: </span> <div id="mform"><p><label for="event_mapplacename">Enter place name (e.g. Empire State Bldg)</label>
     <%= f.text_field :mapplacename, :size => 60 %></p></div></p>
 
