@@ -20,6 +20,16 @@ namespace :db do
     load_time_fields
   end
 
+  desc "Add eventid to event_presenter table to map presenters to appropriate event"
+  task :set_eventid => :environment do
+    set_presenter_eventid
+  end
+
+  desc "Set hp user table"
+  task :set_hp_user => :environment do
+    set_hostprofile_user
+  end
+
   desc "Update times in event table"
   task :reset_event_times, :eid, :needs => :environment do |t, args|
     eid = args[:eid] || 80
@@ -67,5 +77,21 @@ end
       e.eventstarttime = e.eventstarttime.advance(:hours => e.localGMToffset)
       e.eventendtime = e.eventendtime.advance(:hours => e.endGMToffset)
       e.save
+    end
+  end
+
+  def set_presenter_eventid
+    EventPresenter.all.each do |p|
+      event = Event.find p.event_id
+      p.eventid = event.eventid
+      p.save
+    end
+  end
+
+  def set_hostprofile_user
+    HostProfile.all.each do |u|
+      unless u.subscriptionsourceID.blank?
+        HostProfileUser.create(:user_id=>u.ProfileID.to_i, :subscriptionsourceID=>u.ssid, :access_type=>'admin') if u.ssid[0..1] == 'SC'
+      end
     end
   end

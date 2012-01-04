@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111024030139) do
+ActiveRecord::Schema.define(:version => 20120102014430) do
 
   create_table "ads", :force => true do |t|
     t.string   "ad_name"
@@ -140,10 +140,12 @@ ActiveRecord::Schema.define(:version => 20111024030139) do
     t.integer  "presenter_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "eventid"
   end
 
   add_index "event_presenters", ["event_id", "presenter_id"], :name => "index_event_presenters_on_event_id_and_presenter_id", :unique => true
   add_index "event_presenters", ["event_id"], :name => "index_event_presenters_on_event_id"
+  add_index "event_presenters", ["eventid"], :name => "index_event_presenters_on_eventid"
   add_index "event_presenters", ["presenter_id"], :name => "index_event_presenters_on_presenter_id"
 
   create_table "event_sites", :force => true do |t|
@@ -193,8 +195,6 @@ ActiveRecord::Schema.define(:version => 20111024030139) do
     t.string   "bbody"
     t.datetime "eventstartdate"
     t.datetime "eventenddate"
-    t.time     "oldstarttime"
-    t.time     "oldendtime"
     t.float    "localGMToffset"
     t.float    "endGMToffset"
     t.string   "mapstreet"
@@ -222,18 +222,30 @@ ActiveRecord::Schema.define(:version => 20111024030139) do
     t.string   "track"
     t.datetime "eventstarttime"
     t.datetime "eventendtime"
-    t.integer  "member_fee_cents",     :default => 0, :null => false
-    t.integer  "nonmember_fee_cents",  :default => 0, :null => false
-    t.string   "currency"
-    t.integer  "affiliate_fee_cents",  :default => 0, :null => false
-    t.integer  "spouse_fee_cents",     :default => 0, :null => false
-    t.integer  "student_fee_cents",    :default => 0, :null => false
-    t.integer  "group_fee_cents",      :default => 0, :null => false
-    t.integer  "senior_fee_cents",     :default => 0, :null => false
-    t.integer  "prepaid_fee_cents",    :default => 0, :null => false
-    t.integer  "atdoor_fee_cents",     :default => 0, :null => false
+    t.decimal  "MemberFee",                           :precision => 19, :scale => 2
+    t.decimal  "NonMemberFee",                        :precision => 19, :scale => 2
+    t.decimal  "AffiliateFee",                        :precision => 19, :scale => 2
+    t.decimal  "SpouseFee",                           :precision => 19, :scale => 2
+    t.decimal  "GroupFee",                            :precision => 19, :scale => 2
+    t.decimal  "AtDoorFee",                           :precision => 19, :scale => 2
+    t.decimal  "Other1Fee",                           :precision => 19, :scale => 2
+    t.decimal  "Other2Fee",                           :precision => 19, :scale => 2
+    t.decimal  "Other3Fee",                           :precision => 19, :scale => 2
+    t.decimal  "Other4Fee",                           :precision => 19, :scale => 2
+    t.decimal  "Other5Fee",                           :precision => 19, :scale => 2
+    t.decimal  "Other6Fee",                           :precision => 19, :scale => 2
+    t.string   "contentsourceURL"
+    t.string   "subscriptionsourceURL"
+    t.string   "Other1Title",           :limit => 50
+    t.string   "Other2Title",           :limit => 50
+    t.string   "Other3Title",           :limit => 50
+    t.string   "Other4Title",           :limit => 50
+    t.string   "Other5Title",           :limit => 50
+    t.string   "Other6Title",           :limit => 50
   end
 
+  add_index "events", ["eventid"], :name => "index_events_on_eventid"
+  add_index "events", ["eventstartdate", "eventenddate"], :name => "index_events_on_eventstartdate_and_eventenddate"
   add_index "events", ["subscriptionsourceID", "contentsourceID"], :name => "ssid_idx"
 
   create_table "eventstsd", :primary_key => "ID", :force => true do |t|
@@ -345,6 +357,18 @@ ActiveRecord::Schema.define(:version => 20111024030139) do
     t.datetime "LastModifyDateTime"
     t.string   "LastModifyBy"
   end
+
+  create_table "host_profile_users", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "subscriptionsourceID"
+    t.string   "access_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "host_profile_users", ["subscriptionsourceID"], :name => "index_host_profile_users_on_subscriptionsourceID"
+  add_index "host_profile_users", ["user_id", "subscriptionsourceID"], :name => "index_host_profile_users_on_user_id_and_subscriptionsourceID"
+  add_index "host_profile_users", ["user_id"], :name => "index_host_profile_users_on_user_id"
 
   create_table "host_profiles", :force => true do |t|
     t.string   "hostname"
@@ -525,20 +549,32 @@ ActiveRecord::Schema.define(:version => 20111024030139) do
     t.string   "national3alertchannelid", :limit => 50
     t.string   "subscriptionsourceID",    :limit => 50
     t.string   "subscriptionsourceURL",   :limit => 50
+    t.string   "promoCode",               :limit => 50
   end
 
   add_index "hostprofiles", ["ProfileID"], :name => "profileID_idx"
   add_index "hostprofiles", ["subscriptionsourceID"], :name => "ssid_idx"
 
   create_table "interests", :force => true do |t|
-    t.string   "code"
-    t.string   "description"
-    t.string   "status"
-    t.string   "hide"
-    t.integer  "sortkey"
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "category_id"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
+    t.integer  "sortkey"
+    t.string   "status"
+    t.string   "hide"
   end
+
+  create_table "interests_users", :id => false, :force => true do |t|
+    t.integer "user_id",     :null => false
+    t.integer "interest_id", :null => false
+  end
+
+  add_index "interests_users", ["user_id", "interest_id"], :name => "int_user_index", :unique => true
 
   create_table "locations", :force => true do |t|
     t.string   "city"
@@ -601,6 +637,95 @@ ActiveRecord::Schema.define(:version => 20111024030139) do
     t.datetime "updated_at"
   end
 
+  create_table "reminders", :primary_key => "ID", :force => true do |t|
+    t.string   "SubscriberID",       :limit => 50
+    t.integer  "TSDID"
+    t.string   "eventID",            :limit => 20
+    t.string   "sourceID",           :limit => 50
+    t.string   "sourceURL",          :limit => 250
+    t.datetime "eventstartdate"
+    t.string   "reminder_type",      :limit => 10
+    t.string   "reminder_name",      :limit => 100
+    t.string   "remindertext",       :limit => 250
+    t.string   "reminderURL",        :limit => 250
+    t.datetime "startdate"
+    t.datetime "starttime"
+    t.datetime "endtime"
+    t.string   "AllDay",             :limit => 5
+    t.integer  "advwarningdays"
+    t.integer  "advwarningminutes"
+    t.string   "hide",               :limit => 5
+    t.string   "status",             :limit => 10
+    t.datetime "CreateDateTime"
+    t.datetime "LastModifyDateTime"
+    t.string   "LastModifyBy",       :limit => 50
+  end
+
+  create_table "rsvps", :primary_key => "ID", :force => true do |t|
+    t.string   "EventID",                  :limit => 20
+    t.string   "inviteeid",                :limit => 20
+    t.string   "inviteesourceID",          :limit => 50
+    t.string   "inviterid",                :limit => 20
+    t.string   "invitersourceID",          :limit => 50
+    t.string   "email",                    :limit => 50
+    t.string   "Phone_contact",            :limit => 25
+    t.integer  "guests"
+    t.datetime "invitedate"
+    t.datetime "responsedate"
+    t.datetime "arrivaltime"
+    t.datetime "arrivaldate"
+    t.string   "fullname",                 :limit => 50
+    t.string   "sortname",                 :limit => 50
+    t.string   "comment",                  :limit => 253
+    t.string   "status",                   :limit => 50
+    t.string   "attended",                 :limit => 50
+    t.string   "guest1name",               :limit => 50
+    t.string   "guest2name",               :limit => 50
+    t.string   "guest3name",               :limit => 50
+    t.string   "guest4name",               :limit => 50
+    t.string   "guest5name",               :limit => 50
+    t.string   "guest6name",               :limit => 50
+    t.string   "guest7name",               :limit => 50
+    t.string   "guest8name",               :limit => 50
+    t.string   "guest9name",               :limit => 50
+    t.string   "guest10name",              :limit => 50
+    t.decimal  "TotalRegistrationFeesDue",                :precision => 19, :scale => 2
+    t.string   "FeesWaived",               :limit => 50
+    t.string   "FeesWaivedReason",         :limit => 10
+    t.string   "FeesWaivedComment",        :limit => 253
+    t.decimal  "Payment1",                                :precision => 19, :scale => 2
+    t.datetime "Payment1DateTime"
+    t.decimal  "Payment2",                                :precision => 19, :scale => 2
+    t.datetime "Payment2DateTime"
+    t.decimal  "Payment3",                                :precision => 19, :scale => 2
+    t.datetime "Payment3DateTime"
+    t.decimal  "MemberFee",                               :precision => 19, :scale => 2
+    t.decimal  "SpouseFee",                               :precision => 19, :scale => 2
+    t.decimal  "NonMemberFee",                            :precision => 19, :scale => 2
+    t.decimal  "AtDoorFee",                               :precision => 19, :scale => 2
+    t.decimal  "LateMemberFee",                           :precision => 19, :scale => 2
+    t.decimal  "LateSpouseFee",                           :precision => 19, :scale => 2
+    t.decimal  "LateNonMemberFee",                        :precision => 19, :scale => 2
+    t.decimal  "Other1Fee",                               :precision => 19, :scale => 2
+    t.decimal  "Other2Fee",                               :precision => 19, :scale => 2
+    t.decimal  "Other3Fee",                               :precision => 19, :scale => 2
+    t.decimal  "Other4Fee",                               :precision => 19, :scale => 2
+    t.decimal  "Other5Fee",                               :precision => 19, :scale => 2
+    t.decimal  "Other6Fee",                               :precision => 19, :scale => 2
+    t.string   "Refunded",                 :limit => 5
+    t.float    "credits"
+    t.float    "hours"
+    t.string   "acknowledged",             :limit => 5
+    t.datetime "CreateDateTime"
+    t.datetime "LastModifyDateTime"
+    t.string   "LastModifyBy",             :limit => 50
+    t.string   "DoNotEmail",               :limit => 5
+    t.string   "DoNotEmailInvitation",     :limit => 5
+    t.string   "TextOnlyEmail",            :limit => 5
+    t.string   "subscriptionsourceID",     :limit => 50
+    t.string   "subscriptionsourceURL",    :limit => 50
+  end
+
   create_table "session_relationships", :force => true do |t|
     t.integer  "event_id"
     t.integer  "session_id"
@@ -633,6 +758,7 @@ ActiveRecord::Schema.define(:version => 20111024030139) do
     t.integer  "sponsorable_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "event_id"
   end
 
   create_table "sponsors", :force => true do |t|
@@ -668,9 +794,11 @@ ActiveRecord::Schema.define(:version => 20111024030139) do
     t.string   "status",          :limit => 45
     t.string   "hide",            :limit => 45
     t.integer  "sortkey"
+    t.integer  "channel_id"
   end
 
   add_index "subscriptions", ["channelID", "contentsourceID"], :name => "channel_csid_idx"
+  add_index "subscriptions", ["user_id", "channelID"], :name => "channel_uid_cid_idx", :unique => true
 
   create_table "transactions", :force => true do |t|
     t.string   "code"
@@ -685,6 +813,24 @@ ActiveRecord::Schema.define(:version => 20111024030139) do
     t.string   "hide"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "first_name",       :limit => 50
+    t.string   "last_name",        :limit => 60
+    t.string   "email",            :limit => 100
+    t.string   "BillingAddr",      :limit => 100
+    t.string   "City",             :limit => 45
+    t.string   "State",            :limit => 2
+    t.string   "PostalCode",       :limit => 10
+    t.string   "Phone_Home",       :limit => 10
+    t.string   "payment_type",     :limit => 20
+    t.string   "Phone_Work",       :limit => 10
+    t.string   "credit_card_no",   :limit => 20
+    t.datetime "expiration_date"
+    t.string   "cvv",              :limit => 5
+    t.string   "Address2",         :limit => 100
+    t.string   "confirmation_no",  :limit => 15
+    t.string   "Company"
+    t.string   "Country",          :limit => 80
+    t.string   "promoCode",        :limit => 45
   end
 
   create_table "users", :force => true do |t|

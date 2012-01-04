@@ -6,7 +6,7 @@ Schedulr::Application.routes.draw do
     match "/registrations/list" => "registrations#list"
   end
 
-  resources :pages, :channels, :manage_presenters
+  resources :pages, :channels, :manage_presenters, :manage_users
 
   resources :users do 
     resources :host_profiles
