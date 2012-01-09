@@ -86,3 +86,7 @@ gem "mocha", :group => :test
 
 # Deploy with Capistrano
 gem 'capistrano'
+
+# add thinking sphinx
+gem 'thinking-sphinx', '2.0.3'
+

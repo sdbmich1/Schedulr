@@ -113,6 +113,7 @@ GEM
       thor (~> 0.14.4)
     rake (0.8.7)
     rdoc (3.9.4)
+    riddle (1.4.0)
     rspec (2.6.0)
       rspec-core (~> 2.6.0)
       rspec-expectations (~> 2.6.0)
@@ -135,6 +136,9 @@ GEM
     spork (0.9.0.rc9-x86-mingw32)
       win32-process
     tabs_on_rails (2.0.2)
+    thinking-sphinx (2.0.3)
+      activerecord (>= 3.0.3)
+      riddle (>= 1.2.2)
     thor (0.14.6)
     timeliness (0.3.4)
     treetop (1.4.10)
@@ -186,6 +190,7 @@ DEPENDENCIES
   simple_form
   spork (~> 0.9.0.rc)
   tabs_on_rails
+  thinking-sphinx (= 2.0.3)
   turn
   validates_timeliness (~> 3.0.2)
   web-app-theme (>= 0.6.2)

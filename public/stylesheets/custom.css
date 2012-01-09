@@ -8,6 +8,7 @@ th { background: #000000; color: #ffffff; font-weight: bold }
 .clear-right { clear:right }
 .lbl-top { margin-top: 8px }
 .pic-size{ width:48px; height:48px; }
+.back-btn { margin-left: 10px; }
 
 .field_with_errors { display: inline; }  
 .field_with_errors .message {  
@@ -29,6 +30,7 @@ h2 { margin-bottom: 0 }
 .grp-hdr { color: #0c6fcb; font-weight:bold; }	
 
 .mtop { margin-top: 10px }
+.ltop { margin-top: 5px }
 .disabled { color: #CCCCCC }
 .modal-title {font-size:14px;
 	color: #0c6fcb;
@@ -38,7 +40,7 @@ h2 { margin-bottom: 0 }
 	}
 
 /* Nav Links */
-#link-btn { background: #0c6fcb; font-size:0.75em;
+#link-btn, .link_btn { background: #0c6fcb; font-size:0.75em;
    font-weight:bold; display:block; text-align: center;
    padding: 5px; color: #ffffff; margin-right: auto; margin-left: 0;
    margin-bottom: 0px;

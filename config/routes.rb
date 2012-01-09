@@ -1,12 +1,11 @@
 Schedulr::Application.routes.draw do
 
-  resources :transactions, :accounts, :sponsor_pages, :ads
-
   devise_for :users, :controllers => { :registrations => "registrations" } do
     match "/registrations/list" => "registrations#list"
   end
 
-  resources :pages, :channels, :manage_presenters, :manage_users
+  resources :pages, :channels, :manage_presenters, :manage_users, :select_users
+  resources :transactions, :accounts, :sponsor_pages, :ads, :search_users, :notifications
 
   resources :users do 
     resources :host_profiles
@@ -20,7 +19,7 @@ Schedulr::Application.routes.draw do
     end
 
     member do 
-      get 'clone'
+      get 'clone', 'notify'
     end
   end
 

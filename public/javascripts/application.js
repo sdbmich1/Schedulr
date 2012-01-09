@@ -154,3 +154,25 @@ $(function (){
     $.getScript('/schedule.js?start_dt=' + startdate + "&cid=" + cid);
   }).fancybox();
 });
+
+function toggleLoading () { 
+	$("#spinner").toggle(); 
+}
+
+// add spinner to ajax events
+$(function (){ 
+
+  $("#connect_btn, #search_btn")
+    .bind("ajax:beforeSend",  toggleLoading)
+    .bind("ajax:complete", toggleLoading)
+    .bind("ajax:success", function(event, data, status, xhr) {
+      $("#response").html(data);
+    });
+}); 
+
+// when the #start time field changes
+$(function (){
+  $("#start-time").live('change',function() {
+     $("#end-time").val($(this).val()); 
+  });
+});
