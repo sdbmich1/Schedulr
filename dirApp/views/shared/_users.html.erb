@@ -1,0 +1,25 @@
+<table>
+  <tr>
+    <th></th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Location</th>
+    <th></th>
+  </tr>
+  <% @users.each do |usr| %>
+    <tr>
+      <td>
+        <div class="pic-size">
+	  <%= render :partial => 'shared/show_photo', :locals => {:model => usr.profile, :file_name => "headshot1.jpg", :psize => '48x48' } %>
+	</div>
+      </td>
+      <td><%= usr.name %></td>
+      <td><%= usr.email %></td>
+      <td><%= get_location(usr) %></td>
+      <td><%= link_to "Select", select_users_url(:id=>usr, :ssid=>@host_profile.ssid, :cid=>@channel), :id=>'rel_id', :method => :post %></td>
+    </tr>
+  <% end %>
+</table>
+<div class="nav-right">
+  <%= will_paginate @users %><br />
+</div>

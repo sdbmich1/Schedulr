@@ -1,13 +1,10 @@
-<div class="clear-all"></div>
-<center><h3 class="grp-hdr">Subscriber List</h3></center>
 <table>
   <tr>
     <th></th>
     <th>Name</th>
     <th>Email</th>
-    <th>Age</th>
     <th>Location</th>
-    <th>Start Date</th>
+    <th></th>
   </tr>
   <% @subscriptions.each do |sub| %>
     <% unless sub.try(:user).blank? %>
@@ -17,12 +14,10 @@
 	  <%= render :partial => 'shared/show_photo', :locals => {:model => sub.user.profile, :file_name => "headshot1.jpg", :psize => '48x48' } %>
 	</div>
       </td>
-
       <td><%= sub.user.name %></td>
       <td><%= sub.user.email %></td>
-      <td><%= get_age(sub.user) %></td>
       <td><%= get_location(sub.user) %></td>
-      <td><%= get_nice_date(sub.created_at, 'List') %></td>
+      <td><%= link_to "Select", select_users_url(:id=>sub.user, :ssid=>@host_profile.ssid, :cid=>@channel), :id=>'rel_id', :method => :post %></td>
     </tr>
     <% end %>
   <% end %>

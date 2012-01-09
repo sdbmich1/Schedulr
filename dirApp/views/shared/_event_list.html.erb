@@ -23,7 +23,7 @@
   </tr>
   <% for event in @events %>
     <tr>
-      <td><%= link_to event.event_name, event_path(event, :cid=>@channel) %></td>
+      <td><%= link_to event.event_name, event_path(event, :cid=>@channel, :etype=>event.event_type) %></td>
       <td><%= truncate(event.bbody, :length => 40, :omission => "...") %></td>
       <td><%= get_nice_date(event.eventstartdate,'List') %></td>
       <td><%= get_nice_date(event.eventenddate,'List') %></td>

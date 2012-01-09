@@ -1,6 +1,8 @@
 class User < KitsDevelopmentModel
   before_create :set_flds
     
+  ACCESS_TYPES = ['admin', 'user']
+
   # Include default devise modules. Others available are:
   # :token_authenticatable,  :lockable and :timeoutable
   devise :database_authenticatable, :registerable,  #:confirmable,
@@ -38,12 +40,7 @@ class User < KitsDevelopmentModel
 		                 "INNER JOIN `kitsknndb`.subscriptions s ON s.user_id=u.id " +
 			         "WHERE s.channelID=#{id}" }
 
-#  has_many :channels, :through => :subscriptions, 
-#  				:conditions => { :status => 'active'}
-  
-  has_many :host_profile_users
-#  has_many :host_profiles, :through => :host_profile_users, :foreign_key => :ProfileID, :primary_key => :user_id
-
+  has_one :host_profile_user
   has_many :host_profiles, :foreign_key => :ProfileID
   accepts_nested_attributes_for :host_profiles, :reject_if => :all_blank 
 
@@ -60,9 +57,6 @@ class User < KitsDevelopmentModel
   def set_flds
     loc = Location.find(self.location_id)
     self.time_zone, self.localGMToffset = loc.time_zone, loc.localGMToffset if loc
-
-    #set role
-#    self.role = 'Admin'
   end
   
   def with_host_profile
@@ -82,6 +76,10 @@ class User < KitsDevelopmentModel
     profile.pictures
   end
 
+  def host_name
+    profile.HostName
+  end
+
   def name
     first_name + ' ' + last_name
   end
@@ -89,4 +87,17 @@ class User < KitsDevelopmentModel
   def self.get_user(sid)
     HostProfile.get_user(sid)  
   end
+
+  def access_type
+    host_profile_user.access_type
+  end
+
+  define_index do
+    indexes :first_name, :sortable => true
+    indexes :last_name, :sortable => true
+    indexes [first_name, last_name], :as => :name, :sortable => true
+
+    has :id, :as => :user_id
+  end 
+
 end

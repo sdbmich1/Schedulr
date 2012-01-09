@@ -5,7 +5,7 @@
   <hr />
   <p><br />
   <strong>User List:</strong>
-  <%= link_to "Add User", user_path(@user), :id=>"link-btn", :class=>"round nav-right" %>
-  <%= render :partial => 'shared/manage_users', :locals => {:model => @users } %>
+  <%= link_to "Add User", select_users_path(:cid=>@channel), :id=>"link-btn", :class=>"round nav-right" %>
+  <div id="acc_list"><%= render :partial => 'shared/manage_users', :locals => {:model => @users } %></div>
   </p>  
 <% end %>

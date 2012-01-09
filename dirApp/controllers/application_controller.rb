@@ -13,12 +13,17 @@ class ApplicationController < ActionController::Base
   def load_data
     if user_signed_in?
       @user = current_user
-      @host_profile = @user.host_profiles.first
+      hp_user = HostProfileUser.find_by_user_id(@user)
+      @host_profile = hp_user.host_profile if hp_user
     end
   end
 
   def after_sign_in_path_for(resource)
-    user_host_profile_url(@user, @host_profile)
+    if @host_profile
+      user_host_profile_url(@user, @host_profile)
+    else
+      '/403.html'
+    end
   end
 
   protected

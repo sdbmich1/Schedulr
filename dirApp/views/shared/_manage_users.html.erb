@@ -1,3 +1,5 @@
+<%= form_tag manage_users_url, :method => :put, :remote=>true, :id => 'manage_user_btn' do %> 
+
 <table>  
   <tr>
     <th></th>
@@ -6,19 +8,27 @@
     <th>Access Type</th>
     <th></th>
   </tr>
-  <% model.each do |hp| %>
+  <% model.each_with_index do |hp, idx| %>
     <% unless hp.blank? %>
     <tr>
       <td>
         <div class="pic-size">
-		<%= render :partial => 'shared/show_photo', :locals => {:model => hp.user.profile, :file_name => "headshot1.jpg", :psize => '48x48' } %>
+	  <%= render :partial => 'shared/show_photo', :locals => {:model => hp.user.profile, :file_name => "headshot1.jpg", :psize => '48x48' } %>
 	</div>
       </td>
       <td><%= hp.user.name %></td>
       <td><%= hp.user.email %></td>
-      <td><%= hp.access_type %></td>
-      <td><%= link_to "Remove", manage_users_url(:id=>@host_profile, :ssid=>hp.user.ssid), :method=>:delete, :remote=>true %></td>
+      <td><%= select_tag "access_type[#{idx}]", options_for_select( ['admin', 'user'], :selected=>hp.user.access_type ) %></td>
+      <% unless same_user?(hp.user) %>
+        <td><%= link_to "Remove", manage_user_url(:id=>hp.user, :ssid=>@host_profile.ssid), :confirm=>"Remove access for this user?", :method=>:delete, :remote=>true %></td>
+      <% else %>
+        <td></td>
+      <% end %>
     </tr>
     <% end %>
   <% end %>
 </table>  
+
+<%= submit_tag "Save" %>
+<%= link_to 'Back', :back, :class=>'back-btn' %>
+<% end %>

@@ -39,8 +39,8 @@ class HostProfile < ActiveRecord::Base
   accepts_nested_attributes_for :pictures, :allow_destroy => true
 
   def self.get_user(ssid)
-    hp = HostProfile.includes(:user).find_by_subscriptionsourceID(ssid)
-    hp.user
+    hp = HostProfile.includes(:users).find_by_subscriptionsourceID(ssid)
+    hp.users[0]
   end
 
   def ssid
@@ -49,5 +49,9 @@ class HostProfile < ActiveRecord::Base
 
   def self.find_profile(ssid)
     includes(:host_profile_users).find_by_subscriptionsourceID ssid
+  end
+
+  def status_title
+    status.blank? ? '' : status.titleize
   end
 end

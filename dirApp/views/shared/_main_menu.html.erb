@@ -15,6 +15,11 @@
 	<div class="rpos">
    	  <%= link_to "Login", new_user_session_path, :class => "signin_button round" %>
 	</div>
+  <% when "User" %>
+	<span class="menu-search">
+  	  <%= render :partial => 'shared/search_user' %>
+	</span>
+	<div class="nav-menu"><%= render :partial => 'shared/menu_item', :locals => { :menu_type => main_menu } %></div>
   <% when "Sign Up" %>
         <div class="nav-right"><% main_menu %></div>
   <% when "Sign In" %>

@@ -22,6 +22,9 @@
   <% end %>
   <li><a href="">Account</a>
     <ul>
+      <% if can_access? %>
+        <li><%= link_to "Manage Users", manage_users_url(:ssid=>@user.ssid, :cid=>@channel) %></li>
+      <% end %>
   	<li><%= link_to "Sign Out", destroy_user_session_path %></li>
     </ul>
   </li>

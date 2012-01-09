@@ -61,6 +61,5 @@ class SessionRelationshipsController < ApplicationController
     @session_event = Event.find(params[:id]).clone_event
     @channel = Channel.find(params[:cid]) if params[:cid]
     @picture = set_associations(@session_event.pictures, 1)
-   # @session_event.pictures.blank? ? @picture = @session_event.pictures.build : @picture = @session_event.pictures
   end
 end

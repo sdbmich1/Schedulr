@@ -4,23 +4,22 @@
   <h2 class="grp-hdr">Channel</h2>
   <hr />
 
-  <%= link_to "Edit Channel", edit_channel_path(@channel), :id=>"link-btn", :class=>"round nav-right" %>
+  <% if can_access? %>
+    <%= link_to "Edit Channel", edit_channel_path(@channel), :id=>"link-btn", :class=>"round nav-right" %>
+  <% end %>
+
   <%= render :partial => 'shared/show_photo', :locals => {:model => @channel, :file_name => "schedule1.jpg", :psize => '120x120' } %>
-
   <%= render :partial => 'show_channel', :locals => {:channel => @channel, :shead => get_shead, :sbody => get_sbody} %>
+
   <div class="clear-all"></div>
-
-  <p>
-  <div class="span-6"><span class="prepend-4">Categories:</span></div>
-
+  <p><div class="span-6"><span class="prepend-4">Categories:</span></div>
   <div class="<%= get_sbody %> last">
   <ol>  
     <% for int in @channel.channel_interests %>  
       <li>Category: <%= get_category(int.category_id) %> / <%= get_interest(int.interest_id) %></li>  
     <% end %>  
   </ol>  
-  </div>
-  </p>
+  </div></p>
 
   <div class="clear-all"></div>
   <div class="span-6"><span class="prepend-4">Subscribers:</span></div>

@@ -38,6 +38,10 @@ class Channel < ActiveRecord::Base
     get_active_list.where(:HostProfileID => hpid)
   end
 
+  def self.find_ssid(ssid)
+     includes(:subscriptions => [{:user=>[:host_profiles]}]).find_by_subscriptionsourceID ssid
+  end
+
   def self.find_channel(cid)
     includes(:subscriptions => [{:user=>[{:host_profiles=>[:scheduled_events, :private_events]}]}]).find(cid)
   end

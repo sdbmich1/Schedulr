@@ -109,6 +109,46 @@ class Event < ActiveRecord::Base
     self
   end
 
+  def ssid
+    subscriptionsourceID
+  end
+  
+  def cid
+    contentsourceID
+  end
+  
+  def ssurl
+    subscriptionsourceURL
+  end
+  
+  def start_date
+    eventstartdate.to_date
+  end
+  
+  def end_date
+    eventenddate.to_date
+  end
+  
+  def get_location
+    location.blank? ? '' : get_place.blank? ? location : get_place + ', ' + location 
+  end
+  
+  def get_place
+    mapplacename.blank? ? '' : mapplacename
+  end
+  
+  def csz
+    mapcity.blank? ? '' : mapstate.blank? ? mapcity : mapcity + ', ' + mapstate + ' ' + mapzip
+  end
+  
+  def location_details
+    get_location + ', ' + csz
+  end
+
+  def set_location
+    event_type == 'other' ? location : location_details
+  end
+
   protected 
 
   def reset_session_data
@@ -117,14 +157,9 @@ class Event < ActiveRecord::Base
       ev = Event.find(s.id)
 
       unless ev.blank?
-        ev.eventstartdate = self.eventstartdate
-        ev.eventenddate = self.eventenddate
-        ev.localGMToffset = self.localGMToffset
-        ev.endGMToffset = self.endGMToffset
-        ev.mapstreet = self.mapstreet
-        ev.mapcity = self.mapcity
-        ev.mapstate = self.mapstate
-        ev.mapzip = self.mapzip
+        ev.eventstartdate, ev.eventenddate = self.eventstartdate, self.eventenddate
+        ev.localGMToffset, ev.endGMToffset = self.localGMToffset, self.endGMToffset
+        ev.mapstreet, ev.mapcity, ev.mapstate, ev.mapzip = self.mapstreet, self.mapcity, self.mapstate, self.mapzip
         ev.mapplacename = self.mapplacename
         ev.save
       end

@@ -1,5 +1,5 @@
   <div class="span-2"><span class="lbl-top"><%= "Name:" %></span></div>
-  <div class="<%= shead %> last"><span class="append-2"><%= host_profile.Company %></span></div>
+  <div class="<%= can_access? ? shead : sbody %> last"><span class="append-2"><%= host_profile.Company %></span></div>
   <div class="span-2"><span><%= "Address:" %></span></div>
   <div class="<%= sbody %> last"><span class="append-2"><%= host_profile.Address1 %></span></div>
   <% unless host_profile.Address2.blank? %>
@@ -10,6 +10,6 @@
     <div class="<%= sbody %> last"><span class="prepend-2 append-2"><%= host_profile.Country %></span></div>
   <% end %>
   <div class="span-2"><span><%= "Status:" %></span></div>
-  <div class="<%= sbody %> last"><span class="append-2"><%= host_profile.status.titleize %></span></div>
+  <div class="<%= sbody %> last"><span class="append-2"><%= host_profile.status_title %></span></div>
   <div class="span-2"><span><%= "Org Type:" %></span></div>
   <div class="<%= sbody %> last"><span class="append-2"><%= get_entity_type(host_profile.EntityType) %></span></div>

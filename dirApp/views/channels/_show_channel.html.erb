@@ -1,6 +1,6 @@
   <p>
   <div class="span-2"><span><%= "Name:" %></span></div>
-  <div class="<%= shead %> last"><span class="append-2"><%= channel.channel_name %></span></div>
+  <div class="<%= can_access? ? shead : sbody %> last"><span class="append-2"><%= channel.channel_name %></span></div>
   <div class="span-2"><span><%= "Status:" %></span></div>
   <div class="<%= sbody %> last"><span class="append-2"><%= channel.status.titleize %></span></div>
   <div class="span-2"><span><%= "Summary:" %></span></div>

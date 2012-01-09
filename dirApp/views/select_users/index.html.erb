@@ -1,0 +1,7 @@
+<%= render :partial => 'shared/menu_head', :locals => { :menu_type => 'User' } %>
+
+<%= content_for :content do %>
+  <h2 class="grp-hdr">Select Users</h2>
+  <hr />
+  <div id="user_form"><%= render :partial => 'shared/user_list' %></div>
+<% end %>
