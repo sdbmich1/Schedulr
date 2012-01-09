@@ -9,6 +9,7 @@ class SessionRelationshipsController < ApplicationController
     @channel = Channel.find(params[:cid]) if params[:cid]
     @presenters = @session_event.presenters.paginate(:page => params[:page], :per_page => 15)
     @picture = @session_event.pictures
+    @notification = Notification.new
   end
 
   def edit
