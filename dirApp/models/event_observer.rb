@@ -3,14 +3,16 @@ class EventObserver < ActiveRecord::Observer
   observe :event
   
   def after_create(model)
-    process_notice(model, 'new')
+    process_notice(model, 'new') if model.event_type != 'es'
   end
   
   def after_update(model)
-    model.changes.each do |key, item|
-      if key_field?(key) 
-        update_scheduled_events(model)
-        process_notice(model, 'update'); break
+    if model.event_type != 'es'
+      model.changes.each do |key, item|
+        if key_field?(key) 
+          update_scheduled_events(model)
+          process_notice(model, 'update'); break
+        end
       end
     end
   end

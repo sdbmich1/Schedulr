@@ -19,6 +19,7 @@
         <%= content_tag :div, msg, :id => "flash_#{name}" %>
       <% end %>
       <%= content_tag :h1, yield(:title) if show_title? %>
+      <div id="spinner" style="display:none"></div>
       <%= yield %>
       <%= yield :content %>
       <%= yield :footer %>

@@ -41,6 +41,7 @@
     
     <%= render :partial => 'shared/photo', :locals => { :f => f } %>
 
+    <%= f.hidden_field :eventid, :value => @event.eventid, :id=>'eventid' %>
     <% if @channel %>
       <%= f.hidden_field :subscriptionsourceID, :value => @channel.channelID %>
       <%= f.hidden_field :contentsourceID, :value => @channel.HostProfileID %>
