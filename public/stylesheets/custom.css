@@ -104,3 +104,24 @@ a:hover {
     border: 1px solid #eee;
     color: #ddd;
   }
+
+#spinner {
+    margin-top: 300px;
+    margin-left: 400px;
+    position:fixed;
+    height: 10%;
+    z-index:9999;
+    width:10%;
+    clear:none;
+    opacity: .4;
+    background:#000000 url("../images/ajax-loader.gif") no-repeat center center;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    font-weight:bold; 
+  }
+
+/*IE 'adjustment'*/
+* html #spinner {
+     position: absolute;
+     height: expression(document.body.scrollHeight &gt; document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight + 'px');
+    }

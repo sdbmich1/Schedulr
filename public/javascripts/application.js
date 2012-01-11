@@ -107,8 +107,8 @@ $(function (){
   // add date picker code and synch start & end dates
   var dateFormat = "mm/dd/yy";
 	
-	$('#start-date').datepicker({ 
- 	  minDate:'-0d',
+    $('#start-date').datepicker({ 
+      minDate:'-0d',
       dateFormat:dateFormat,
       onSelect: function (dateText, inst) { 
           var nyd = $.datepicker.parseDate(dateFormat,dateText);
@@ -173,6 +173,9 @@ $(function (){
 // when the #start time field changes
 $(function (){
   $("#start-time").live('change',function() {
-     $("#end-time").val($(this).val()); 
+    if ($("#eventid").val().length == 0)
+      {
+      $("#end-time").val($(this).val()); 
+      }
   });
 });
