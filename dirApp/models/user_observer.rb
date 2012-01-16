@@ -42,5 +42,8 @@ class UserObserver < ActiveRecord::Observer
 
     #set channel location
     ChannelLocation.create(:channel_id=>hp.channels.first.id, :location_id=>user.location_id)
+
+    #set admin access
+    HostProfileUser.create(:user_id=>user.id, :subscriptionsourceID => org.wschannelID, :access_type => 'admin')
   end
 end
