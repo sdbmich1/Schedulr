@@ -90,3 +90,5 @@ gem 'capistrano'
 # add thinking sphinx
 gem 'thinking-sphinx', '2.0.3'
 
+# data dump
+gem 'yaml_db'

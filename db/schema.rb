@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120102014430) do
+ActiveRecord::Schema.define(:version => 20120111075202) do
 
   create_table "ads", :force => true do |t|
     t.string   "ad_name"
@@ -621,6 +621,20 @@ ActiveRecord::Schema.define(:version => 20120102014430) do
   end
 
   add_index "presenters", ["subscriptionsourceID", "contentsourceID"], :name => "ssid_idx"
+
+  create_table "promo_codes", :force => true do |t|
+    t.string   "code"
+    t.string   "promo_name"
+    t.text     "description"
+    t.datetime "promostartdate"
+    t.datetime "promoenddate"
+    t.datetime "promostarttime"
+    t.datetime "promoendtime"
+    t.integer  "promoable_id"
+    t.string   "LastUpdatedBy"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "promotions", :force => true do |t|
     t.string   "name"

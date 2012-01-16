@@ -1,4 +1,4 @@
-class User < KitsDevelopmentModel
+class User < KitsModel
   before_create :set_flds
     
   # Include default devise modules. Others available are:

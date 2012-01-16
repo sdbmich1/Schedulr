@@ -1,4 +1,4 @@
-class ScheduledEvent < KitsDevelopmentModel
+class ScheduledEvent < KitsModel
   set_table_name 'events'
   set_primary_key 'ID'
 				        

@@ -1,4 +1,4 @@
-class EventNotice < KitsDevelopmentModel
+class EventNotice < KitsModel
   before_save :set_flds
   
   attr_accessible :eventid, :event_id, :event_name, :event_type,

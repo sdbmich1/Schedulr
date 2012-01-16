@@ -1,4 +1,4 @@
-class Notification < KitsDevelopmentModel
+class Notification < KitsModel
   set_primary_key 'ID'
   
   before_save :set_flds

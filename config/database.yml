@@ -28,3 +28,11 @@ kits_central:
 kits_sub:
   database: kitssubdb
   <<: *login
+
+kits_tsd:
+  database: kitstsddb
+  <<: *login
+
+kits_knn:
+  database: kitsknndb
+  <<: *login

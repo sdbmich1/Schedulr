@@ -1,4 +1,4 @@
-class NoticeType < KitsDevelopmentModel
+class NoticeType < KitsModel
   
   before_save :set_flds
   

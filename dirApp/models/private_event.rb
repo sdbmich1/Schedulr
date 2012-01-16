@@ -1,4 +1,4 @@
-class PrivateEvent < KitsDevelopmentModel
+class PrivateEvent < KitsModel
   set_table_name 'eventspriv'
   set_primary_key 'ID'
 				        

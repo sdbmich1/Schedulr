@@ -1,4 +1,4 @@
-class Location < KitsDevelopmentModel
+class Location < KitsModel
   belongs_to :country
 
   has_many :channel_locations

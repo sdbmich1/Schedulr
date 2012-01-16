@@ -1,4 +1,4 @@
-class ChannelLocation < KitsDevelopmentModel
+class ChannelLocation < KitsModel
   belongs_to :channel
   belongs_to :location
 

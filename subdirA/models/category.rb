@@ -1,4 +1,4 @@
-class Category < KitsDevelopmentModel
+class Category < KitsModel
 
   has_many :interests
   has_many :channel_interests, :through => :interests
