@@ -10,6 +10,7 @@
   </tr>
   <% model.each_with_index do |hp, idx| %>
     <% unless hp.blank? %>
+    <% unless hp.user.blank? %>
     <tr>
       <td>
         <div class="pic-size">
@@ -25,6 +26,7 @@
         <td></td>
       <% end %>
     </tr>
+    <% end %>
     <% end %>
   <% end %>
 </table>  

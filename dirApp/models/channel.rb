@@ -2,7 +2,8 @@ class Channel < ActiveRecord::Base
   attr_accessor :category_id
   attr_accessible :channelID, :HostProfileID, :channel_name, :channel_title, :channel_class, :channel_type, 
   		  :cbody, :bbody, :status, :hide, :sortkey, :subscriptionsourceID, :subscriptionsourceURL, 
-		  :pictures_attributes, :channel_locations_attributes, :mapcity, :mapstate, :mapzip, :mapstreet, :channel_interests_attributes
+		  :pictures_attributes, :channel_locations_attributes, :mapcity, :mapstate, :mapzip, :mapstreet, 
+		  :channel_interests_attributes, :promo_codes_attributes
 
   validates :channel_name, :presence => true, :uniqueness => true
   validates :cbody, :presence => true, :on => :update
@@ -26,6 +27,9 @@ class Channel < ActiveRecord::Base
 
   has_many :pictures, :as => :imageable, :dependent => :destroy
   accepts_nested_attributes_for :pictures, :allow_destroy => true
+
+  has_many :promo_codes, :as => :promoable, :dependent => :destroy
+  accepts_nested_attributes_for :promo_codes, :allow_destroy => true
 
   scope :unhidden, where(:hide.downcase => 'no')
   default_scope :order => 'sortkey ASC'

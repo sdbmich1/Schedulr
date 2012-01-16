@@ -1,11 +1,11 @@
-class Event < ActiveRecord::Base
-#  set_table_name 'eventstsd'
+class Event < KitsTsdModel
+  set_table_name 'eventstsd'
   set_primary_key :ID
 
   attr_accessor :etype
   attr_accessible :etype, :event_name, :event_type, :cbody, :bbody, :eventstartdate, :eventenddate, :eventstarttime, :eventendtime, :localGMToffset, :endGMToffset, :mapstreet, :mapcity, :mapstate, :mapzip, :mapplacename, :mapcountry, :location, :imagelink, :status, :hide, :event_title, :event_tracks_attributes, :pictures_attributes, :speakertopic, :session_type, :track, :event_sites_attributes, :host, :RSVPemail, :created_at, :rsvp, :eventid, :speaker, :updated_at,
   :contentsourceID, :subscriptionsourceID, :event_presenters_attributes, :contentsourceURL, :subscriptionsourceURL, 
-  :AffiliateFee, :Other3Fee, :AtDoorFee, :GroupFee, :Other1Fee, :Other2Fee, :SpouseFee, :MemberFee, :NonMemberFee, :Other4Fee, :Other5Fee, :Other6Fee,:Other3Title, :Other1Title, :Other2Title, :Other4Title, :Other5Title, :Other6Title
+  :AffiliateFee, :Other3Fee, :AtDoorFee, :GroupFee, :Other1Fee, :Other2Fee, :SpouseFee, :MemberFee, :NonMemberFee, :Other4Fee, :Other5Fee, :Other6Fee,:Other3Title, :Other1Title, :Other2Title, :Other4Title, :Other5Title, :Other6Title, :promo_codes_attributes
 
   money_regex = /^\$?(?:\d+)(?:.\d{1,2}){0,1}$/
   url_regex = /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}(:[0-9]{1,5})?(\/.*)?$/ix
@@ -57,6 +57,9 @@ class Event < ActiveRecord::Base
 
   has_many :pictures, :as => :imageable, :dependent => :destroy
   has_many :sponsor_pages, :dependent => :destroy #, :foreign_key => :subscriptionsourceID, :primary_key => :subscriptionsourceID
+
+  has_many :promo_codes, :as => :promoable, :dependent => :destroy
+  accepts_nested_attributes_for :promo_codes, :allow_destroy => true
 
   accepts_nested_attributes_for :pictures, :allow_destroy => true
   accepts_nested_attributes_for :event_tracks, :reject_if => lambda { |a| a[:name].blank? }, :allow_destroy => true
