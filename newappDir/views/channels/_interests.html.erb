@@ -1,7 +1,0 @@
-<%= simple_fields_for "channel_interests", do |form| %>
-   <% if !interests.blank? %>
-      <%= form.input :interest_id, :collection=>interests.collect{ |c| [c.name,c.id]} %>
-   <% else %>
-      <%= form.input :interest_id, :collection=>[] %>
-   <% end %>
-<% end %>

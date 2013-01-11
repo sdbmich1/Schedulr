@@ -1,27 +1,0 @@
-<p>
-<div class="span-2"><%= 'Where:' %></div><div class="span-12 last"><%= event.mapplacename %></div>
-<% if event.try(:event_tracks).blank? %>
-  <div class="span-12 last">	<span class="<%= !event.mapplacename.blank? ? 'prepend-2' : 'none' %>"><%= event.mapstreet %></span></div>
-<% else %>
-  <div class="span-12 last">	<span class="<%= !event.mapplacename.blank? ? 'prepend-2' : 'none' %>"><%= event.mapstreet %></span></div>
-<% end %>
-<% if !event.mapcity.blank? %>	
-  <div class="span-14 last">		
-  <% if event.try(:event_tracks).blank? %>
-    <span class="<%= event.speakertopic.blank? ? 'prepend-2' : 'prepend-6' %>"><%="#{event.mapcity}, #{event.mapstate} #{event.mapzip} " %></span>
-  <% else %>
-    <span class="<%= event.speakertopic.blank? ? 'prepend-2' : 'prepend-6' %>"><%="#{event.mapcity}, #{event.mapstate} #{event.mapzip} " %></span>
-  <% end %>
-  </div>
-<% end %>
-<% if !event.cbody.blank? %>	
-  <div class="<%= event.speaker.blank? ? 'span-6' : 'span-2' %>">
-  <span class="<%= event.speaker.blank? ? 'prepend-4' : 'prepend-6' %>"><%= 'Details:' %></span></div>	
-  <% if event.speaker.blank? %>	
-    <div class="span-12 last"><%= event.cbody.html_safe %></div><br />
-  <% else %>
-    <div class="span-10 last"><%= event.cbody.html_safe %></div><br />
-  <% end %>
-<% end %>
-</p>
-

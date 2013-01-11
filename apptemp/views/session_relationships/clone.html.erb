@@ -1,6 +1,0 @@
-<h2 class="grp-hdr">Clone Session</h2>
-<hr />
-
-<%= form_for @session_event, :url => event_session_relationship_path(@event, @session_event), :html => {:multipart => true}, :validate => true do |f| %>
-  <%= render :partial => 'form', :locals => { :f => f, :etype => 'Clone' } %>
-<% end %>

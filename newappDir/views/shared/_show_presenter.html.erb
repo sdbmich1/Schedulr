@@ -1,16 +1,0 @@
-<% if !@presenter.name.blank? %>
-  <div class="span-2"><span><%= "Name:" %></span></div>	
-  <div class="span-18 last"><span class="append-2"><%= @presenter.name %></span></div>
-<% end %>
-<% if !@presenter.title.blank? %>
-  <div class="span-2"><span><%= "Title:" %></span></div>
-  <div class="span-18 last"><span class="append-2"><%= @presenter.title %></span></div>
-<% end %>
-<% if !@presenter.org_name.blank? %>
-  <div class="span-2"><span><%= "Company:" %></span></div>	
-  <div class="span-18 last"><%= @presenter.org_name %></div> 
-<% end %>
-<% if !@presenter.bio.blank? %>	
-  <div class="span-2"><span><%= " Bio:" %></span></div>	
-  <div class="span-18 last"><%= @presenter.bio %></div> 
-<% end %>
