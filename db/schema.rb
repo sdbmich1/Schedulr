@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120111075202) do
+ActiveRecord::Schema.define(:version => 20130105211201) do
 
   create_table "ads", :force => true do |t|
     t.string   "ad_name"
@@ -27,6 +27,30 @@ ActiveRecord::Schema.define(:version => 20120111075202) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "allorg", :primary_key => "ID", :force => true do |t|
+    t.string   "orgID",                 :limit => 50
+    t.string   "wschannelID",           :limit => 50
+    t.string   "OrgFullName"
+    t.string   "SortName",              :limit => 50
+    t.string   "OrgName"
+    t.string   "OrgSubname"
+    t.string   "OrgNameAbbr",           :limit => 25
+    t.string   "OrgNameOverride"
+    t.string   "DisplayOrgName"
+    t.string   "status",                :limit => 10, :default => "active"
+    t.integer  "sortkey"
+    t.string   "hide",                  :limit => 5,  :default => "No"
+    t.string   "subscriptionsourceID",  :limit => 50
+    t.string   "subscriptionsourceURL", :limit => 50
+    t.datetime "CreateDateTime"
+    t.string   "LastModifyBy",          :limit => 50
+    t.datetime "LastModifyDateTime"
+  end
+
+  add_index "allorg", ["ID"], :name => "ID", :unique => true
+  add_index "allorg", ["OrgFullName"], :name => "OrgFullName"
+  add_index "allorg", ["orgID"], :name => "orgID"
 
   create_table "categories", :force => true do |t|
     t.string   "code"
@@ -135,6 +159,19 @@ ActiveRecord::Schema.define(:version => 20120111075202) do
     t.datetime "updated_at"
   end
 
+  create_table "event_exhibitors", :force => true do |t|
+    t.integer  "event_id"
+    t.integer  "exhibitor_id"
+    t.string   "eventid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "event_exhibitors", ["event_id", "exhibitor_id"], :name => "index_event_exhibitors_on_event_id_and_exhibitor_id", :unique => true
+  add_index "event_exhibitors", ["event_id"], :name => "index_event_exhibitors_on_event_id"
+  add_index "event_exhibitors", ["eventid"], :name => "index_event_exhibitors_on_eventid"
+  add_index "event_exhibitors", ["exhibitor_id"], :name => "index_event_exhibitors_on_exhibitor_id"
+
   create_table "event_presenters", :force => true do |t|
     t.integer  "event_id"
     t.integer  "presenter_id"
@@ -168,7 +205,10 @@ ActiveRecord::Schema.define(:version => 20120111075202) do
     t.integer  "sponsor_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "eventid"
   end
+
+  add_index "event_sponsors", ["eventid"], :name => "index_event_sponsors_on_eventid"
 
   create_table "event_tracks", :force => true do |t|
     t.string   "name"
@@ -242,6 +282,9 @@ ActiveRecord::Schema.define(:version => 20120111075202) do
     t.string   "Other4Title",           :limit => 50
     t.string   "Other5Title",           :limit => 50
     t.string   "Other6Title",           :limit => 50
+    t.float    "longitude"
+    t.float    "latitude"
+    t.string   "contactphone",          :limit => 20
   end
 
   add_index "events", ["eventid"], :name => "index_events_on_eventid"
@@ -279,7 +322,7 @@ ActiveRecord::Schema.define(:version => 20120111075202) do
     t.string   "imagetitle",            :limit => 50
     t.string   "imagecaption",          :limit => 100
     t.string   "pdfFilename",           :limit => 50
-    t.string   "imagelink",             :limit => 50
+    t.string   "imagelink"
     t.string   "fundraiser",            :limit => 50
     t.string   "progserv",              :limit => 5
     t.string   "prodserv",              :limit => 5
@@ -337,11 +380,41 @@ ActiveRecord::Schema.define(:version => 20120111075202) do
     t.datetime "globalupdatedatetime"
     t.string   "resvtargetID",          :limit => 50
     t.string   "contentsourceID",       :limit => 50
-    t.string   "contentsourceURL",      :limit => 250
+    t.string   "contentsourceURL"
     t.string   "subscriptionsourceID",  :limit => 50
     t.string   "subscriptionsourceURL", :limit => 100
     t.string   "sourceURL",             :limit => 250
   end
+
+  create_table "exhibitor_categories", :force => true do |t|
+    t.integer  "event_id"
+    t.integer  "exhibitor_id"
+    t.integer  "show_category_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "exhibitor_categories", ["event_id", "exhibitor_id", "show_category_id"], :name => "event_show_exhibitor_idx", :unique => true
+  add_index "exhibitor_categories", ["event_id"], :name => "index_exhibitor_categories_on_event_id"
+  add_index "exhibitor_categories", ["exhibitor_id"], :name => "index_exhibitor_categories_on_exhibitor_id"
+  add_index "exhibitor_categories", ["show_category_id"], :name => "index_exhibitor_categories_on_show_category_id"
+
+  create_table "exhibitors", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "event_id"
+    t.string   "eventid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "hide"
+    t.string   "status"
+    t.string   "contentsourceID"
+    t.string   "subscriptionsourceID"
+    t.string   "location"
+  end
+
+  add_index "exhibitors", ["contentsourceID"], :name => "index_exhibitors_on_contentsourceID"
+  add_index "exhibitors", ["subscriptionsourceID"], :name => "index_exhibitors_on_subscriptionsourceID"
 
   create_table "gmttimezones", :id => false, :force => true do |t|
     t.float    "ID"
@@ -634,6 +707,12 @@ ActiveRecord::Schema.define(:version => 20120111075202) do
     t.string   "LastUpdatedBy"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "status"
+    t.integer  "max_redemptions"
+    t.integer  "amountOff"
+    t.integer  "percentOff"
+    t.string   "currency"
+    t.string   "promotable_type"
   end
 
   create_table "promotions", :force => true do |t|
@@ -673,6 +752,29 @@ ActiveRecord::Schema.define(:version => 20120111075202) do
     t.datetime "CreateDateTime"
     t.datetime "LastModifyDateTime"
     t.string   "LastModifyBy",       :limit => 50
+  end
+
+  create_table "remindertype", :primary_key => "ID", :force => true do |t|
+    t.string   "code",               :limit => 50
+    t.string   "description"
+    t.string   "status",             :limit => 10
+    t.integer  "sortkey"
+    t.string   "hide",               :limit => 5
+    t.datetime "CreateDateTime"
+    t.datetime "LastModifyDateTime"
+    t.string   "LastModifyBy",       :limit => 50
+  end
+
+  create_table "rss_feeds", :force => true do |t|
+    t.string   "channelID"
+    t.string   "sourceURL"
+    t.text     "feedURL"
+    t.string   "status"
+    t.string   "hide"
+    t.integer  "sortkey"
+    t.integer  "location_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "rsvps", :primary_key => "ID", :force => true do |t|
@@ -745,8 +847,10 @@ ActiveRecord::Schema.define(:version => 20120111075202) do
     t.integer  "session_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "eventID"
   end
 
+  add_index "session_relationships", ["eventID"], :name => "index_session_relationships_on_eventID"
   add_index "session_relationships", ["event_id", "session_id"], :name => "index_session_relationships_on_event_id_and_session_id", :unique => true
   add_index "session_relationships", ["event_id"], :name => "index_session_relationships_on_event_id"
   add_index "session_relationships", ["session_id"], :name => "index_session_relationships_on_session_id"
@@ -760,6 +864,18 @@ ActiveRecord::Schema.define(:version => 20120111075202) do
     t.datetime "updated_at"
     t.string   "code",        :limit => 45
   end
+
+  create_table "show_categories", :force => true do |t|
+    t.string   "category_name"
+    t.string   "hide"
+    t.string   "status"
+    t.integer  "sortkey"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "subscriptionsourceID"
+  end
+
+  add_index "show_categories", ["subscriptionsourceID"], :name => "index_show_categories_on_subscriptionsourceID"
 
   create_table "sponsor_pages", :force => true do |t|
     t.string   "name"
@@ -783,11 +899,9 @@ ActiveRecord::Schema.define(:version => 20120111075202) do
     t.string   "hide"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "sponsorURL"
-    t.integer  "sponsorable_id",                     :null => false
-    t.string   "sponsorable_type",                   :null => false
     t.string   "sponsor_type"
     t.string   "logo_type",            :limit => 45
+    t.text     "description"
   end
 
   create_table "status_types", :force => true do |t|
@@ -814,10 +928,19 @@ ActiveRecord::Schema.define(:version => 20120111075202) do
   add_index "subscriptions", ["channelID", "contentsourceID"], :name => "channel_csid_idx"
   add_index "subscriptions", ["user_id", "channelID"], :name => "channel_uid_cid_idx", :unique => true
 
+  create_table "transaction_details", :force => true do |t|
+    t.integer  "transaction_id"
+    t.string   "item_name"
+    t.integer  "quantity"
+    t.float    "price"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "transactions", :force => true do |t|
     t.string   "code"
     t.string   "description"
-    t.integer  "amt"
+    t.float    "amt"
     t.string   "currency"
     t.datetime "transaction_date"
     t.string   "channelID"
@@ -841,11 +964,23 @@ ActiveRecord::Schema.define(:version => 20120111075202) do
     t.datetime "expiration_date"
     t.string   "cvv",              :limit => 5
     t.string   "Address2",         :limit => 100
-    t.string   "confirmation_no",  :limit => 15
+    t.string   "confirmation_no"
     t.string   "Company"
     t.string   "Country",          :limit => 80
     t.string   "promoCode",        :limit => 45
+    t.string   "token"
   end
+
+  create_table "user_interests", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "interest_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_interests", ["interest_id"], :name => "ui_intid_idx"
+  add_index "user_interests", ["user_id", "interest_id"], :name => "ui_userint_idx"
+  add_index "user_interests", ["user_id"], :name => "ui_userid_idx"
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "", :null => false

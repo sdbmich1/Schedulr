@@ -1,9 +1,9 @@
 jQuery.ajaxSetup({  
     'beforeSend': function (xhr) {xhr.setRequestHeader("Accept", "text/javascript");
-      	$('#spinner').show()
+      	$('#spinner').show('fast')
 	    },
     'complete': function(){
-        $('#spinner').hide()
+        $('#spinner').hide('fast')
             },
     'success': function() {}  
 }); 
@@ -33,13 +33,15 @@ $(document).ready(function(){
   });
 
 $(function () {
-   $("#session-list .pagination a, #sub-list .pagination a,#pres-list .pagination a,#event-list .pagination a,#rsvp-list .pagination a,#ch-list .pagination a").live('click', function () {
+   $("#session-list .pagination a, #sub-list .pagination a,#pres-list .pagination a,#event-list .pagination a,#rsvp-list .pagination a,#ch-list .pagination a, #spon-list .pagination a, #ex-list .pagination a").live('click', function () {
          $.getScript(this.href);
 	 return false;
    });
 });
 
 $(function (){
+
+  if ($(".pres-fields").length != 0) {
 
   // when the #event id field changes
   $("select[id*=category_id]").live('change',function() {
@@ -72,6 +74,7 @@ $(function (){
           }
 	});
     });
+  }  
 });
 
 $(function () {
@@ -110,6 +113,9 @@ $(function (){
     $('#start-date').datepicker({ 
       minDate:'-0d',
       dateFormat:dateFormat,
+      buttonImage: '/images/date_picker1.gif', 
+      buttonImageOnly: true, 
+      showOn: 'button',
       onSelect: function (dateText, inst) { 
           var nyd = $.datepicker.parseDate(dateFormat,dateText);
           $('#end-date').datepicker("option", 'minDate', nyd ).val($(this).val());
@@ -119,9 +125,28 @@ $(function (){
   	 	$('#end-date').val($(this).val())
      }); 
   
-    $('#end-date').datepicker({ 
-      onClose: function () { $(this).focus(); }, 
+    $('#promo-start-date').datepicker({ 
+      minDate:'-0d',
       dateFormat:dateFormat,
+      buttonImage: '/images/date_picker1.gif', 
+      buttonImageOnly: true, 
+      showOn: 'button',
+      onSelect: function (dateText, inst) { 
+          var nyd = $.datepicker.parseDate(dateFormat,dateText);
+          $('#promo-end-date').datepicker("option", 'minDate', nyd ).val($(this).val());
+      }, 
+      onClose: function () { $(this).focus() } 
+  	 }).change(function () {  
+  	 	$('#promo-end-date').val($(this).val())
+     }); 
+  
+    $('#end-date, #promo-end-date').datepicker({ 
+      onClose: function () { $(this).focus(); }, 
+      minDate:'-0d',
+      dateFormat:dateFormat,
+      buttonImage: '/images/date_picker1.gif', 
+      buttonImageOnly: true, 
+      showOn: 'button',
       onSelect: function(dateText, inst){ }                       
     }); 
     	
@@ -177,5 +202,12 @@ $(function (){
       {
       $("#end-time").val($(this).val()); 
       }
+  });
+});
+
+// when the #promo-start time field changes
+$(function (){
+  $("#promo-start-time").live('change',function() {
+      $("#promo-end-time").val($(this).val()); 
   });
 });

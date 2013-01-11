@@ -4,7 +4,7 @@ Schedulr::Application.routes.draw do
     match "/registrations/list" => "registrations#list"
   end
 
-  resources :pages, :channels, :manage_presenters, :manage_users, :select_users
+  resources :pages, :channels, :manage_presenters, :manage_users, :select_users, :manage_sponsors, :manage_exhibitors
   resources :transactions, :accounts, :sponsor_pages, :ads, :search_users, :notifications
 
   resources :users do 
@@ -14,6 +14,7 @@ Schedulr::Application.routes.draw do
   resources :events do
     resources :sponsors
     resources :presenters
+    resources :exhibitors
     resources :session_relationships do
       get 'clone', :on => :member
     end

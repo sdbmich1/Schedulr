@@ -27,14 +27,14 @@ namespace :db do
 
   desc "Set hp user table"
   task :set_hp_user => :environment do
-    set_hostprofile_user
+#    set_hostprofile_user
   end
-
-  desc "Update times in event table"
-  task :reset_event_times, :eid, :needs => :environment do |t, args|
-    eid = args[:eid] || 80
-    reset_times(eid)
-  end
+##
+#  desc "Update times in event table"
+#  task :reset_event_times, :eid => :environment do |t, args|
+#    eid = args[:eid] || 80
+#    reset_times(eid)
+#  end
 end
 
 def load_time_fields

@@ -1,4 +1,4 @@
-table { border: 1px solid grey; }
+table, .boxed { border: 1px solid grey; }
 
 th { background: #000000; color: #ffffff; font-weight: bold }
 
@@ -16,6 +16,10 @@ th { background: #000000; color: #ffffff; font-weight: bold }
    padding-left: 5px;  
    font-size: 12px;  
  }  
+
+.start_date, .end_date img { 
+   vertical-align: middle
+}
 
 /* set text area */
 #channel_cbody, #event_cbody, #presenter_bio { height: 100px; width: 500px; }

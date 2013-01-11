@@ -58,6 +58,11 @@ Factory.define :presenter do |presenter|
   presenter.bio            		 "Detroit"
 end
 
+Factory.define :exhibitor do |exhibitor|
+  exhibitor.name             "Blow" 
+  exhibitor.description            		 "Detroit"
+end
+
 Factory.define :channel do |c|
   c.channelID           "T00001"
   c.channel_title           "Test title"
@@ -95,6 +100,10 @@ Factory.define :presenter_with_details, :parent => :presenter do |presenter|
   presenter.after_create { |a| Factory(:contact_detail, :presenter => a) }
 end
 
+Factory.define :exhibitor_with_details, :parent => :exhibitor do |exhibitor|
+  exhibitor.after_create { |a| Factory(:contact_detail, :exhibitor => a) }
+end
+
 Factory.define :event_site do |e|
   e.name "Foo bar"
   e.association :event
@@ -130,6 +139,12 @@ end
 Factory.define :event_presenter do |f|
   f.event_id     1
   f.presenter_id 1
+  f.association :event
+end
+
+Factory.define :event_exhibitor do |f|
+  f.event_id     1
+  f.exhibitor_id 1
   f.association :event
 end
 

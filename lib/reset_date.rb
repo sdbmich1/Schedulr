@@ -16,6 +16,23 @@ module ResetDate
       val.delete(:"eventendtime(5i)")
     end
 
+    if val[:"promo_codes_attributes"]["0"]
+      item = val[:"promo_codes_attributes"]["0"]
+
+      if item["promostarttime(5i)"]
+        item[:promostarttime] = item["promostarttime(5i)"]
+        item.delete(:"promostarttime(5i)")
+      end
+
+      if item[:"promoendtime(5i)"]
+        item[:promoendtime] = item[:"promoendtime(5i)"]
+        item.delete(:"promoendtime(5i)")
+      end
+
+      item[:promostartdate] = parse_date(item[:promostartdate]) if item[:promostartdate] 
+      item[:promoenddate] = parse_date(item[:promoenddate]) if item[:promoenddate]
+    end
+
     val[:eventstartdate] = parse_date(val[:eventstartdate]) if val[:eventstartdate] 
     val[:eventenddate] = parse_date(val[:eventenddate]) if val[:eventenddate]
     val

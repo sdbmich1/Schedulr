@@ -1,7 +1,9 @@
 require File.dirname(__FILE__) + '/../spec_helper'
+require 'login_user_spec'
 
 describe PresentersController do
 #  render_views
+  include LoginTestUser
 
   def mock_event(stubs={})
     (@mock_event ||= mock_model(Event, stubs).as_null_object).tap do |event|
@@ -15,9 +17,17 @@ describe PresentersController do
     end
   end
 
+  def mock_channel(stubs={})
+    (@mock_channel ||= mock_model(Channel, stubs).as_null_object).tap do |channel|
+       channel.stub(stubs) unless stubs.empty?
+    end
+  end
+
   before :each do
+    log_in_test_user
     @event = mock_model(Event) 
     @parent_event = stub_model(Event) 
+    @channel = stub_model(Channel) 
     Event.stub!(:find).and_return(@parent_event)
     @presenters = mock("presenters")
     @event.stub!(:presenters).and_return(@presenters)
@@ -26,8 +36,7 @@ describe PresentersController do
   describe 'GET index' do
 
     before do
-      @event.stub!(:presenters).and_return(@presenters)
-      Event.stub!(:find).and_return(@event)
+      Presenter.stub!(:get_list).and_return(@presenters)
     end
 
     def do_get
@@ -40,7 +49,7 @@ describe PresentersController do
     end
 
     it "should get event's presenters" do
-      Presenter.should_receive(:paginate).and_return(@presenters)
+      Presenter.should_receive(:get_list).and_return(@presenters)
       do_get
     end
 
