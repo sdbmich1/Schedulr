@@ -5,7 +5,10 @@ class SessionRelationshipsController < ApplicationController
   def show
     @session_event = Event.find(params[:id])
 <<<<<<< HEAD
+<<<<<<< HEAD
     @channel = Channel.find(params[:cid]) if params[:cid]
+=======
+>>>>>>> app_branch
 =======
 >>>>>>> app_branch
     @presenters = @session_event.presenters.paginate(:page => params[:page], :per_page => 15)
@@ -16,7 +19,10 @@ class SessionRelationshipsController < ApplicationController
   def edit
     @session_event = Event.find(params[:id])
 <<<<<<< HEAD
+<<<<<<< HEAD
     @channel = Channel.find(params[:cid]) if params[:cid]
+=======
+>>>>>>> app_branch
 =======
 >>>>>>> app_branch
     @picture = set_associations(@session_event.pictures, 1)
@@ -25,7 +31,10 @@ class SessionRelationshipsController < ApplicationController
   def new
     @session_event = Event.new(@event.attributes).reset_session_values
 <<<<<<< HEAD
+<<<<<<< HEAD
     @channel = Channel.find(params[:cid]) if params[:cid]
+=======
+>>>>>>> app_branch
 =======
 >>>>>>> app_branch
     @picture = set_associations(@session_event.pictures, 1)
@@ -33,11 +42,17 @@ class SessionRelationshipsController < ApplicationController
 
   def create
 <<<<<<< HEAD
+<<<<<<< HEAD
     @event = Event.find(params[:event_id])
     @channel = Channel.find_channel(params[:cid]) if params[:cid]
     @session_event = Event.new(reset_dates(params[:event]))
     if @session_event.save
       @event.session_relationships.create(:session_id => @session_event.id)
+=======
+    @session_event = Event.new(reset_dates(params[:event]))
+    if @session_event.save
+      @event.session_relationships.create(:session_id => @session_event.id, :eventid => @session_event.eventID)
+>>>>>>> app_branch
 =======
     @session_event = Event.new(reset_dates(params[:event]))
     if @session_event.save
@@ -51,8 +66,11 @@ class SessionRelationshipsController < ApplicationController
 
   def update
 <<<<<<< HEAD
+<<<<<<< HEAD
     @event = Event.find(params[:event_id])
     @channel = Channel.find(params[:cid]) if params[:cid]
+=======
+>>>>>>> app_branch
 =======
 >>>>>>> app_branch
     @session_event = Event.find(params[:id])
@@ -65,8 +83,11 @@ class SessionRelationshipsController < ApplicationController
 
   def destroy
 <<<<<<< HEAD
+<<<<<<< HEAD
     @event = Event.find(params[:event_id])
     @channel = Channel.find(params[:cid]) if params[:cid]
+=======
+>>>>>>> app_branch
 =======
 >>>>>>> app_branch
     @session_relationship = SessionRelationship.find_by_session_id(params[:id])
@@ -77,7 +98,10 @@ class SessionRelationshipsController < ApplicationController
   def clone
     @session_event = Event.find(params[:id]).clone_event
 <<<<<<< HEAD
+<<<<<<< HEAD
     @channel = Channel.find(params[:cid]) if params[:cid]
+=======
+>>>>>>> app_branch
 =======
 >>>>>>> app_branch
     @picture = set_associations(@session_event.pictures, 1)

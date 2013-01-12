@@ -10,10 +10,13 @@
     <%= render :partial => 'shared/form', :locals => {:f => f, :etype => 'Event'} %>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     
     <% if has_sessions?(@event.event_type) %>
       <%= render :partial => 'track_site', :locals => {:f => f} %>
 =======
+=======
+>>>>>>> app_branch
     <div class="pres-fields">
       <%= f.fields_for :promo_codes do |form| %>
         <%= render :partial => 'shared/promo_codes', :locals => { :f => form } %>
@@ -24,6 +27,9 @@
       <div class='boxed'>
         <%= render :partial => 'track_site', :locals => {:f => f} %>
       </div>
+<<<<<<< HEAD
+>>>>>>> app_branch
+=======
 >>>>>>> app_branch
     <% else %>
       <div id="track-site" style="display:none">

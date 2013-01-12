@@ -2,6 +2,7 @@ class EventsController < ApplicationController
   include SetAssn, ResetDate, Avail
   before_filter :authenticate_user!
 <<<<<<< HEAD
+<<<<<<< HEAD
   before_filter :load_vars, :only => [:new, :edit, :clone]
   include SetAssn, ResetDate, Avail
 
@@ -20,6 +21,16 @@ class EventsController < ApplicationController
     @exhibitors = @event.exhibitors.paginate(:page => params[:exhibitor_page], :per_page => 15)
     @sponsors = @event.sponsors.paginate(:page => params[:sponsor_page], :per_page => 15)
 >>>>>>> app_branch
+=======
+  before_filter :load_channel, :except => [:schedule]
+  before_filter :load_event, :only => [:show, :delete, :update]
+  before_filter :load_vars, :only => [:new, :edit, :clone]
+
+  def show
+    @presenters = @event.presenters.paginate(:page => params[:presenter_page], :per_page => 15)
+    @exhibitors = @event.exhibitors.paginate(:page => params[:exhibitor_page], :per_page => 15)
+    @sponsors = @event.sponsors.paginate(:page => params[:sponsor_page], :per_page => 15)
+>>>>>>> app_branch
     @sessions = @event.sessions.paginate(:page => params[:session_page], :per_page => 15)
     @rsvps = @event.rsvps.paginate(:page => params[:rsvp_page], :per_page => 15)
     @notification = Notification.new
@@ -27,7 +38,10 @@ class EventsController < ApplicationController
 
   def new
 <<<<<<< HEAD
+<<<<<<< HEAD
     @channel = Channel.find_channel(params[:cid]) if params[:cid]
+=======
+>>>>>>> app_branch
 =======
 >>>>>>> app_branch
     @avail = Date.today
@@ -44,6 +58,7 @@ class EventsController < ApplicationController
   end
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   def edit
     @channel = Channel.find_channel(params[:cid]) if params[:cid]
   end
@@ -51,6 +66,9 @@ class EventsController < ApplicationController
   def update
     @event = Event.find(params[:id])
     @channel = Channel.find(params[:cid]) if params[:cid]
+=======
+  def update
+>>>>>>> app_branch
 =======
   def update
 >>>>>>> app_branch
@@ -63,8 +81,11 @@ class EventsController < ApplicationController
 
   def destroy
 <<<<<<< HEAD
+<<<<<<< HEAD
     @event = Event.find(params[:id])
     @channel = Channel.find(params[:cid]) if params[:cid]
+=======
+>>>>>>> app_branch
 =======
 >>>>>>> app_branch
     @event.destroy
@@ -72,10 +93,13 @@ class EventsController < ApplicationController
   end
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   def clone
 #    @event = Event.find(params[:id]).clone_event
     @channel = Channel.find_channel(params[:cid]) if params[:cid]
 =======
+=======
+>>>>>>> app_branch
   protected
 
   def load_event
@@ -84,6 +108,9 @@ class EventsController < ApplicationController
    
   def load_channel
     @channel = Channel.find(params[:cid]) if params[:cid]
+<<<<<<< HEAD
+>>>>>>> app_branch
+=======
 >>>>>>> app_branch
   end
 
