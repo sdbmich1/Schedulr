@@ -1,20 +1,5 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-class Event < KitsTsdModel
-  set_table_name 'eventstsd'
-=======
 class Event < KitsKnnModel
 #  set_table_name 'eventstsd'
->>>>>>> app_branch
-=======
-class Event < KitsKnnModel
-#  set_table_name 'eventstsd'
->>>>>>> app_branch
-=======
-class Event < KitsKnnModel
-#  set_table_name 'eventstsd'
->>>>>>> app_branch
   set_primary_key :ID
 
   attr_accessor :etype
@@ -74,25 +59,9 @@ class Event < KitsKnnModel
   has_many :rsvps, :dependent => :destroy, :primary_key=>:eventid, :foreign_key => :EventID
 
   has_many :pictures, :as => :imageable, :dependent => :destroy
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  has_many :sponsor_pages, :dependent => :destroy #, :foreign_key => :subscriptionsourceID, :primary_key => :subscriptionsourceID
-=======
 
   has_many :event_sponsors, :dependent => :destroy
   has_many :sponsors, :through => :event_sponsors, :dependent => :destroy, :foreign_key => :subscriptionsourceID, :primary_key => :subscriptionsourceID
->>>>>>> app_branch
-=======
-
-  has_many :event_sponsors, :dependent => :destroy
-  has_many :sponsors, :through => :event_sponsors, :dependent => :destroy, :foreign_key => :subscriptionsourceID, :primary_key => :subscriptionsourceID
->>>>>>> app_branch
-=======
-
-  has_many :event_sponsors, :dependent => :destroy
-  has_many :sponsors, :through => :event_sponsors, :dependent => :destroy, :foreign_key => :subscriptionsourceID, :primary_key => :subscriptionsourceID
->>>>>>> app_branch
 
   has_many :promo_codes, :as => :promoable, :dependent => :destroy
   accepts_nested_attributes_for :promo_codes, :allow_destroy => true
@@ -118,16 +87,6 @@ class Event < KitsKnnModel
 
   def self.new_event
     ev = Event.new(:eventstartdate=>Date.today, :eventenddate=>Date.today)
-<<<<<<< HEAD
-<<<<<<< HEAD
-  end
-
-  def self.new_event
-    ev = Event.new(:eventstartdate=>Date.today, :eventenddate=>Date.today)
-=======
->>>>>>> app_branch
-=======
->>>>>>> app_branch
   end
 
   def is_session?
@@ -233,43 +192,13 @@ class Event < KitsKnnModel
     new_event.event_tracks << self.event_tracks.collect { |event_track| event_track.clone } 
     new_event.event_sites << self.event_sites.collect { |event_site| event_site.clone } 
     new_event.event_presenters << self.event_presenters.uniq.collect { |event_presenter| event_presenter.clone } 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
     new_event.event_sponsors << self.event_sponsors.uniq.collect { |event_sponsor| event_sponsor.clone } 
     new_event.event_exhibitors << self.event_exhibitors.uniq.collect { |event_exhibitor| event_exhibitor.clone } 
->>>>>>> app_branch
-=======
-    new_event.event_sponsors << self.event_sponsors.uniq.collect { |event_sponsor| event_sponsor.clone } 
-    new_event.event_exhibitors << self.event_exhibitors.uniq.collect { |event_exhibitor| event_exhibitor.clone } 
->>>>>>> app_branch
-=======
-    new_event.event_sponsors << self.event_sponsors.uniq.collect { |event_sponsor| event_sponsor.clone } 
-    new_event.event_exhibitors << self.event_exhibitors.uniq.collect { |event_exhibitor| event_exhibitor.clone } 
->>>>>>> app_branch
     self.pictures.each do |p|
       new_event.pictures.build(:photo => p.photo)
       new_event.save
     end
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    # clone sponsor data
-    self.sponsor_pages.each do |pg|
-      sp_page = SponsorPage.create(pg.attributes)
-      sp_page.sponsors << pg.sponsors.collect { |sponsor| sponsor.clone }
-      new_event.sponsor_pages << sp_page
-      new_event.save
-    end
-
-=======
->>>>>>> app_branch
-=======
->>>>>>> app_branch
-=======
->>>>>>> app_branch
     # clone session data
     self.sessions.each do |s|
       s.eventstartdate = Date.today if s.eventstartdate < Date.today
