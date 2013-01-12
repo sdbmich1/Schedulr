@@ -2,11 +2,12 @@
 <table>
   <tr>
     <th></th>
-    <th>Sponsor Name</th>
-    <th>Website</th>
-    <th>Sponsor Type</th>
-    <th>Logo Type</th>
-    <th>Status</th>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
   </tr>
   <% for sponsor in @sponsors %>
     <tr>
@@ -16,11 +17,36 @@
 	</div>
       </td>
 
-      <td><%= sponsor.sponsor_name %></td>
-      <td><%= sponsor.sponsorURL %></td>
+      <% if has_sessions?(event.event_type) %>
+        <td><%= link_to sponsor.sponsor_name, event_sponsor_url(event, sponsor, :cid=>@channel) %></td>
+      <% else %>
+        <td><%= link_to sponsor.sponsor_name, event_sponsor_url(event, sponsor, :parent_id => parent, :cid=>@channel) %></td>
+      <% end %>
+
       <td><%= sponsor.sponsor_type %></td>
-      <td><%= sponsor.logo_type %></td>
-      <td><%= sponsor.status.titleize %></td>
+      <td><%= sponsor.details %></td>
+
+      <% if sponlist == 'No' %>
+        <td><%= link_to "Select", manage_sponsors_url(:id => event, :sponsor_id => sponsor, :parent_id => parent, :cid=>@channel), :method => :post %></td>
+      <% else %>
+	  <td></td>
+      <% end %>
+
+      <% if has_sessions?(event.event_type) %>
+        <td><%= link_to "Edit", edit_event_sponsor_url(event, sponsor, :cid=>@channel) %></td>
+      <% else %>
+        <td><%= link_to "Edit", edit_event_sponsor_url(event, sponsor, :parent_id => parent, :cid=>@channel) %></td>
+      <% end %>
+
+      <% if sponlist == 'No' %>
+        <% if has_sessions?(event.event_type) %>
+          <td><%= link_to "Remove", event_sponsor_url(event, sponsor, :cid=>@channel), :confirm => 'Are you sure?', :method => :delete %></td>
+	<% else %>
+	  <td></td>
+	<% end %>
+      <% else %>
+        <td><%= link_to "Remove", manage_sponsor_url(event, :sponsor_id => sponsor, :cid=>@channel), :confirm => 'Are you sure?', :method => :delete %></td>
+      <% end %>
     </tr>
   <% end %>
 </table>

@@ -1,0 +1,27 @@
+<table>
+  <tr>
+    <th></th>
+    <th>Name</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <% for exhibitor in @exhibitors %>
+    <tr>
+      <td>
+        <div class="pic-size">
+          <%= render :partial => 'shared/show_photo', :locals => {:model => exhibitor, :file_name => "headshot1.jpg", :psize => '48x48' } %>
+	</div>
+      </td>
+
+      <td><%= link_to exhibitor.name, event_exhibitor_url(event, exhibitor, :parent_id => parent, :cid=>@channel) %></td>
+      <td><%= exhibitor.description %></td>
+      <td><%= link_to "Edit", edit_event_exhibitor_url(event, exhibitor, :cid=>@channel) %></td>
+      <td><%= link_to "Remove", manage_exhibitor_url(event, :exhibitor_id => exhibitor, :cid=>@channel), :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<div class="nav-right">
+  <%= will_paginate @exhibitors, :param_name => 'exhibitor_page' %><br />
+</div>

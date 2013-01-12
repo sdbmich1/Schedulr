@@ -1,0 +1,21 @@
+<p><br />
+<% for contact in exhibitor.contact_details %>
+  <div class="show-item">
+    <% unless contact.work_phone.blank? %>
+      <div class="span-2 <%= exhibitor.description.length > 200 ? 'prepend-4' : 'none' %>">Work Phone:</div>
+      <div class="<%= sbody %> last"><%= contact.work_phone %></div>
+    <% end %>
+    <% unless contact.website.blank? %>
+      <div class="span-2 <%= exhibitor.description.length < 200 && (contact.work_email.blank? && contact.work_phone.blank?) ? 'none' : 'prepend-4' %>">Website:</div>
+      <div class="<%= sbody %> last"><%= contact.website %></div>
+    <% end %>
+    <% [['work_email','Work Email'], ['facebook_name', 'Facebook:'],['twitter_name', 'Twitter:'], 
+	['linkedin_name', 'LinkedIn:'], ['skype_name', 'Skype:']].each do |fld| %>
+   	<% unless contact.send(fld[0]).blank? %>	
+  	  <div class="span-2"><%= fld[1] %></div>
+ 	  <div class="<%= sbody %>"><%= contact.send(fld[0]) %></div>
+ 	<% end %>
+    <% end %>
+  </div>
+<% end %>
+</p>

@@ -1,0 +1,10 @@
+<%= render :partial => 'shared/menu_head', :locals => { :menu_type => 'Exhibitor' } %>
+
+<%= content_for :content do %>
+  <h2 class="grp-hdr">New Exhibitor</h2>
+  <hr />
+
+  <%= form_for @exhibitor, :url => event_exhibitors_path(@event, :cid=>@channel), :html => { :multipart => true }, :validate => true do |f| %>
+    <%= render :partial => 'form', :locals => { :f => f } %> 
+  <% end %>
+<% end %>  

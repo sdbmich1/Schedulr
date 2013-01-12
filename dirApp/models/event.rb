@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 class Event < KitsTsdModel
   set_table_name 'eventstsd'
+=======
+class Event < KitsKnnModel
+#  set_table_name 'eventstsd'
+>>>>>>> app_branch
   set_primary_key :ID
 
   attr_accessor :etype
@@ -51,12 +56,21 @@ class Event < KitsTsdModel
   has_many :event_presenters, :dependent => :destroy
   has_many :presenters, :through => :event_presenters, :dependent => :destroy
 
+  has_many :event_exhibitors, :dependent => :destroy
+  has_many :exhibitors, :through => :event_exhibitors, :dependent => :destroy
+
   has_many :event_sites, :dependent => :destroy
   has_many :event_tracks, :dependent => :destroy
   has_many :rsvps, :dependent => :destroy, :primary_key=>:eventid, :foreign_key => :EventID
 
   has_many :pictures, :as => :imageable, :dependent => :destroy
+<<<<<<< HEAD
   has_many :sponsor_pages, :dependent => :destroy #, :foreign_key => :subscriptionsourceID, :primary_key => :subscriptionsourceID
+=======
+
+  has_many :event_sponsors, :dependent => :destroy
+  has_many :sponsors, :through => :event_sponsors, :dependent => :destroy, :foreign_key => :subscriptionsourceID, :primary_key => :subscriptionsourceID
+>>>>>>> app_branch
 
   has_many :promo_codes, :as => :promoable, :dependent => :destroy
   accepts_nested_attributes_for :promo_codes, :allow_destroy => true
@@ -73,11 +87,15 @@ class Event < KitsTsdModel
   end
 
   def self.get_events(page)
-    unscoped.where("event_type != 'es' " ).paginate(:page => page).order('eventstartdate, eventstarttime DESC')
+    unscoped.where("event_type != 'es' " ).paginate(:page => page, :per_page=>15).order('eventstartdate, eventstarttime ASC')
   end
 
   def self.find_events(page, ssid)
-    unscoped.where("event_type != 'es' AND subscriptionsourceID = ?", ssid).paginate(:page => page).order('eventstartdate, eventstarttime DESC')
+    unscoped.where("event_type != 'es' AND subscriptionsourceID = ?", ssid).paginate(:page => page, :per_page=> 15).order('eventstartdate, eventstarttime DESC')
+  end
+
+  def self.new_event
+    ev = Event.new(:eventstartdate=>Date.today, :eventenddate=>Date.today)
   end
 
   def self.new_event
@@ -101,7 +119,7 @@ class Event < KitsTsdModel
   end
 
   def set_flds
-    self.event_title = self.event_name if self.event_title.blank?
+    self.event_title = self.event_name
     self.status = 'pending' if self.status.blank?
     self.hide = 'no' if self.hide.blank?
     self.eventid = self.event_type[0..1] + Time.now.to_i.to_s if self.eventid.blank?
@@ -180,18 +198,24 @@ class Event < KitsTsdModel
 
     if is_session?
       sr = SessionRelationship.find_by_session_id(self.id)
-      Event.find(sr.event_id).session_relationships.create(:session_id => new_event.id) if sr
+      Event.find(sr.event_id).session_relationships.create(:session_id => new_event.id, :eventid => new_event.eventid) if sr
     end
 
     # clone event data
     new_event.event_tracks << self.event_tracks.collect { |event_track| event_track.clone } 
     new_event.event_sites << self.event_sites.collect { |event_site| event_site.clone } 
     new_event.event_presenters << self.event_presenters.uniq.collect { |event_presenter| event_presenter.clone } 
+<<<<<<< HEAD
+=======
+    new_event.event_sponsors << self.event_sponsors.uniq.collect { |event_sponsor| event_sponsor.clone } 
+    new_event.event_exhibitors << self.event_exhibitors.uniq.collect { |event_exhibitor| event_exhibitor.clone } 
+>>>>>>> app_branch
     self.pictures.each do |p|
       new_event.pictures.build(:photo => p.photo)
       new_event.save
     end
 
+<<<<<<< HEAD
     # clone sponsor data
     self.sponsor_pages.each do |pg|
       sp_page = SponsorPage.create(pg.attributes)
@@ -200,6 +224,8 @@ class Event < KitsTsdModel
       new_event.save
     end
 
+=======
+>>>>>>> app_branch
     # clone session data
     self.sessions.each do |s|
       s.eventstartdate = Date.today if s.eventstartdate < Date.today

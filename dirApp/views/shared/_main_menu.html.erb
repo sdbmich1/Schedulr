@@ -1,15 +1,21 @@
 <div id="menu">
   <span class="menu-offset <%= main_menu == 'Home' ? 'none' : '' %>" id="titlebar">
   <% unless user_signed_in? %>
+<<<<<<< HEAD
     <%= link_to get_name_or_logo, root_url %>
   <% else %>
     <%= link_to get_name_or_logo, [@user, @host_profile] %>
+=======
+    <%= link_to get_name_or_logo, root_url %>&trade;
+  <% else %>
+    <%= link_to get_name_or_logo, [@user, @host_profile] %>&trade;
+>>>>>>> app_branch
   <% end %></span> 
 
   <% case main_menu %>		
   <% when "Register" %>
 	<div class="span-24 last rpos">
- 	  <span class="welcomebar"><%= "Welcome to #{get_name_or_logo} #{current_user.username}!" %></span> 
+ 	  <span class="welcomebar"><%= "Welcome to #{get_name_or_logo}&trade; #{current_user.username}!" %></span> 
 	</div>
   <% when "Home" %>
 	<div class="rpos">

@@ -7,7 +7,11 @@
   <% end %>
   <div class="<%= lbody %> last"><span class="prepend-2 append-2"><%= "#{host_profile.City}, #{host_profile.State} #{host_profile.PostalCode}" %></span></div>
   <% unless host_profile.Country.blank? %>
+<<<<<<< HEAD
     <div class="<%= sbody %> last"><span class="prepend-2 append-2"><%= host_profile.Country %></span></div>
+=======
+    <div class="<%= lbody %> last"><span class="prepend-2 append-2"><%= host_profile.Country %></span></div>
+>>>>>>> app_branch
   <% end %>
   <div class="span-2"><span><%= "Status:" %></span></div>
   <div class="<%= sbody %> last"><span class="append-2"><%= host_profile.status_title %></span></div>

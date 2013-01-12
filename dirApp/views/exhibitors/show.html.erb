@@ -1,0 +1,22 @@
+<%= render :partial => 'shared/menu_head', :locals => { :menu_type => 'Exhibitor' } %>
+<%= content_for :content do %>
+  <h2 class="grp-hdr">Exhibitor</h2>
+  <hr />
+  <div class="nav-right">
+    <% if @parent_event %>
+      <%= link_to "Select", manage_exhibitors_url(:event_id => @event, :exhibitor_id => @exhibitor, :parent_id => @parent_event, :cid=>@channel), :method => :post, :id=>"nav-btn", :class=>"round" %> 
+      <%= link_to "Edit", edit_event_exhibitor_url(@event, @exhibitor, :parent_id => @parent_event, :cid=>@channel), :id=>"nav-btn", :class=>"round" %>
+      <%= link_to "Remove", event_exhibitor_url(@event, @exhibitor, :parent_id => @parent_event, :cid=>@channel), :confirm => 'Are you sure?', :method => :delete, :id=>"nav-btn", :class=>"round" %>
+    <% else %>
+      <%= link_to "Select", manage_exhibitors_url(:event_id => @event, :exhibitor_id => @exhibitor, :cid=>@channel), :method => :post, :id=>"link-btn", :class=>"round" %>
+      <%= link_to "Edit", edit_event_exhibitor_url(@event, @exhibitor, :cid=>@channel), :id=>"link-btn", :class=>"round" %>
+      <%= link_to "Remove", event_exhibitor_url(@event, @exhibitor, :cid=>@channel), :confirm => 'Are you sure?', :method => :delete, :id=>"link-btn", :class=>"round" %>
+    <% end %>
+  </div>
+
+  <%= render :partial => 'shared/show_photo', :locals => {:model => @exhibitor, :file_name => "headshot1.jpg", :psize => '120x120' } %>
+  <%= render :partial => 'shared/show_exhibitor', :locals => { :sbody => get_mbody } %>
+<div class="clear-right"></div>
+  <%= render :partial => 'exhibitor_details', :locals => {:exhibitor => @exhibitor, :sbody => get_sbody } %>
+<% end %>  
+<div class="clear-all"></div>

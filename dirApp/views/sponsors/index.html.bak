@@ -1,0 +1,25 @@
+<% title "Sponsors" %>
+
+<table>
+  <tr>
+    <th>Sponsor Name</th>
+    <th>Subscriptionsourceid</th>
+    <th>Contentsourceid</th>
+    <th>Status</th>
+    <th>Hide</th>
+  </tr>
+  <% for sponsor in @sponsors %>
+    <tr>
+      <td><%= sponsor.sponsor_name %></td>
+      <td><%= sponsor.subscriptionsourceID %></td>
+      <td><%= sponsor.contentsourceID %></td>
+      <td><%= sponsor.status %></td>
+      <td><%= sponsor.hide %></td>
+      <td><%= link_to "Show", sponsor %></td>
+      <td><%= link_to "Edit", edit_sponsor_path(sponsor) %></td>
+      <td><%= link_to "Destroy", sponsor, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Sponsor", new_sponsor_path %></p>

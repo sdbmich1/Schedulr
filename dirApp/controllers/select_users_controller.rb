@@ -3,7 +3,11 @@ class SelectUsersController < ApplicationController
 
   def index
     @channel = Channel.find_channel(params[:cid]) if params[:cid]
+<<<<<<< HEAD
     @subscriptions = @channel.subscriptions.paginate(:page => params[:sub_page], :per_page => 25)
+=======
+    @subscriptions = @channel.subscriptions.paginate(:page => params[:sub_page], :per_page => 10)
+>>>>>>> app_branch
   end
 
   def create

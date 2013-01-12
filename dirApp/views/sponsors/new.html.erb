@@ -1,5 +1,10 @@
-<% title "New Sponsor" %>
+<%= render :partial => 'shared/menu_head', :locals => { :menu_type => 'Sponsor' } %>
 
-<%= render 'form' %>
+<%= content_for :content do %>
+  <h2 class="grp-hdr">New Sponsor</h2>
+  <hr />
 
-<p><%= link_to "Back to List", sponsors_path %></p>
+  <%= form_for @sponsor, :url => event_sponsors_path(@event, :cid=>@channel), :html => { :multipart => true }, :validate => true do |f| %>
+    <%= render :partial => 'form', :locals => { :f => f } %> 
+  <% end %>
+<% end %>  

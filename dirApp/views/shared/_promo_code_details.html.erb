@@ -1,0 +1,19 @@
+<% for promo in event.promo_codes %>
+    <% [['code','PromoCode:'], ['promostartdate', 'Start Date:'],['promoenddate', 'End Date:'], 
+        ['promostarttime', 'Start Time:'],['promoendtime', 'End Time:'], 
+	['amountOff', 'Amount Off:'], ['percentOff', 'Percent Off:'],['max_redemptions', 'Redemptions:'],
+	['status', 'Status:'], ['description', 'Description:']].each do |fld| %>
+   	<% unless promo.send(fld[0]).blank? %>	
+  	  <div class="span-2"><%= fld[1] %></div>
+ 	  <div class="<%= sbody %>">
+	    <% if !(fld[0] =~ /time/i).nil? %>
+	    	<%= get_nice_time(chk_offset(promo.send(fld[0]), event.localGMToffset)) %>
+	    <% elsif !(fld[0] =~ /date/i).nil? %>
+	    	<%= get_nice_date(promo.send(fld[0]), 'Show') %>
+	    <% else %>
+	    	<%= promo.send(fld[0]) %>
+	    <% end %>
+	  </div>
+ 	<% end %>
+    <% end %>
+<% end %>

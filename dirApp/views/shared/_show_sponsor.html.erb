@@ -1,0 +1,6 @@
+    <% [['sponsor_name', 'Name:'],['description', 'Description:']].each do |fld| %>
+   	<% unless @sponsor.send(fld[0]).blank? %>	
+  	  <div class="span-2"><%= fld[1] %></div>
+ 	  <div class="<%= sbody + ' last' %>"><%= @sponsor.send(fld[0]) %></div>
+ 	<% end %>
+    <% end %>

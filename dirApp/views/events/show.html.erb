@@ -6,6 +6,13 @@
   <%= link_to "Edit Event", edit_event_path(@event, :cid=>@channel), :id=>"link-btn", :class=>"round nav-right" %>
 
   <%= render :partial => 'shared/show_form', :locals => {:event => @event} %><br />
+<<<<<<< HEAD
+=======
+  <div class="clear-all"></div>
+  <div class="prepend-4">
+    <%= render :partial => 'shared/promo_code_details', :locals => {:event => @event, :sbody => get_sbody } %>
+  </div>
+>>>>>>> app_branch
 
   <% unless @rsvps.blank? %>
     <div class="clear-all"></div>
@@ -22,8 +29,13 @@
 
   <p><br />
     <strong>Sponsor(s):</strong>
+<<<<<<< HEAD
     <%= link_to "Add Sponsors", new_sponsor_page_url(:eid => @event, :cid=>@channel), :id=>"link-btn", :class=>"round nav-right" %> 
     <%= render :partial => 'shared/sponsor_page_list', :locals => {:model => @event} %><br />
+=======
+    <%= link_to "Add Sponsor", event_sponsors_url(@event, {:event_id => @event, :cid=>@channel}), :id=>"link-btn", :class=>"round nav-right" %> 
+    <div id="spon-list"><%= render :partial => 'shared/sponsor_list', :locals => { :event => @event, :sponlist => 'Yes', :parent => [] } %></div>
+>>>>>>> app_branch
   </p>
 
   <strong>Presenter(s):</strong>
@@ -34,7 +46,23 @@
   <p>
     <div id="pres-list"><%= render :partial => 'shared/presenter_list', :locals => { :event => @event, :spkrlist => 'Yes', :parent => [] } %></div>
   </p>
+<<<<<<< HEAD
     <div style="display:none"><div id='modal'>
       <div id="rsvp-list"><%= render :partial => 'shared/rsvp_list' %></div>
     </div></div>
+=======
+
+  <strong>Exhibitor(s):</strong>
+  <div class='nav-right'>
+    <%= link_to "Add Exhibitor", event_exhibitors_url(@event,{:event_id => @event, :cid=>@channel}), :id=>"link-btn", :class=>"round " %> 
+  </div>
+
+  <p>
+    <div id="ex-list"><%= render :partial => 'shared/exhibitor_list', :locals => { :event => @event, :exlist => 'Yes', :parent => [] } %></div>
+  </p>
+
+  <div style="display:none"><div id='modal'>
+    <div id="rsvp-list"><%= render :partial => 'shared/rsvp_list' %></div>
+  </div></div>
+>>>>>>> app_branch
 <% end %>

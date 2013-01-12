@@ -1,12 +1,16 @@
 <div id="newreg">
-  <%= render "shared/error_messages", :target => @presenter %>
+  <%= render "shared/error_messages", :target => @exhibitor %>
   <p><span>Name: </span> <%= f.text_field :name, :size => 50 %></p>
-  <p><span>Title: </span> <%= f.text_field :title, :size => 50 %></p>
-  <p><span>Company: </span> <%= f.text_field :org_name, :size => 50 %></p>
-  <p><span>Bio: </span> <%= f.text_area :bio  %></p>
-  <div class="pres-fields">
+  <p><span>Description: </span> <%= f.text_area :description  %></p>
+  <p><span>Location: </span> <%= f.text_field :location  %></p>
+  <div class="fields">
     <%= f.fields_for :contact_details do |form| %>
       <%= render :partial => 'shared/contact_details', :locals => { :f => form } %>
+    <% end %>
+  </div>
+  <div class="cat-fields">
+    <%= f.fields_for :exhibitor_categories do |form| %>
+      <%= render :partial => 'exhibitor_categories', :locals => { :f => form } %>
     <% end %>
   </div>
   <%= render :partial => 'shared/photo', :locals => { :f => f } %>

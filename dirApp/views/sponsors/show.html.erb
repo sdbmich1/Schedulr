@@ -1,28 +1,22 @@
-<% title "Sponsor" %>
+<%= render :partial => 'shared/menu_head', :locals => { :menu_type => 'Sponsor' } %>
+<%= content_for :content do %>
+  <h2 class="grp-hdr">Sponsor</h2>
+  <hr />
+  <div class="nav-right">
+    <% if @parent_event %>
+      <%= link_to "Select", manage_sponsors_url(:id => @event, :sponsor_id => @sponsor, :parent_id => @parent_event, :cid=>@channel), :method => :post, :id=>"nav-btn", :class=>"round" %> 
+      <%= link_to "Edit", edit_event_sponsor_url(@event, @sponsor, :parent_id => @parent_event, :cid=>@channel), :id=>"nav-btn", :class=>"round" %>
+      <%= link_to "Remove", event_sponsor_url(@event, @sponsor, :parent_id => @parent_event, :cid=>@channel), :confirm => 'Are you sure?', :method => :delete, :id=>"nav-btn", :class=>"round" %>
+    <% else %>
+      <%= link_to "Select", manage_sponsors_url(:id => @event, :sponsor_id => @sponsor, :cid=>@channel), :method => :post, :id=>"link-btn", :class=>"round" %>
+      <%= link_to "Edit", edit_event_sponsor_url(@event, @sponsor, :cid=>@channel), :id=>"link-btn", :class=>"round" %>
+      <%= link_to "Remove", event_sponsor_url(@event, @sponsor, :cid=>@channel), :confirm => 'Are you sure?', :method => :delete, :id=>"link-btn", :class=>"round" %>
+    <% end %>
+  </div>
 
-<p>
-  <strong>Sponsor Name:</strong>
-  <%= @sponsor.sponsor_name %>
-</p>
-<p>
-  <strong>Subscriptionsourceid:</strong>
-  <%= @sponsor.subscriptionsourceID %>
-</p>
-<p>
-  <strong>Contentsourceid:</strong>
-  <%= @sponsor.contentsourceID %>
-</p>
-<p>
-  <strong>Status:</strong>
-  <%= @sponsor.status %>
-</p>
-<p>
-  <strong>Hide:</strong>
-  <%= @sponsor.hide %>
-</p>
-
-<p>
-  <%= link_to "Edit", edit_sponsor_path(@sponsor) %> |
-  <%= link_to "Destroy", @sponsor, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", sponsors_path %>
-</p>
+  <%= render :partial => 'shared/show_photo', :locals => {:model => @sponsor, :file_name => "headshot1.jpg", :psize => '120x120' } %>
+  <%= render :partial => 'shared/show_sponsor', :locals => { :sbody => get_mbody } %>
+<div class="clear-right"></div>
+  <%= render :partial => 'sponsor_details', :locals => {:sponsor => @sponsor, :sbody => get_sbody } %>
+<% end %>  
+<div class="clear-all"></div>

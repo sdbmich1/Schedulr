@@ -1,25 +1,14 @@
-<% title "Sponsors" %>
+<%= render :partial => 'shared/menu_head', :locals => { :menu_type => 'Sponsor' } %>
 
-<table>
-  <tr>
-    <th>Sponsor Name</th>
-    <th>Subscriptionsourceid</th>
-    <th>Contentsourceid</th>
-    <th>Status</th>
-    <th>Hide</th>
-  </tr>
-  <% for sponsor in @sponsors %>
-    <tr>
-      <td><%= sponsor.sponsor_name %></td>
-      <td><%= sponsor.subscriptionsourceID %></td>
-      <td><%= sponsor.contentsourceID %></td>
-      <td><%= sponsor.status %></td>
-      <td><%= sponsor.hide %></td>
-      <td><%= link_to "Show", sponsor %></td>
-      <td><%= link_to "Edit", edit_sponsor_path(sponsor) %></td>
-      <td><%= link_to "Destroy", sponsor, :confirm => 'Are you sure?', :method => :delete %></td>
-    </tr>
+<%= content_for :content do %>
+  <h2 class="grp-hdr">Sponsor List</h2>
+  <hr />
+
+  <% unless @parent_event %>
+    <p><%= link_to "New Sponsor", new_event_sponsor_url(:cid=>@channel), :id=>"link-btn", :class=>"round nav-right" %></p><br />
   <% end %>
-</table>
 
-<p><%= link_to "New Sponsor", new_sponsor_path %></p>
+  <p>
+  <div id="pres-list"><%= render :partial => 'shared/sponsor_list', :locals => { :event => @event, :sponlist => 'No', :parent => @parent_event } %></div>
+  </p>
+<% end %>

@@ -28,12 +28,18 @@ class ApplicationController < ActionController::Base
 
   protected
 
+<<<<<<< HEAD
 #    def rescue_with_handler(exception)
 #      redirect_to '/500.html'
 #    end
+=======
+    def rescue_with_handler(exception)
+#      redirect_to '/500.html'
+    end
+>>>>>>> app_branch
 
     def method_missing(id, *args)
-      redirect_to '/404.html'
+ #     redirect_to '/404.html'
     end
 
   private
