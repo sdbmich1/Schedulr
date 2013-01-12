@@ -3,9 +3,15 @@
   <% unless user_signed_in? %>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <%= link_to get_name_or_logo, root_url %>
   <% else %>
     <%= link_to get_name_or_logo, [@user, @host_profile] %>
+=======
+    <%= link_to get_name_or_logo, root_url %>&trade;
+  <% else %>
+    <%= link_to get_name_or_logo, [@user, @host_profile] %>&trade;
+>>>>>>> app_branch
 =======
     <%= link_to get_name_or_logo, root_url %>&trade;
   <% else %>

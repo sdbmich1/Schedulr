@@ -5,9 +5,12 @@ class PresentersController < ApplicationController
   def index
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     @event = Event.find(params[:event_id]) if params[:event_id]
     @parent_event = Event.find(params[:parent_id]) if params[:parent_id]
     @channel = Channel.find(params[:cid]) if params[:cid]
+=======
+>>>>>>> app_branch
 =======
 >>>>>>> app_branch
 =======
@@ -18,9 +21,12 @@ class PresentersController < ApplicationController
   def show
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     @event = Event.find(params[:event_id]) if params[:event_id]
     @parent_event = Event.find(params[:parent_id]) if params[:parent_id]
     @channel = Channel.find(params[:cid]) if params[:cid]
+=======
+>>>>>>> app_branch
 =======
 >>>>>>> app_branch
 =======
@@ -31,9 +37,12 @@ class PresentersController < ApplicationController
   def new
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     @event = Event.find(params[:event_id]) if params[:event_id]
     @parent_event = Event.find(params[:parent_id]) if params[:parent_id]
     @channel = Channel.find(params[:cid]) if params[:cid]
+=======
+>>>>>>> app_branch
 =======
 >>>>>>> app_branch
 =======
@@ -46,9 +55,12 @@ class PresentersController < ApplicationController
   def create
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     @event = Event.find(params[:event_id]) if params[:event_id]
     @channel = Channel.find(params[:cid]) if params[:cid]
     @parent_event = Event.find(params[:parent_id]) if params[:parent_id]
+=======
+>>>>>>> app_branch
 =======
 >>>>>>> app_branch
 =======
@@ -64,9 +76,12 @@ class PresentersController < ApplicationController
   def edit
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     @event = Event.find(params[:event_id]) if params[:event_id]
     @parent_event = Event.find(params[:parent_id]) if params[:parent_id]
     @channel = Channel.find(params[:cid]) if params[:cid]
+=======
+>>>>>>> app_branch
 =======
 >>>>>>> app_branch
 =======
@@ -79,9 +94,12 @@ class PresentersController < ApplicationController
   def update
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     @event = Event.find(params[:event_id]) if params[:event_id]
     @parent_event = Event.find(params[:parent_id]) if params[:parent_id]
     @channel = Channel.find(params[:cid]) if params[:cid]
+=======
+>>>>>>> app_branch
 =======
 >>>>>>> app_branch
 =======
@@ -103,7 +121,10 @@ class PresentersController < ApplicationController
     redirect_to event_presenter_url(@event, @presenter, :parent_id => @parent_event, :cid=>@channel), :notice  => "Successfully removed presenter."
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> app_branch
 =======
 >>>>>>> app_branch
   end
@@ -115,6 +136,9 @@ class PresentersController < ApplicationController
     @channel = Channel.find(params[:cid]) if params[:cid]
     @parent_event = Event.find(params[:parent_id]) if params[:parent_id]
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> app_branch
+=======
 >>>>>>> app_branch
 =======
 >>>>>>> app_branch

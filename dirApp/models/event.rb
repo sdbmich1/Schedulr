@@ -1,7 +1,12 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 class Event < KitsTsdModel
   set_table_name 'eventstsd'
+=======
+class Event < KitsKnnModel
+#  set_table_name 'eventstsd'
+>>>>>>> app_branch
 =======
 class Event < KitsKnnModel
 #  set_table_name 'eventstsd'
@@ -71,7 +76,13 @@ class Event < KitsKnnModel
   has_many :pictures, :as => :imageable, :dependent => :destroy
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   has_many :sponsor_pages, :dependent => :destroy #, :foreign_key => :subscriptionsourceID, :primary_key => :subscriptionsourceID
+=======
+
+  has_many :event_sponsors, :dependent => :destroy
+  has_many :sponsors, :through => :event_sponsors, :dependent => :destroy, :foreign_key => :subscriptionsourceID, :primary_key => :subscriptionsourceID
+>>>>>>> app_branch
 =======
 
   has_many :event_sponsors, :dependent => :destroy
@@ -108,10 +119,13 @@ class Event < KitsKnnModel
   def self.new_event
     ev = Event.new(:eventstartdate=>Date.today, :eventenddate=>Date.today)
 <<<<<<< HEAD
+<<<<<<< HEAD
   end
 
   def self.new_event
     ev = Event.new(:eventstartdate=>Date.today, :eventenddate=>Date.today)
+=======
+>>>>>>> app_branch
 =======
 >>>>>>> app_branch
   end
@@ -221,6 +235,11 @@ class Event < KitsKnnModel
     new_event.event_presenters << self.event_presenters.uniq.collect { |event_presenter| event_presenter.clone } 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    new_event.event_sponsors << self.event_sponsors.uniq.collect { |event_sponsor| event_sponsor.clone } 
+    new_event.event_exhibitors << self.event_exhibitors.uniq.collect { |event_exhibitor| event_exhibitor.clone } 
+>>>>>>> app_branch
 =======
     new_event.event_sponsors << self.event_sponsors.uniq.collect { |event_sponsor| event_sponsor.clone } 
     new_event.event_exhibitors << self.event_exhibitors.uniq.collect { |event_exhibitor| event_exhibitor.clone } 
@@ -236,6 +255,7 @@ class Event < KitsKnnModel
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     # clone sponsor data
     self.sponsor_pages.each do |pg|
       sp_page = SponsorPage.create(pg.attributes)
@@ -244,6 +264,8 @@ class Event < KitsKnnModel
       new_event.save
     end
 
+=======
+>>>>>>> app_branch
 =======
 >>>>>>> app_branch
 =======
