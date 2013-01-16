@@ -10,6 +10,8 @@
 	    	<%= get_nice_time(chk_offset(promo.send(fld[0]), event.localGMToffset)) %>
 	    <% elsif !(fld[0] =~ /date/i).nil? %>
 	    	<%= get_nice_date(promo.send(fld[0]), 'Show') %>
+	    <% elsif !(fld[0] =~ /amount/i).nil? %>
+	    	<%= number_to_currency(promo.send(fld[0])) %>
 	    <% else %>
 	    	<%= promo.send(fld[0]) %>
 	    <% end %>
