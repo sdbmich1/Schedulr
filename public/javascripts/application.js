@@ -1,4 +1,4 @@
-jQuery.ajaxSetup({  
+$.ajaxSetup({  
     'beforeSend': function (xhr) {xhr.setRequestHeader("Accept", "text/javascript");
       	$('#spinner').show('fast')
 	    },

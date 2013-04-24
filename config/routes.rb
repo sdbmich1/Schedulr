@@ -6,6 +6,12 @@ Schedulr::Application.routes.draw do
 
   resources :pages, :channels, :manage_presenters, :manage_users, :select_users, :manage_sponsors, :manage_exhibitors
   resources :transactions, :accounts, :sponsor_pages, :ads, :search_users, :notifications
+  
+  resources :promos do
+    member do 
+      get 'clone', 'notify'
+    end
+  end
 
   resources :users do 
     resources :host_profiles
