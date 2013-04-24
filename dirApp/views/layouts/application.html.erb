@@ -9,12 +9,8 @@
     <% unless user_signed_in? %>
       <%= stylesheet_link_tag "user" %>
     <% end %>
-<<<<<<< HEAD
-    <%= javascript_include_tag :defaults, 'jquery-1.6.2.min', 'jquery-ui-1.8.11.custom.min', 'rails.validations', 'jquery.infieldlabel.min', 'jquery-ui-timepicker-addon', 'fancybox/jquery.fancybox-1.3.4.pack', :cache => true %>
-=======
     <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
     <%= javascript_include_tag 'application', 'jquery-ui-1.8.11.custom.min', 'rails.validations', 'jquery.infieldlabel.min', 'jquery-ui-timepicker-addon', 'fancybox/jquery.fancybox-1.3.4.pack', :cache => true %>
->>>>>>> app_branch
     <%= csrf_meta_tag %>
     <%= yield(:head) %>
   </head>
