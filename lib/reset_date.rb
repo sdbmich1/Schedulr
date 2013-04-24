@@ -2,7 +2,7 @@ module ResetDate
 
   def parse_date(old_dt)
     sdate = old_dt.to_s.split('/')
-    new_dt = Date.parse(sdate.last + '-' + sdate.first + '-' + sdate.second)    
+    new_dt = Date.parse(sdate.last + '-' + sdate.first + '-' + sdate.second) rescue nil   
   end   
 
   def reset_dates(val)
