@@ -5,7 +5,7 @@
   <hr />
   <%= link_to "Edit Session", edit_event_session_relationship_path(@event, @session_event, :cid=>@channel), :id=>"link-btn", :class=>"round nav-right" %>
 
-  <%= render :partial => 'shared/show_form', :locals => {:event => @session_event} %>
+  <%= render :partial => 'shared/show_form', :locals => {:model => @session_event} %>
   <div class="clear-all"></div>
   <p>
   <strong>Presenter(s):</strong>
