@@ -33,6 +33,9 @@ module ResetDate
       item[:promoenddate] = parse_date(item[:promoenddate]) if item[:promoenddate]
     end
 
+    val[:promostartdate] = parse_date(val[:promostartdate]) if val[:promostartdate] 
+    val[:promoenddate] = parse_date(val[:promoenddate]) if val[:promoenddate]
+
     val[:eventstartdate] = parse_date(val[:eventstartdate]) if val[:eventstartdate] 
     val[:eventenddate] = parse_date(val[:eventenddate]) if val[:eventenddate]
     val
