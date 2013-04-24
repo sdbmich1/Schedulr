@@ -59,14 +59,15 @@ class Event < KitsKnnModel
   has_many :rsvps, :dependent => :destroy, :primary_key=>:eventid, :foreign_key => :EventID
 
   has_many :pictures, :as => :imageable, :dependent => :destroy
+  accepts_nested_attributes_for :pictures, :allow_destroy => true
 
   has_many :event_sponsors, :dependent => :destroy
   has_many :sponsors, :through => :event_sponsors, :dependent => :destroy, :foreign_key => :subscriptionsourceID, :primary_key => :subscriptionsourceID
 
+  has_many :promos, :dependent => :destroy, :foreign_key => :eventID, :primary_key => :ID
   has_many :promo_codes, :as => :promoable, :dependent => :destroy
   accepts_nested_attributes_for :promo_codes, :allow_destroy => true
 
-  accepts_nested_attributes_for :pictures, :allow_destroy => true
   accepts_nested_attributes_for :event_tracks, :reject_if => lambda { |a| a[:name].blank? }, :allow_destroy => true
   accepts_nested_attributes_for :event_sites, :reject_if => lambda { |a| a[:name].blank? }, :allow_destroy => true
 

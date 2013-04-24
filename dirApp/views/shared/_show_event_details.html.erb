@@ -1,0 +1,12 @@
+  <div class="span-2">Name:</div>
+  <div class="<%= mbody %> last"><strong><%= model.event_name %> </strong></div>
+  <div class="span-2">Event Type:</div>
+  <div class="<%= sbody %>"><%= get_event_type(model.event_type) %></div>
+  <div class="span-2"><%= 'Date:' %></div>
+  <div class="<%= sbody %> last">	<%= get_start_date(model.eventstartdate, model.eventenddate, "Show") %><br /></div>	
+  <div class="span-2"><%= 'Time:'%></div>
+  <div class="<%= sbody %> last">
+    <%= get_nice_time(chk_offset(model.eventstarttime, model.localGMToffset)) %> -
+    <%= get_nice_time(chk_offset(model.eventendtime, model.endGMToffset)) %>
+  </div>
+

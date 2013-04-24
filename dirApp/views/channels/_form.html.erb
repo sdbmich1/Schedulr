@@ -1,4 +1,4 @@
-<%= form_for @channel, :html => { :multipart => true }, :validate=>true do |f| %>
+<%= form_for @channel, :html => { :multipart => true } do |f| %>
   <%= render "shared/error_messages", :target => @channel %>
 
   <div id="newreg">
@@ -7,6 +7,8 @@
     <p><span>City: </span> <%= f.text_field :mapcity %></p>
     <p><span>State </span><%= f.collection_select :mapstate, StateCode.all, :StateAbbr, :State, :include_blank => true %></p>
     <p><span>Zip/Postal: </span> <%= f.text_field :mapzip, :size => 12 %></p>
+
+    <%= f.hidden_field :HostProfileID, :value => @host_profile.ID %>
 
     <%= f.fields_for :channel_locations do |form| %>  
  	  <p><span>Nearest City:</span><%= form.collection_select :location_id, Location.all, :id, :city, :prompt => 'Select' %></p>
@@ -25,7 +27,7 @@
   <div class="clear-all"></div>
   <div id="newreg">
   <p>
-    <%= f.fields_for :channel_interests do |builder| %>  
+    <%= f.fields_for :channel_interests, @channel.channel_interests do |builder| %>  
       <%= render :partial => 'channel_interest', :locals => {:builder => builder} %>  
     <% end %> 
   </p>

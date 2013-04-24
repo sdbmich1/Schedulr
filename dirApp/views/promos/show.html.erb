@@ -1,0 +1,14 @@
+<%= render :partial => 'shared/menu_head', :locals => { :menu_type => 'Promo' } %>
+
+<%= content_for :content do %>
+  <h2 class="grp-hdr">Promo</h2>
+  <hr />
+  <%= link_to "Edit Promo", edit_promo_path(@promo, :cid=>@channel), :id=>"link-btn", :class=>"round nav-right" %>
+
+  <%= render :partial => 'shared/show_form', :locals => {:model => @promo} %><br />
+  <div class="clear-all"></div>
+  <div class="prepend-4">
+    <%= render :partial => 'shared/promo_code_details', :locals => {:model => @promo, :sbody => get_sbody } %>
+  </div>
+
+<% end %>

@@ -1,0 +1,46 @@
+<div class="span-4">
+  <div class="grp-title">
+    <strong>Promo(s):</strong>
+  </div>
+</div>
+
+<%= link_to "Add Promo", new_promo_path(:cid=>@channel), :id=>"link-btn", :class=>"round nav-right" %>
+
+<div class="clear-all"><div>
+<br />
+<table>
+  <tr>
+    <th></th>
+    <th>Promo Name</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+    <th>Start</th>
+    <th>End</th>
+    <th>Status</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  <% for promo in @promos %>
+    <tr>
+      <td>
+        <div class="pic-size">
+          <%= render :partial => 'shared/show_photo', :locals => {:model => promo, :file_name => "schedule1.jpg", :psize => '48x48' } %>
+	</div>
+      </td>
+
+      <td><%= link_to promo.promo_name, promo_path(promo, :cid=>@channel, :etype=>promo.promo_type) %></td>
+      <td><%= get_nice_date(promo.promostartdate,'List') %></td>
+      <td><%= get_nice_date(promo.promoenddate,'List') %></td>
+      <td><%= get_nice_time(chk_offset(promo.promostarttime, @user.localGMToffset)) %>
+      <td><%= get_nice_time(chk_offset(promo.promoendtime, @user.localGMToffset)) %></td>
+      <td><%= promo.status.titleize %></td>
+      <td><%= link_to "Edit", edit_promo_path(promo, :cid=>@channel) %></td>
+      <td><%= link_to "Clone", clone_promo_path(promo, :cid=>@channel), :confirm => 'Clone this promo?' %></td>
+      <td><%= link_to "Remove", promo_url(promo, :cid=>@channel), :confirm => 'Remove this promo?',  :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+<div class="nav-right">
+  <%= will_paginate @promos, :param_name => 'promo_page' %><br />
+</div>

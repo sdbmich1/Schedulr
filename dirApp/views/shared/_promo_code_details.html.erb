@@ -1,4 +1,4 @@
-<% for promo in event.promo_codes %>
+<% for promo in model.promo_codes %>
     <% [['code','PromoCode:'], ['promostartdate', 'Start Date:'],['promoenddate', 'End Date:'], 
         ['promostarttime', 'Start Time:'],['promoendtime', 'End Time:'], 
 	['amountOff', 'Amount Off:'], ['percentOff', 'Percent Off:'],['max_redemptions', 'Redemptions:'],
@@ -7,7 +7,7 @@
   	  <div class="span-2"><%= fld[1] %></div>
  	  <div class="<%= sbody %>">
 	    <% if !(fld[0] =~ /time/i).nil? %>
-	    	<%= get_nice_time(chk_offset(promo.send(fld[0]), event.localGMToffset)) %>
+	    	<%= get_nice_time(chk_offset(promo.send(fld[0]), @user.localGMToffset)) %>
 	    <% elsif !(fld[0] =~ /date/i).nil? %>
 	    	<%= get_nice_date(promo.send(fld[0]), 'Show') %>
 	    <% elsif !(fld[0] =~ /amount/i).nil? %>

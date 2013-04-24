@@ -1,20 +1,20 @@
-<% if !event.speaker.blank? %>
+<% if !model.speaker.blank? %>
   <div class="span-2"><span><%= "Speaker:" %></span></div>	
-  <div class="<%= sbody %> last"><span class="append-2"><%= event.speaker %></span></div>
+  <div class="<%= sbody %> last"><span class="append-2"><%= model.speaker %></span></div>
 <% end %>
-<% if !event.speakertopic.blank? %>	
+<% if !model.speakertopic.blank? %>	
   <div class="span-2"><span><%= "Topic:" %></span></div>	
-  <div class="<%= sbody %> last"><%= event.speakertopic %></div> 
+  <div class="<%= sbody %> last"><%= model.speakertopic %></div> 
 <% end %>
-<% if !event.host.blank? %>	
+<% if !model.host.blank? %>	
   <div class="span-2"><span><%= "Host:" %></span></div>	
-  <div class="<%= sbody %> last"><span class="append-2"><%= event.host %></span></div>
+  <div class="<%= sbody %> last"><span class="append-2"><%= model.host %></span></div>
 <% end %>
-<% if rsvp?(event) %>	
+<% if rsvp?(model) %>	
   <div class="span-2"><span><%= "RSVP:" %></span></div>	
-  <div class="<%= sbody %> last"><%= event.rsvp.titleize %></div> 
+  <div class="<%= sbody %> last"><%= model.rsvp.titleize %></div> 
 <% end %>
-<% if !event.RSVPemail.blank? %>	
+<% if !model.RSVPemail.blank? %>	
   <div class="span-2"><span><%= "RSVP Email:" %></span></div>	
-  <div class="<%= sbody %> last"><%= event.RSVPemail %></div> 
+  <div class="<%= sbody %> last"><%= model.RSVPemail %></div> 
 <% end %>

@@ -1,0 +1,10 @@
+<%= render :partial => 'shared/menu_head', :locals => { :menu_type => 'Promo' } %>
+
+<%= content_for :content do %>
+  <h2 class="grp-hdr">Edit Promo</h2>
+  <hr />
+
+  <%= form_for @promo, :url => promo_path(@promo, :cid=>@channel), :html => { :multipart => true } do |f| %>
+    <%= render :partial => 'form', :locals => { :f => f } %>
+  <% end %>
+<% end %>

@@ -1,13 +1,16 @@
 class Channel < ActiveRecord::Base
+  before_save :set_flds
   attr_accessor :category_id
   attr_accessible :channelID, :HostProfileID, :channel_name, :channel_title, :channel_class, :channel_type, 
   		  :cbody, :bbody, :status, :hide, :sortkey, :subscriptionsourceID, :subscriptionsourceURL, 
 		  :pictures_attributes, :channel_locations_attributes, :mapcity, :mapstate, :mapzip, :mapstreet, 
 		  :channel_interests_attributes, :promo_codes_attributes
 
-  validates :channel_name, :presence => true, :uniqueness => true
+  validates :channel_name, :presence => true #, :uniqueness => true
   validates :cbody, :presence => true, :on => :update
   validates :bbody, :presence => true, :on => :update
+  validates :channelID, :presence => true
+  validates :HostProfileID, :presence => true
 
   belongs_to :host_profile, :foreign_key => :HostProfileID
   has_many :events, :foreign_key => :subscriptionsourceID, :primary_key => :channelID #, :dependent => destroy
@@ -28,6 +31,7 @@ class Channel < ActiveRecord::Base
   has_many :pictures, :as => :imageable, :dependent => :destroy
   accepts_nested_attributes_for :pictures, :allow_destroy => true
 
+  has_many :promos, :dependent => :destroy, :foreign_key => :subscriptionsourceID, :primary_key => :subscriptionsourceID
   has_many :promo_codes, :as => :promoable, :dependent => :destroy
   accepts_nested_attributes_for :promo_codes, :allow_destroy => true
 
@@ -48,5 +52,13 @@ class Channel < ActiveRecord::Base
 
   def self.find_channel(cid)
     includes(:subscriptions => [{:user=>[{:host_profiles=>[:scheduled_events, :private_events]}]}]).find(cid)
+  end
+
+  def set_flds
+    self.channel_title = self.channel_name
+    self.status = 'active' if self.status.blank?
+    self.hide = 'no' if self.hide.blank?
+    self.channelID = 'SC' + Time.now.to_i.to_s if self.channelID.blank?
+    self.subscriptionsourceID = self.channelID
   end
 end

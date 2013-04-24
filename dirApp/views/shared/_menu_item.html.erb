@@ -4,6 +4,8 @@
   <% case menu_type %>
   <% when "Event" %>
     <li><%= link_to "Channel", @channel %></li>
+  <% when "Promo" %>
+    <li><%= link_to "Channel", @channel %></li>
   <% when "Sponsor" %>
     <li><%= link_to "Channel", @channel %></li>
     <li><%= link_to "Event", event_url(@event, :cid=>@channel) %></li>

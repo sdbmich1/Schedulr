@@ -1,22 +1,22 @@
 <p>
-  <div class="span-2"><%= 'Where:' %></div><div class="<%= sbody %> last"><%= event.mapplacename %></div>
+  <div class="span-2"><%= 'Where:' %></div><div class="<%= sbody %> last"><%= model.mapplacename %></div>
 
 <div class="prepend-4">
   <div class="<%= sbody %> last">
-    <span class="<%= !event.mapplacename.blank? ? 'prepend-2' : 'none' %>"><%= event.mapstreet %></span>
+    <span class="<%= !model.mapplacename.blank? ? 'prepend-2' : 'none' %>"><%= model.mapstreet %></span>
   </div>
-<% if !event.mapcity.blank? %>	
+<% if !model.mapcity.blank? %>	
   <div class="<%= lbody %> last">
-    <span class='prepend-2'><%="#{event.mapcity}, #{event.mapstate} #{event.mapzip} " %></span>
+    <span class='prepend-2'><%="#{model.mapcity}, #{model.mapstate} #{model.mapzip} " %></span>
   </div><br />
 <% end %>
-<% if !event.bbody.blank? %>	
+<% if !model.bbody.blank? %>	
   <div class="span-2"><%= 'Summary:' %></div>	
-  <div class="<%= sbody %> last"><%= event.bbody.html_safe %></div><br />
+  <div class="<%= sbody %> last"><%= model.bbody.html_safe %></div><br />
 <% end %>
-<% if !event.cbody.blank? %>	
+<% if !model.cbody.blank? %>	
   <div class="span-2"><%= 'Details:' %></span></div>	
-  <div class="<%= sbody %> last"><%= event.cbody.html_safe %></div><br />
+  <div class="<%= sbody %> last"><%= model.cbody.html_safe %></div><br />
 <% end %>
 </div>
 </p>

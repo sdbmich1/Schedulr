@@ -1,8 +1,12 @@
 <div "span-24 last">
   <div class="span-4">
-    <%= render :partial => 'shared/show_photo', :locals => {:model => event, :file_name => "schedule1.jpg", :psize => '120x120' } %>
+    <%= render :partial => 'shared/show_photo', :locals => {:model => model, :file_name => "schedule1.jpg", :psize => '120x120' } %>
   </div>
   <div class="span 20 last">
-    <%= render :partial => 'shared/show_event', :locals => {:event=>event, :shead=>get_shead, :sbody=>get_sbody, :lbody=>get_lbody} %>
+    <% if model.class.to_s == 'Event' %>
+      <%= render :partial => 'shared/show_event', :locals => {:model=>model, :shead=>get_shead, :sbody=>get_sbody, :lbody=>get_lbody} %>
+    <% else %>
+      <%= render :partial => 'shared/show_promo', :locals => {:model=>model, :shead=>get_shead, :sbody=>get_sbody, :lbody=>get_lbody} %>
+    <% end %>
   </div>
 </div>

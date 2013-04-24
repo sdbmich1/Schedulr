@@ -1,0 +1,37 @@
+  <p><span>Start Date: </span><%= f.text_field :promostartdate, :value => get_nice_date(@promo.promostartdate, 'Edit'), :size => 10, :id => "start-date" %></p>
+  <p><span>Start Time: </span> <%= f.time_select :promostarttime,{ :default => Time.now.change(:hour => 12), :simple_time_select => true, :minute_interval =>	5, :time_separator => "" }, :value => chk_offset(@promo.promostarttime, @user.localGMToffset), :id => 'start-time' %>
+
+  <p><span>End Date: </span><%= f.text_field :promoenddate, :value => get_nice_date(@promo.promoenddate, 'Edit'), :size => 10, :id => "end-date" %></p>
+  <p><span>End Time: </span> <%= f.time_select :promoendtime, { :default => Time.now.change(:hour => 12), :simple_time_select => true, :minute_interval => 5,	:time_separator => "" }, :value => chk_offset(@promo.promoendtime, @user.localGMToffset), :id=>'end-time' %></p>
+  <p><span>Status: </span> <%= f.collection_select :status, StatusType.unhidden, :code, :description, :prompt => 'Select' %></p>
+  <p><span>Place: </span> <div id="mform"><p><label for="promo_mapplacename">Enter place name (e.g. Empire State Bldg)</label>
+    <%= f.text_field :mapplacename, :size => 60 %></p></div></p>
+
+  <p><span>Location: </span> <div id="mform"><p><label for="promo_location">Enter location (e.g. Conf Room A)</label>
+    <%= f.text_field :location, :size => 60 %></p></div></p>
+
+    <p><span>Address: </span> <%= f.text_field :mapstreet, :size => 60 %></p>
+    <p><span>City: </span> <%= f.text_field :mapcity, :size => 50 %></p>
+    <p><span>State: </span><%= f.collection_select :mapstate, StateCode.all, :StateAbbr, :State, :include_blank => true %></p>
+    <p><span>Zip/Postal: </span> <%= f.text_field :mapzip, :size => 10 %></p>
+    <p><span>Country: </span><%= f.collection_select :mapcountry, Country.all, :Description, :Description, :include_blank => true %></p>
+    <p><span>Host: </span> <%= f.text_field :host, :size => 80 %></p>
+    <p><span>Topic: </span> <div id="mform"><p><label for="promo_speakertopic">Enter topic (e.g. Global Warming)</label>
+      <%= f.text_field :speakertopic, :size => 100 %></p></div></p>
+    <p><span>Summary: </span><div id="mform"><p><label for="promo_bbody">Enter brief summary (e.g. Fundraiser for Global Warming Research )</label> 
+    <%= f.text_field :bbody, :size => 100 %></p></div></p>
+    <p><span>Description: </span> <%= f.text_area :cbody  %></p>
+    
+    <%= render :partial => 'shared/event_prices', :locals => { :f => f, :model => @promo } %>
+    <p><span>RSVP?: </span> <%= f.check_box :rsvp, {:class=>'check_bx'}, "yes", "no" %></p>
+    
+    <%= render :partial => 'shared/photo', :locals => { :f => f } %>
+
+    <%= f.hidden_field :promoid, :value => @promo.promoid, :id=>'promoid' %>
+    <% if @channel %>
+      <%= f.hidden_field :subscriptionsourceID, :value => @channel.channelID %>
+      <%= f.hidden_field :contentsourceID, :value => @channel.HostProfileID %>
+    <% else %>
+      <%= f.hidden_field :subscriptionsourceID, :value => @host_profile.subscriptionsourceID %>
+      <%= f.hidden_field :contentsourceID, :value => @host_profile.ProfileID %>
+    <% end %>

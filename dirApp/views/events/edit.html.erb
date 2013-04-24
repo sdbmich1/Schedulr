@@ -4,7 +4,7 @@
   <h2 class="grp-hdr">Edit Event</h2>
   <hr />
 
-  <%= form_for @event, :url => event_path(@event, :cid=>@channel), :html => { :multipart => true }, :validate => true do |f| %>
+  <%= form_for @event, :url => event_path(@event, :cid=>@channel), :html => { :multipart => true } do |f| %>
     <%= render :partial => 'form', :locals => { :f => f, :etype => 'Event' } %>
   <% end %>
 <% end %>

@@ -1,0 +1,12 @@
+  <div class="span-2">Name:</div>
+  <div class="<%= mbody %> last"><strong><%= model.promo_name %> </strong></div>
+  <div class="span-2">Promo Type:</div>
+  <div class="<%= sbody %>"><%= model.promo_type %></div>
+  <div class="span-2"><%= 'Date:' %></div>
+  <div class="<%= sbody %> last">	<%= get_start_date(model.promostartdate, model.promoenddate, "Show") %><br /></div>	
+  <div class="span-2"><%= 'Time:'%></div>
+  <div class="<%= sbody %> last">
+    <%= get_nice_time(chk_offset(model.promostarttime, @user.localGMToffset)) %> -
+    <%= get_nice_time(chk_offset(model.promoendtime, @user.localGMToffset)) %>
+  </div>
+

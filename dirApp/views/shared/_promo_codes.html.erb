@@ -1,8 +1,8 @@
 <p><span>Promo Code: </span> <%= f.text_field :code %></p>
-<p><span>Promo Start Date: </span> <%= f.text_field :promostartdate, :value => get_nice_date(@event.promo_codes[0].promostartdate, 'Edit'), :size => 10, :id => "promo-start-date" %></p> 
-<p><span>Promo End Date: </span> <%= f.text_field :promoenddate, :value => get_nice_date(@event.promo_codes[0].promoenddate, 'Edit'), :size => 10, :id => "promo-end-date" %></p> 
-<p><span>Promo Start Time: </span> <%= f.time_select :promostarttime,{ :default => Time.now.change(:hour => 12), :simple_time_select => true, :minute_interval =>5, :time_separator => "" }, :value => chk_offset(@event.promo_codes[0].promostarttime, @event.localGMToffset), :id => 'promo-start-time' %>
-<p><span>Promo End Time: </span> <%= f.time_select :promoendtime,{ :default => Time.now.change(:hour => 12), :simple_time_select => true, :minute_interval =>5, :time_separator => "" }, :value => chk_offset(@event.promo_codes[0].promoendtime, @event.localGMToffset), :id => 'promo-end-time' %>
+<p><span>Promo Start Date: </span> <%= f.text_field :promostartdate, :value => get_nice_date(model.promo_codes[0].promostartdate, 'Edit'), :size => 10, :id => "promo-start-date" %></p> 
+<p><span>Promo End Date: </span> <%= f.text_field :promoenddate, :value => get_nice_date(model.promo_codes[0].promoenddate, 'Edit'), :size => 10, :id => "promo-end-date" %></p> 
+<p><span>Promo Start Time: </span> <%= f.time_select :promostarttime,{ :default => Time.now.change(:hour => 12), :simple_time_select => true, :minute_interval =>5, :time_separator => "" }, :value => chk_offset(model.promo_codes[0].promostarttime, @user.localGMToffset), :id => 'promo-start-time' %>
+<p><span>Promo End Time: </span> <%= f.time_select :promoendtime,{ :default => Time.now.change(:hour => 12), :simple_time_select => true, :minute_interval =>5, :time_separator => "" }, :value => chk_offset(model.promo_codes[0].promoendtime, @user.localGMToffset), :id => 'promo-end-time' %>
 <p><span>Description: </span> <%= f.text_field :description %></p>
 <p><span>Amount Off: </span> <%= f.text_field :amountOff %></p>
 <p><span>Percent Off: </span> <%= f.text_field :percentOff %></p>

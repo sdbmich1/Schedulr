@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
   protected
 
     def rescue_with_handler(exception)
-      redirect_to '/500.html'
+    #  redirect_to '/500.html'
     end
 
     def method_missing(id, *args)

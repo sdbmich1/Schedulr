@@ -11,7 +11,7 @@
 
     <div class="pres-fields">
       <%= f.fields_for :promo_codes do |form| %>
-        <%= render :partial => 'shared/promo_codes', :locals => { :f => form } %>
+        <%= render :partial => 'shared/promo_codes', :locals => { :f => form, :model => @event } %>
       <% end %>
     </div>
     

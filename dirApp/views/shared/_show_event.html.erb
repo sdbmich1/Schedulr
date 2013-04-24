@@ -1,24 +1,10 @@
 <div class="show-item">
-  <div class="span-2">Name:</div>
-  <% if event.event_type == 'es' %>
-    <div class="<%= shead %> last"><strong><%= event.event_name %> </strong></div>
-  <% else %>
-    <div class="<%= get_mbody %> last"><strong><%= event.event_name %> </strong></div>
-  <% end %>
-  <div class="span-2">Event Type:</div>
-  <div class="<%= sbody %>"><%= get_event_type(event.event_type) %></div>
-  <div class="span-2"><%= 'Date:' %></div>
-  <div class="<%= sbody %> last">	<%= get_start_date(event.eventstartdate, event.eventenddate, "Show") %><br /></div>	
-  <div class="span-2"><%= 'Time:'%></div>
-  <div class="<%= sbody %> last">
-    <%= get_nice_time(chk_offset(event.eventstarttime, event.localGMToffset)) %> -
-    <%= get_nice_time(chk_offset(event.eventendtime, event.endGMToffset)) %>
-  </div>
+  <%= render :partial => 'shared/show_event_details', :locals => {:model=>event, :shead=>shead, :sbody=>sbody, :mbody=>get_mbody} %>
   
   <div "prepend-4">
-    <%= render :partial => 'shared/show_event_contact', :locals => {:event=>event, :shead=>shead, :sbody=>sbody, :lbody=>lbody} %>
-    <%= render :partial => 'shared/show_event_location', :locals => {:event=>event, :shead=>shead, :sbody=>sbody, :lbody=>lbody} %>
-    <%= render :partial => 'shared/show_event_fees', :locals => {:event=>event, :shead=>shead, :sbody=>sbody, :mbody=>get_mbody} %>
-    <%= render :partial => 'shared/show_event_footer', :locals => {:event=>event} %>
+    <%= render :partial => 'shared/show_event_contact', :locals => {:model=>event, :shead=>shead, :sbody=>sbody, :lbody=>lbody} %>
+    <%= render :partial => 'shared/show_event_location', :locals => {:model=>event, :shead=>shead, :sbody=>sbody, :lbody=>lbody} %>
+    <%= render :partial => 'shared/show_event_fees', :locals => {:model=>event, :shead=>shead, :sbody=>sbody, :mbody=>get_mbody} %>
+    <%= render :partial => 'shared/show_event_footer', :locals => {:model=>event} %>
   </div>
 </div>

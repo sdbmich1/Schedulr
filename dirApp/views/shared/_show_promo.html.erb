@@ -1,0 +1,9 @@
+<div class="show-item">
+  <%= render :partial => 'shared/show_promo_details', :locals => {:model=>model, :shead=>shead, :sbody=>sbody, :mbody=>get_mbody} %>
+  
+  <div "prepend-4">
+    <%= render :partial => 'shared/show_event_contact', :locals => {:model=>model, :shead=>shead, :sbody=>sbody, :lbody=>lbody} %>
+    <%= render :partial => 'shared/show_event_location', :locals => {:model=>model, :shead=>shead, :sbody=>sbody, :lbody=>lbody} %>
+    <%= render :partial => 'shared/show_event_fees', :locals => {:model=>model, :shead=>shead, :sbody=>sbody, :mbody=>get_mbody} %>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+  <%= render "shared/error_messages", :target => @promo %>
+  <div id="newreg">
+    <p><span>Promo Type: </span> <%= f.collection_select :promo_type, PromoType.active, :code, :desc_title, :prompt => 'Select' %></p>
+    <p><span>Name: </span> <%= f.text_field :promo_name, :size => 80 %></p>
+
+    <%= render :partial => 'shared/promo_form', :locals => {:f => f} %>
+
+    <div class="pres-fields">
+      <%= f.fields_for :promo_codes do |form| %>
+        <%= render :partial => 'shared/promo_codes', :locals => { :f => form, :model => @promo } %>
+      <% end %>
+    </div>
+    
+    <p><%= f.submit "Save" %>
+    <%= link_to 'Back', :back, :class=>'back-btn' %>
+    </p>
+  </div>

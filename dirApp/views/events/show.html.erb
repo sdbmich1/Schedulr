@@ -5,10 +5,10 @@
   <hr />
   <%= link_to "Edit Event", edit_event_path(@event, :cid=>@channel), :id=>"link-btn", :class=>"round nav-right" %>
 
-  <%= render :partial => 'shared/show_form', :locals => {:event => @event} %><br />
+  <%= render :partial => 'shared/show_form', :locals => {:model => @event} %><br />
   <div class="clear-all"></div>
   <div class="prepend-4">
-    <%= render :partial => 'shared/promo_code_details', :locals => {:event => @event, :sbody => get_sbody } %>
+    <%= render :partial => 'shared/promo_code_details', :locals => {:model => @event, :sbody => get_sbody } %>
   </div>
 
   <% unless @rsvps.blank? %>
