@@ -1,31 +1,21 @@
 <div class="clear-all"></div>
-<p><div class="span-6"><span class="prepend-4"><strong>Prices:</strong></span></div></p>
-<div class="span-19 last">
-<% unless event.MemberFee.blank? %>	
-  <div class="span-2 prepend-4"><%= 'Member:' %></div><div class="span-19 last"><%= "$#{event.MemberFee}" %></div>
-<% end %>
-<% unless event.NonMemberFee.blank? %>	
-  <div class="span-2 prepend-4"><%= 'General:' %></div><div class="span-19 last"><%= "$#{event.NonMemberFee}" %></div>
-<% end %>
-<% unless event.AffiliateFee.blank? %>	
-  <div class="span-2 prepend-4"><%= 'Affiliate:' %></div><div class="span-19 last"><%= "$#{event.AffiliateFee}" %></div>
-<% end %>
-<% unless event.Other1Fee.blank? %>	
-  <div class="span-2 prepend-4"><%= 'Student:' %></div><div class="span-19 last"><%= "$#{event.Other1Fee}" %></div>
-<% end %>
-<% unless event.Other2Fee.blank? %>	
-  <div class="span-2 prepend-4"><%= 'Senior:' %></div><div class="span-19 last"><%= "$#{event.Other2Fee}" %></div>
-<% end %>
-<% unless event.SpouseFee.blank? %>	
-  <div class="span-2 prepend-4"><%= 'Spouse:' %></div><div class="span-19 last"><%= "$#{event.SpouseFee}" %></div>
-<% end %>
-<% unless event.GroupFee.blank? %>	
-  <div class="span-2 prepend-4"><%= 'Group:' %></div><div class="span-19 last"><%= "$#{event.GroupFee}" %></div>
-<% end %>
-<% unless event.Other3Fee.blank? %>	
-  <div class="span-6 prepend-4"><%= 'Prepaid:' %></div><div class="span-19 last"><%= "$#{event.Other3Fee}" %></div>
-<% end %>
-<% unless event.AtDoorFee.blank? %>	
-  <div class="span-6 prepend-4"><%= 'At Door:' %></div><div class="span-19 last"><%= "$#{event.AtDoorFee}" %></div>
+<div class="prepend-4">
+<% if any_prices?(model) %>
+  <p><div class="span-2">Prices:</div></p>
+  <div class="<%= sbody %> last">
+  <% [['MemberFee', 'Member:'], ['NonMemberFee', 'General:'], ['AffiliateFee', 'Affiliate:'],
+      ['SpouseFee', 'Spouse:'], ['AtDoorFee', 'At Door:'], ['GroupFee', 'Group:']].each do |fld| %>
+  	<% if price_exists?(model, fld[0] ) %>	
+  		<div class="span-4"><%= "#{fld[1]}" %></div>
+		<div class="<%= get_cbody %> last"><%= number_to_currency(model.send(fld[0])) %></div>
+  	<% end %>
+  <% end %>
+  <% (1..6).each do |i| %>
+    <% if price_exists?(model, 'Other' + i.to_s + 'Fee' ) %>	
+  	<div class="span-4"><%= model.send('Other' + i.to_s + 'Title') %>:</div>
+	<div class="<%= get_cbody %> last"><%= number_to_currency(model.send('Other' + i.to_s + 'Fee')) %></div>
+    <% end %>
+  <% end %>
+  </div>
 <% end %>
 </div>
